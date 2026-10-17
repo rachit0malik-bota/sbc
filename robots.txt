@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Allow: /story
+Allow: /journal
+Allow: /journal/*
+Allow: /blog
+Allow: /blog/*
+Disallow: /stealth-desk-14
+Disallow: /admin
+Disallow: /api/
+
+Sitemap: https://sectionbcoffee.com/sitemap.xml

@@ -2,11 +2,10 @@
   "name": "section-b-coffee",
   "version": "1.0.0",
   "description": "Section-B Coffee (SBC) — Flagship Experience, Collegiate Story, Journal & Stealth Admin Console",
-  "main": "serve.js",
   "scripts": {
     "start": "node serve.js",
     "dev": "node serve.js",
-    "build": "echo 'SBC build ready for Vercel deployment'"
+    "test": "node tests/test_verify.js"
   },
   "engines": {
     "node": ">=18.0.0"
