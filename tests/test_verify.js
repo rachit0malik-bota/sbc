@@ -41,7 +41,7 @@ const fs = require('fs');
 
   // 5. Scroll to Doodle Guy before Footer
   await page.evaluate(() => {
-    const m = document.getElementById('coffeeTailCupMarker');
+    const m = document.getElementById('coffeeTailMouthMarker') || document.getElementById('coffeeTailCupMarker') || document.getElementById('coffeeDoodleStage');
     if (m) {
       const mr = m.getBoundingClientRect();
       const targetScroll = (mr.top + window.scrollY) - (window.innerHeight / 2);

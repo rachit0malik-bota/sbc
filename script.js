@@ -445,14 +445,25 @@ document.addEventListener('DOMContentLoaded', () => {
       const alumniY = getDocCenterY('#alumni', 0.80);
       const communityY = getDocCenterY('#community', 0.88);
 
-      // Measure exact doodle guy mug opening marker for stream termination
-      const doodleMarker = document.getElementById('coffeeTailCupMarker');
+      // Measure exact doodle guy stream entry / mouth marker for stream termination
+      const doodleMarker = document.getElementById('coffeeTailMouthMarker') || document.getElementById('coffeeTailCupMarker');
       let tailX = center;
       let tailY = totalH - 320;
+      let doodleStreamWidth = 30.0;
+
       if (doodleMarker) {
         const dRect = doodleMarker.getBoundingClientRect();
         tailX = dRect.left + dRect.width * 0.5;
-        tailY = dRect.top + window.scrollY + dRect.height * 0.5;
+        // Connect directly at top entry of illustrated stream, with slight 4px overlap into character card
+        tailY = dRect.top + window.scrollY + dRect.height * 0.5 + 4;
+      }
+
+      const doodleImgEl = document.getElementById('doodleGuyImg');
+      if (doodleImgEl) {
+        const imgW = doodleImgEl.getBoundingClientRect().width;
+        if (imgW > 0) {
+          doodleStreamWidth = (62 / 1024) * imgW;
+        }
       }
 
       const points = [
@@ -497,9 +508,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // 12. Community Interactive Sanctuary: Smooth transition toward center
         new THREE.Vector3(midRight, -(communityY - 200), 2),
         new THREE.Vector3(midLeft, -communityY, -2),
-        // 13. Final Brand Moment: Curving gracefully straight down into the Doodle Guy's Ceramic Mug!
-        new THREE.Vector3(tailX - 45, -(tailY - 320), 2),
-        new THREE.Vector3(tailX - 12, -(tailY - 110), 1),
+        // 13. Final Brand Moment: Curving gracefully straight down into the Doodle Guy's stream / open mouth!
+        new THREE.Vector3(tailX - 35, -(tailY - 260), 2),
+        new THREE.Vector3(tailX - 10, -(tailY - 90), 1),
         new THREE.Vector3(tailX, -tailY, 0),
       ];
 
@@ -517,18 +528,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const tangent = streamCurve.getTangent(t);
         const normal = new THREE.Vector3(-tangent.y, tangent.x, 0).normalize();
 
-        // Width dynamics: Starts small (~14px) at cup mouth, expands into luscious flow, tapers into doodle mug
+        // Width dynamics: Starts small (~14px) at cup mouth, expands into luscious flow, tapers into doodle stream entry
         let streamWidth = 54.0;
         if (t < 0.035) {
           streamWidth = 14.0 + (t / 0.035) * 40.0;
-        } else if (t > 0.96) {
-          streamWidth = 54.0 - ((t - 0.96) / 0.04) * 32.0; // soft taper into mug
         } else {
           streamWidth = 48.0 + Math.sin(t * 16.0) * 8.0;
         }
 
         // Mobile responsive width scaling
         if (w < 768) streamWidth *= 0.68;
+
+        // Smooth final taper directly into the doodle stream entry
+        if (t > 0.94) {
+          const factor = (t - 0.94) / 0.06;
+          streamWidth = streamWidth * (1.0 - factor) + doodleStreamWidth * factor;
+        }
 
         const pLeft = pt.clone().addScaledVector(normal, -streamWidth * 0.5);
         const pRight = pt.clone().addScaledVector(normal, streamWidth * 0.5);
@@ -755,6 +770,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Build the initial 3D stream
     buildStream();
+
+    // Rebuild when character illustration image loads
+    const doodleImgEl = document.getElementById('doodleGuyImg');
+    if (doodleImgEl && !doodleImgEl.complete) {
+      doodleImgEl.addEventListener('load', () => {
+        setTimeout(buildStream, 50);
+      });
+    }
 
     // Rebuild on window load to ensure settled coordinates of doodle marker
     window.addEventListener('load', () => {

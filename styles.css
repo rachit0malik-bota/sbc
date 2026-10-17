@@ -2884,8 +2884,42 @@ button {
 .coffee-tail-doodle-wrap {
   position: relative;
   width: 100%;
-  max-width: 540px;
+  max-width: 480px;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.doodle-character-card {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  display: block;
+}
+
+.doodle-guy-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 20px 48px rgba(0, 0, 0, 0.45));
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.doodle-character-card:hover .doodle-guy-img {
+  transform: translateY(-4px) scale(1.015);
+}
+
+.coffee-tail-mouth-marker {
+  position: absolute;
+  top: 0;
+  left: 64.5%;
+  width: 4px;
+  height: 4px;
+  transform: translate(-50%, 0);
+  pointer-events: none;
+  opacity: 0;
 }
 
 .tail-doodle-svg {
@@ -2901,7 +2935,7 @@ button {
   font-size: clamp(1.15rem, 2.5vw, 1.45rem);
   font-weight: 700;
   color: var(--color-caramel);
-  margin-top: 0.75rem;
+  margin-top: 1rem;
   letter-spacing: 0.02em;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
