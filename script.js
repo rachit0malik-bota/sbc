@@ -1188,8 +1188,8 @@ document.addEventListener('DOMContentLoaded', () => {
       '(min-width: 992px)': function () {
         storyPinTrigger = ScrollTrigger.create({
           trigger: storySection,
-          start: 'top top+=70',
-          end: '+=2400',
+          start: 'top top+=65',
+          end: '+=1800',
           pin: true,
           pinSpacing: true,
           scrub: 0.6,
