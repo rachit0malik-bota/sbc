@@ -1,0 +1,90 @@
+[
+  {
+    "id": "gal-1",
+    "title": "SBC Coffee School: 9.2-Bar Dial-In & Calibration",
+    "category": "workshops",
+    "categoryLabel": "Coffee School & Workshops",
+    "image": "pourover.jpg",
+    "video": "videos/espresso-pour-clip.mp4",
+    "tag": "Barista Masterclass · SBC Labs",
+    "reelHandle": "@sectionbcoffee.india",
+    "caption": "Our hands-on slow-bar workshop: dialing in single-origin Chikmagalur lots on commercial 9-bar groups, understanding TDS extraction yields, and silky microfoam texturing."
+  },
+  {
+    "id": "gal-2",
+    "title": "Indirapuram Sanctuary Grand Launch & Community Jam",
+    "category": "launches",
+    "categoryLabel": "Campus Launches",
+    "image": "interior.jpg",
+    "video": "videos/student-coffee.mp4",
+    "tag": "Flagship Campus · 854 Niti Khand-1",
+    "reelHandle": "@sectionbcoffee.india",
+    "caption": "Opening the doors to our flagship collegiate sanctuary in Indirapuram. 400+ neighborhood regulars, live slow-bar pourovers, acoustic chords, and midnight cold brews."
+  },
+  {
+    "id": "gal-3",
+    "title": "Bangalore Sarjapur Hub Launch: Taking SBC South",
+    "category": "launches",
+    "categoryLabel": "Campus Launches",
+    "image": "storefront.jpg",
+    "video": "videos/beans-roast-clip.mp4",
+    "tag": "New Campus · Sarjapur Road",
+    "reelHandle": "@sectionbcoffee.india",
+    "caption": "Section-B Coffee landing in the craft capital of South India! Freshly roasted Western Ghats Arabica, signature sculpted bear lattes, and study bench vibes."
+  },
+  {
+    "id": "gal-4",
+    "title": "Sunday Morning Community Run Club & Cold Brews",
+    "category": "community",
+    "categoryLabel": "Run Club & Meetups",
+    "image": "food-sandwich.jpg",
+    "video": "videos/coffee-splash-02.mp4",
+    "tag": "Sunday Ritual · 5K Run Club",
+    "reelHandle": "@sectionbcoffee.india",
+    "caption": "Every Sunday at 7 AM: neighborhood runners lace up for 5K around Indirapuram, finishing at Section-B for iced cold brews, electrolyte tonics, and sourdough truffle melts."
+  },
+  {
+    "id": "gal-5",
+    "title": "Signature Sculpted Bear Latte: The Meltdown Ritual",
+    "category": "workshops",
+    "categoryLabel": "Coffee School & Workshops",
+    "image": "teddy-latte.jpg",
+    "video": "videos/teddy-iced-01.mp4",
+    "tag": "House Mascot · Slow Bar",
+    "reelHandle": "@sectionbcoffee.india",
+    "caption": "Learning the art of Section-B's mascot bear latte: freezing double ristretto espresso bears and watching them gently melt over sweet condensed milk and steamed oat milk."
+  },
+  {
+    "id": "gal-6",
+    "title": "Wood-Fired Panuozzo & Almond Viennoiserie Pop-Up",
+    "category": "bakes",
+    "categoryLabel": "Kitchen & Bakes",
+    "image": "bakery-croissant.jpg",
+    "video": "videos/caramel-flow.mp4",
+    "tag": "Artisan Bakes · Live Kitchen",
+    "reelHandle": "@sectionbcoffee.india",
+    "caption": "Hot out of the stone oven: authentic Italian pizza-dough sandwiches (Panuozzos) stuffed with fior di latte and wild mushrooms, paired with double-baked almond croissants."
+  },
+  {
+    "id": "gal-7",
+    "title": "Weekend Sensory Cupping: Western Ghats Terroir",
+    "category": "workshops",
+    "categoryLabel": "Coffee School & Workshops",
+    "image": "hero-coffee.jpg",
+    "video": "videos/coffee-journey-1080p.mp4",
+    "tag": "Cupping Table · Origin Archive",
+    "reelHandle": "@sectionbcoffee.india",
+    "caption": "Evaluating roast curves, wet vs honey processing, and identifying natural notes of jasmine, toffee, and dark cocoa with fellow specialty coffee enthusiasts."
+  },
+  {
+    "id": "gal-8",
+    "title": "Desk 14 Midnight Study Sessions & Focus Blocks",
+    "category": "community",
+    "categoryLabel": "Run Club & Meetups",
+    "image": "interior.jpg",
+    "video": "videos/student-reach.mp4",
+    "tag": "Study Sanctuary · 11 PM Nights",
+    "reelHandle": "@sectionbcoffee.india",
+    "caption": "Laptops glowing, acoustic tracks softly humming through the speakers, and ice clinking in sparkling espresso tonics. Section-B remains your collegiate harbor."
+  }
+]

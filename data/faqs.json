@@ -1,0 +1,82 @@
+[
+  {
+    "id": "faq-1",
+    "question": "What are the best coffee beans for cold brew and espresso at Section-B?",
+    "targetQuery": "best coffee beans for cold brew and espresso",
+    "category": "Bean Sourcing & Terroir",
+    "answer": "At Section-B Coffee, the best beans for both cold extraction and espresso are our single-origin shade-grown Arabica lots sourced directly from the Baba Budan Giri hills in Chikmagalur, Karnataka (1,200m–1,450m elevation). Sourced from shaded canopies of silver oak and jackfruit trees, these cherries mature slowly, resulting in beans packed with natural monosaccharides. For cold brew, our 18-hour slow-steeped Bear Cub Blend delivers notes of rich Belgian speculoos, toasted hazelnut, and dark cacao without requiring artificial syrups. For espresso, our calibrated 9.2-bar extractions yield dense golden crema with balanced lactic sweetness and low acidity.",
+    "annotation": "Chikmagalur Arabica · Dense caramelized sweetness without needing artificial syrups",
+    "relatedSlug": "tracing-indias-arabica-roots-chikmagalur",
+    "order": 1
+  },
+  {
+    "id": "faq-2",
+    "question": "Why does 204°C First Crack roast profiling matter for specialty coffee?",
+    "targetQuery": "why 204C first crack roast profile",
+    "category": "Roasting Chemistry",
+    "answer": "204°C (399°F) is the precise thermodynamic sweet spot where Arabica cellular water vapor causes internal pressure to fracture the bean walls with an audible 'First Crack'. Between 150°C and 180°C, amino acids undergo the Maillard reaction, developing brioche and nutty aromatics. At 204°C, natural sucrose degrades into rich buttery caramel and toffee. By arresting our drum roaster within 90 seconds of first crack, we preserve origin terroir and velvety body while avoiding the acrid carbonization and throat bitterness found in commercial dark roasts.",
+    "annotation": "204°C First Crack threshold · Maximum caramelized sweetness, zero burnt ash",
+    "relatedSlug": "science-of-204c-first-crack-roast-profiling",
+    "order": 2
+  },
+  {
+    "id": "faq-3",
+    "question": "What is the difference between Hario V60 and Aeropress for manual brewing?",
+    "targetQuery": "V60 vs Aeropress difference manual brewing",
+    "category": "Brewing & Extraction",
+    "answer": "The fundamental difference lies in extraction geometry: the Hario V60 is a 60-degree conical gravity percolation dripper that produces a clean, tea-like, crystalline cup emphasizing high-frequency floral aromatics (white jasmine, bergamot) and crisp fruit acidity. The Aeropress utilizes full immersion combined with manual pneumatic pressure through a dense paper micro-filter, resulting in a rich, velvety, syrupy body that accentuates chocolatey undertones and holds up exceptionally well to textured milk.",
+    "annotation": "Percolation clarity vs immersion pressure · Dial in based on your morning focus",
+    "relatedSlug": "v60-vs-aeropress-slow-bar-extraction-guide",
+    "order": 3
+  },
+  {
+    "id": "faq-4",
+    "question": "What is the history behind Indian Arabica and the Baba Budan Giri hills?",
+    "targetQuery": "history of Indian Arabica Baba Budan Giri Chikmagalur",
+    "category": "Bean Sourcing & Terroir",
+    "answer": "India's specialty coffee heritage began in 1670 when the Sufi pilgrim Baba Budan secretly strapped seven fertile raw coffee seeds to his chest under his travel robes on his journey back from Mecca. At the time, raw coffee cherries were strictly boiled by the Yemeni port of Mocha to protect their global monopoly. Baba Budan planted those seven smuggled seeds in the red laterite soils of the Chandragiri Hills in Karnataka (now commemorated as the Baba Budan Giri range), quietly launching South Asia's shaded specialty Arabica legacy.",
+    "annotation": "1670 · 7 smuggled fertile seeds planted in Chandragiri red laterite soil",
+    "relatedSlug": "tracing-indias-arabica-roots-chikmagalur",
+    "order": 4
+  },
+  {
+    "id": "faq-5",
+    "question": "What is the signature Teddy Bear Latte at Section-B Coffee?",
+    "targetQuery": "Teddy Bear Latte Section B Coffee signature",
+    "category": "Signature Recipes",
+    "answer": "The Teddy Bear Latte is Section-B Coffee's signature handcrafted beverage. Our baristas freeze a double-shot of specialty single-origin espresso into an intricate 3D sculpted teddy bear ice sculpture. The espresso bear sits inside an ivory ceramic cup. When warm, velvety condensed milk and textured microfoam are poured tableside, the teddy bear slowly melts into the milk, creating an unhurried, rich, and photogenic dessert-coffee ritual.",
+    "annotation": "Handcrafted espresso sculpture · Melts into velvety microfoam tableside",
+    "relatedSlug": "born-in-section-b-craft-coffee-story",
+    "order": 5
+  },
+  {
+    "id": "faq-6",
+    "question": "Can I study or work with a laptop at Section-B Coffee cafes?",
+    "targetQuery": "work friendly cafe with wifi laptop Section B Coffee",
+    "category": "Sanctuary Culture & Visiting",
+    "answer": "Absolutely! Section-B Coffee was born at classroom Desk 14 in 2021 and was intentionally built from day one as a collegiate focus sanctuary for students, architects, coders, and writers. Both our Indirapuram and Rajendra Nagar sanctuaries offer universal power sockets at every banquette, dual-band high-speed WiFi, ambient study playlists, warm natural oak wood tables, and a strict no-rush hospitality policy—meaning you can read, code, or discuss projects without ever being pressured to leave.",
+    "annotation": "Built for student dreamers & creators · Power sockets at every banquette",
+    "relatedSlug": "born-in-section-b-craft-coffee-story",
+    "order": 6
+  },
+  {
+    "id": "faq-7",
+    "question": "What are the operating hours for Section-B Indirapuram and Rajendra Nagar?",
+    "targetQuery": "Section B Coffee Indirapuram Rajendra Nagar timings opening hours",
+    "category": "Sanctuary Culture & Visiting",
+    "answer": "Our campus sanctuary timings are confirmed as follows:\n• Indirapuram Sanctuary: 12:00 PM to 11:00 PM (Every day, Monday through Sunday).\n• Rajendra Nagar Sanctuary (Sahibabad): 11:00 AM to 11:00 PM (Every day, Monday through Sunday).\nBoth locations serve freshly pulled manual espresso, cold brew towers, and freshly baked French viennoiserie croissants and sourdough toasties from 11:00 AM onwards, with doorstep delivery available via Swiggy and Zomato.",
+    "annotation": "Indirapuram: 12 PM–11 PM · Rajendra Nagar: 11 AM–11 PM daily",
+    "relatedSlug": null,
+    "order": 7
+  },
+  {
+    "id": "faq-8",
+    "question": "What grind size and water temperature should I use for French Press vs Pour-Over?",
+    "targetQuery": "grind size water temperature guide french press pour over",
+    "category": "Brewing & Extraction",
+    "answer": "Grind particle size and water thermal dynamics directly govern extraction efficiency:\n• French Press (Immersion): Use a coarse, sea-salt grind consistency with 94°C water. Steep for 4 minutes before a slow plunge to avoid muddy sediment.\n• Pour-Over / V60 (Percolation): Use a medium-fine kosher-salt grind with 92°C–94°C water. Use a 1:16 brew ratio (e.g. 15g coffee to 240g water) with a 3-stage pulse pour completed within 2 minutes 45 seconds.",
+    "annotation": "Grind consistency dictates flow rate · 1:16 coffee-to-water ratio baseline",
+    "relatedSlug": "v60-vs-aeropress-slow-bar-extraction-guide",
+    "order": 8
+  }
+]

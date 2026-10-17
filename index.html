@@ -1,0 +1,2370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SBC — SECTION-B COFFEE | "Coffee, But Better." | Specialty Coffee Roasters</title>
+  <meta name="description" content="SBC (Section-B Coffee) is an independent specialty coffee sanctuary born in a classroom daydream. Single-origin Western Ghats Arabica, rich caramel notes, and zero pretension across Delhi-NCR.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="coffee-bean.svg">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Caveat (Collegiate Student Handwritten Notes) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+
+  <!-- CDN Animation Libraries: GSAP, ScrollTrigger, Lenis -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       STICKY / FLOATING NAVIGATION
+       ========================================================================= -->
+  <!-- =========================================================================
+       STICKY / FLOATING NAVIGATION — MINIMALIST COLLEGIATE EDITION
+       ========================================================================= -->
+  <header id="siteHeader" class="site-header" role="banner">
+    <div class="nav-container">
+      
+      <!-- Left: SBC Brand Wordmark -->
+      <a href="#hero" class="nav-brand" aria-label="SBC — Section-B Coffee Home">
+        <span class="nav-logo-bold">SBC</span>
+        <span class="nav-brand-sep" aria-hidden="true">/</span>
+        <span class="nav-logo-sub">SECTION-B COFFEE</span>
+      </a>
+
+      <!-- Center: Clean Minimalist Navigation (4 Curated Anchors) -->
+      <nav class="nav-menu" aria-label="Primary Navigation">
+        <a href="/story" class="nav-link">Story</a>
+        <a href="#menu" class="nav-link">Menu</a>
+        <a href="/journal" class="nav-link">Journal</a>
+        <a href="#campuses" class="nav-link">Campuses</a>
+      </nav>
+
+      <!-- Right: Single Sleek Order Online Dropdown + Mobile Toggle -->
+      <div class="nav-actions">
+        <div class="nav-order-dropdown" id="navOrderDropdown">
+          <button type="button" class="nav-order-trigger" id="navOrderBtn" aria-expanded="false" aria-haspopup="true">
+            <span class="order-indicator-dot" aria-hidden="true"></span>
+            <span class="order-btn-label">Order Online</span>
+            <span class="order-chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="nav-order-popover" id="navOrderPopover" role="menu" aria-hidden="true">
+            <a href="https://www.swiggy.com" target="_blank" rel="noopener noreferrer" class="nav-popover-item" role="menuitem">
+              <span class="popover-icon">🛵</span>
+              <div class="popover-meta">
+                <span class="popover-title">Swiggy Delivery</span>
+                <small class="popover-sub">Indirapuram &amp; Rajendra Nagar</small>
+              </div>
+              <span class="popover-arrow">↗</span>
+            </a>
+            <a href="https://www.zomato.com" target="_blank" rel="noopener noreferrer" class="nav-popover-item" role="menuitem">
+              <span class="popover-icon">🍽️</span>
+              <div class="popover-meta">
+                <span class="popover-title">Zomato Delivery</span>
+                <small class="popover-sub">Fresh Bakes &amp; Cold Brews</small>
+              </div>
+              <span class="popover-arrow">↗</span>
+            </a>
+            <div class="nav-popover-divider"></div>
+            <a href="/download-menu" class="nav-popover-item" role="menuitem">
+              <span class="popover-icon">📥</span>
+              <div class="popover-meta">
+                <span class="popover-title">Official Menu (PDF)</span>
+                <small class="popover-sub">Direct Download · 44.95 MB</small>
+              </div>
+              <span class="popover-arrow">↓</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Mobile Hamburger Button -->
+        <button id="mobileMenuBtn" class="mobile-toggle-btn" aria-label="Toggle navigation drawer" aria-expanded="false" aria-controls="mobileDrawer">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       MOBILE NAVIGATION DRAWER
+       ========================================================================= -->
+  <div id="mobileDrawerBackdrop" class="drawer-backdrop" aria-hidden="true"></div>
+  <aside id="mobileDrawer" class="mobile-drawer" aria-label="Mobile Navigation" aria-hidden="true">
+    <div class="drawer-header">
+      <div class="drawer-brand">
+        <span class="drawer-logo-text">SBC</span>
+        <span class="drawer-logo-sub">SECTION-B COFFEE</span>
+      </div>
+      <button id="closeMobileDrawer" class="drawer-close-btn" aria-label="Close navigation drawer">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <nav class="drawer-links" aria-label="Mobile Menu Links">
+      <a href="#hero" class="drawer-link">Home</a>
+      <a href="/story" class="drawer-link">Our Story</a>
+      <a href="#origins" class="drawer-link">Origins & Roasting</a>
+      <a href="#menu" class="drawer-link">Menu Signatures</a>
+      <a href="#gallery" class="drawer-link">Community Gallery</a>
+      <a href="#alumni" class="drawer-link">Alumni Reviews</a>
+      <a href="/journal" class="drawer-link">Journal &amp; Dispatches</a>
+      <a href="#campuses" class="drawer-link">Our Campuses</a>
+    </nav>
+
+    <div class="drawer-delivery">
+      <p class="drawer-delivery-title">ORDER DOORSTEP CRAFT</p>
+      <div class="drawer-delivery-grid">
+        <a href="https://www.swiggy.com" target="_blank" rel="noopener noreferrer" class="nav-pill pill-swiggy" style="justify-content: center; width: 100%;">
+          <span>🛵 Order on Swiggy</span>
+        </a>
+        <a href="https://www.zomato.com" target="_blank" rel="noopener noreferrer" class="nav-pill pill-zomato" style="justify-content: center; width: 100%;">
+          <span>🍽️ Order on Zomato</span>
+        </a>
+        <a href="https://www.instagram.com/sectionbcoffee.india/" target="_blank" rel="noopener noreferrer" class="nav-pill pill-instagram" style="justify-content: center; width: 100%;">
+          <span>📸 Follow @sectionbcoffee.india</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="drawer-campuses-info">
+      <div class="drawer-campus-item">
+        <span class="drawer-campus-num">CAMPUS 01</span>
+        <strong>Indirapuram Sanctuary</strong>
+        <p>854, Niti Khand-1 · 12:00 PM – 11:00 PM</p>
+      </div>
+      <div class="drawer-campus-item">
+        <span class="drawer-campus-num">CAMPUS 02</span>
+        <strong>Rajendra Nagar Sanctuary</strong>
+        <p>Sector 5, Sahibabad · 11:00 AM – 11:00 PM</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       MAIN SITE CONTENT
+       ========================================================================= -->
+  <main id="mainContent">
+
+    <!-- =======================================================================
+         SECTION A — HERO (Fullscreen Cinematic Video, Zero Green Tint, Wide Capsule Bottom)
+         ======================================================================= -->
+    <section id="hero" class="hero-section" aria-label="SBC Hero">
+      
+      <!-- Full Bleed Cinematic Ambient Video Background (100% natural, NO green overlay) -->
+      <div class="hero-video-wrap" aria-hidden="true">
+        <video id="heroVideo" class="hero-bg-video" autoplay muted loop playsinline preload="auto">
+          <source src="videos/hero-liquid.mp4" type="video/mp4">
+        </video>
+        <!-- Soft neutral vignette at the very top for nav text legibility only, NO GREEN -->
+        <div class="hero-top-vignette"></div>
+      </div>
+
+      <!-- Hero Content Overlay (Upper space is completely open and unobstructed) -->
+      <div class="hero-overlay-container">
+        
+        <!-- Wide Capsule Element at the bottom of the hero section -->
+        <div class="hero-bottom-capsule-wrap">
+          <div class="hero-wide-capsule">
+            
+            <!-- Left: Est. pill badge -->
+            <div class="capsule-left">
+              <span class="capsule-badge">EST. 2021</span>
+              <span class="capsule-tag">SECTION-B</span>
+            </div>
+
+            <!-- Center: Small & simple, elegant motto -->
+            <div class="capsule-center">
+              <span class="capsule-motto">
+                <strong class="color-espresso">Coffee,</strong> <span class="color-forest">But</span> <span class="color-caramel">Better.</span>
+              </span>
+              <span class="capsule-divider" aria-hidden="true">·</span>
+              <span class="capsule-desc">
+                Born in classroom Section-B. Crafted with Western Ghats Arabica, rich caramel notes & zero pretension.
+              </span>
+            </div>
+
+            <!-- Right: Audio toggle + Explore scroll link -->
+            <div class="capsule-right">
+              <button id="heroSoundToggle" class="capsule-btn sound-btn" aria-label="Toggle hero audio">
+                <span id="heroSoundIcon">🔇</span>
+                <span id="heroSoundText">Muted</span>
+              </button>
+              <a href="#story" class="capsule-btn scroll-btn" aria-label="Scroll down to explore">
+                <span>Explore Story</span>
+                <span class="capsule-arrow" aria-hidden="true">↓</span>
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         MINIMAL FLUID FLOW BACKGROUND SYSTEM (Oryzo.ai Organic Liquid Mechanics)
+         Subtle caramel and forest liquid waves, dashed contour paths & floating droplets
+         ======================================================================= -->
+    <div class="minimal-fluid-flow-bg" aria-hidden="true">
+      <svg class="fluid-stream-svg" viewBox="0 0 1440 4800" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="fluidCaramelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#C87D32" stop-opacity="0.28" />
+            <stop offset="50%" stop-color="#3B2219" stop-opacity="0.18" />
+            <stop offset="100%" stop-color="#C87D32" stop-opacity="0.25" />
+          </linearGradient>
+          <linearGradient id="fluidForestGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#0A4D34" stop-opacity="0.14" />
+            <stop offset="50%" stop-color="#235441" stop-opacity="0.08" />
+            <stop offset="100%" stop-color="#0A4D34" stop-opacity="0.16" />
+          </linearGradient>
+        </defs>
+
+        <!-- Primary Fluid Stream: Liquid Caramel Pour connecting Hero -> Story -> Origins -> Menu -> Campuses -->
+        <path id="fluidStreamCaramel" class="fluid-path-caramel" 
+              d="M 720,0 C 780,350 1180,650 1120,1100 C 1060,1550 320,1850 380,2350 C 440,2850 1200,3150 1140,3650 C 1080,4150 680,4450 720,4800" 
+              stroke="url(#fluidCaramelGrad)" stroke-width="3" stroke-linecap="round" fill="none" />
+
+        <!-- Secondary Architectural Flow Contour: Delicate Dashed Line -->
+        <path id="fluidStreamDashed" class="fluid-path-dashed" 
+              d="M 700,20 C 760,370 1150,670 1100,1120 C 1040,1570 340,1870 400,2370 C 460,2870 1180,3170 1120,3670 C 1060,4170 700,4470 740,4800" 
+              stroke="url(#fluidForestGrad)" stroke-width="1.8" stroke-dasharray="10 12" stroke-linecap="round" fill="none" />
+
+        <!-- Tertiary Subtle Wave Ribbon: Soft Echo -->
+        <path id="fluidStreamEcho" class="fluid-path-echo" 
+              d="M 740,-20 C 800,330 1210,630 1140,1080 C 1080,1530 300,1830 360,2330 C 420,2830 1220,3130 1160,3630 C 1100,4130 660,4430 700,4800" 
+              stroke="rgba(200, 125, 50, 0.12)" stroke-width="1.2" stroke-linecap="round" fill="none" />
+      </svg>
+
+      <!-- Soft Ambient Liquid Pods that gently drift in background -->
+      <div class="fluid-pod fluid-pod-1"></div>
+      <div class="fluid-pod fluid-pod-2"></div>
+      <div class="fluid-pod fluid-pod-3"></div>
+      <div class="fluid-pod fluid-pod-4"></div>
+    </div>
+
+    <!-- =======================================================================
+         SECTION B — CHAPTER 2: BORN IN SECTION-B (Stop-Scroll Scrollytelling)
+         Classroom Daydream -> 1670 Baba Budan Smuggled Seeds -> 204°C Roast Chemistry -> Living Sanctuaries
+         ======================================================================= -->
+    <section id="story" class="story-scrolly-section" aria-label="Born in Section-B — Origin & Craft Scrollytelling">
+      <div class="container">
+        
+        <!-- Pinned Wrapper for GSAP Stop-Scroll -->
+        <div class="story-scrolly-pin-container">
+          
+          <!-- Scrollytelling Header & Interactive Timeline Bar -->
+          <div class="story-scrolly-header">
+            <span class="section-eyebrow">EST. 2021 · BORN IN SECTION-B</span>
+            <h2 class="section-title story-main-title">
+              From a Classroom Daydream<br>to Specialty Craft.
+            </h2>
+
+            <!-- Interactive Timeline Navigation (Stop-Scroll Jump Bar) -->
+            <div class="story-timeline-nav" role="tablist" aria-label="Story Chapters">
+              <button class="story-timeline-pill active" data-chapter="0" role="tab" aria-selected="true" aria-controls="chapter-0">
+                <span class="pill-step-num">01</span>
+                <span>Desk 14 (2021)</span>
+              </button>
+              <button class="story-timeline-pill" data-chapter="1" role="tab" aria-selected="false" aria-controls="chapter-1">
+                <span class="pill-step-num">02</span>
+                <span>1670 Sacred Seeds</span>
+              </button>
+              <button class="story-timeline-pill" data-chapter="2" role="tab" aria-selected="false" aria-controls="chapter-2">
+                <span class="pill-step-num">03</span>
+                <span>204°C Roast Alchemy</span>
+              </button>
+              <button class="story-timeline-pill" data-chapter="3" role="tab" aria-selected="false" aria-controls="chapter-3">
+                <span class="pill-step-num">04</span>
+                <span>Campus Sanctuaries</span>
+              </button>
+            </div>
+
+            <!-- Progress Track -->
+            <div class="story-progress-track">
+              <div class="story-progress-bar" id="storyProgressBar" style="width: 25%;"></div>
+            </div>
+          </div>
+
+          <!-- Split Stage: Left Manuscript + Right Visual Theater -->
+          <div class="story-scrolly-stage">
+            
+            <!-- Left Column: 4 Chapter Manuscripts -->
+            <div class="story-manuscript-col">
+              
+              <!-- Chapter 1: The Classroom Daydream -->
+              <article class="story-manuscript-card active" id="chapter-0" data-chapter="0" role="tabpanel">
+                <div class="manuscript-tag-row">
+                  <span class="manuscript-period-tag">
+                    <span class="period-dot"></span>
+                    PERIOD 04 · DESK 14 NOTEBOOK
+                  </span>
+                  <span class="manuscript-page">FOLIO 01 / 04</span>
+                </div>
+                <h3 class="manuscript-headline">The Section-B Obsession</h3>
+                <p class="manuscript-lead">
+                  While the rest of Section-B scribbled textbook formulas, our founder Arpit sat in the back row obsessing over Arabica extraction curves, bean origins, and the roasting arts.
+                </p>
+                <p class="manuscript-body">
+                  Tired of bitter instant powders and burnt dark-roast chains, notebook margins turned into canvas for extraction yields, grind distributions, and estate elevation notes. A stubborn conviction formed: specialty coffee shouldn't be an elitist club — it should be an honest, unhurried ritual born right here.
+                </p>
+                <div class="student-note-block">
+                  <p class="student-note-text">
+                    "Why settle for burnt robusta when shade-grown Arabica from Chikmagalur exists? Section-B deserves an authentic brew bar." — Arpit, Desk 14
+                  </p>
+                </div>
+                <div class="manuscript-pills-row">
+                  <span class="manuscript-badge">High-Altitude Arabica</span>
+                  <span class="manuscript-badge">Classroom Bench Roots</span>
+                  <span class="manuscript-badge">Desk 14 Archive</span>
+                </div>
+                <div class="manuscript-nav-controls">
+                  <button class="manuscript-prev-btn" disabled aria-label="Previous Chapter">← Previous</button>
+                  <span class="manuscript-counter">01 / 04</span>
+                  <button class="manuscript-next-btn" aria-label="Next Chapter">Next Chapter →</button>
+                </div>
+              </article>
+
+              <!-- Chapter 2: The 1670 Baba Budan Heritage -->
+              <article class="story-manuscript-card" id="chapter-1" data-chapter="1" role="tabpanel">
+                <div class="manuscript-tag-row">
+                  <span class="manuscript-period-tag">
+                    <span class="period-dot"></span>
+                    HISTORICAL ARCHIVE · 1670 AD
+                  </span>
+                  <span class="manuscript-page">FOLIO 02 / 04</span>
+                </div>
+                <h3 class="manuscript-headline">Seven Smuggled Seeds & The Mystic Baba Budan</h3>
+                <p class="manuscript-lead">
+                  Coffee in India did not begin in a modern espresso machine. It was carried across oceans in 1670, strapped to a holy pilgrim's chest.
+                </p>
+                <p class="manuscript-body">
+                  Centuries before Section-B was sketched on a blackboard, the Sufi saint Baba Budan smuggled seven fertile raw green coffee seeds out of Yemen's port of Mocha, hidden beneath his robes. He planted them in the misty Chandragiri hills of Chikmagalur at 1,200m elevation — birthing India's sacred shade-grown coffee lineage.
+                </p>
+                <div class="student-note-block">
+                  <p class="student-note-text">
+                    "1,200 meters elevation + iron-rich red soil + monsoon rains = natural chocolate & caramel sweetness. Pure terroir magic."
+                  </p>
+                </div>
+                <div class="story-float-seed-badge" aria-hidden="true">
+                  <img src="coffee-beans-cutout.png" alt="" class="float-seed-img">
+                  <span>7 Smuggled Seeds · 1670</span>
+                </div>
+                <div class="manuscript-pills-row">
+                  <span class="manuscript-badge">1670 AD Botanical Roots</span>
+                  <span class="manuscript-badge">Western Ghats Terroir</span>
+                  <span class="manuscript-badge">Shade-Grown Canopy</span>
+                </div>
+                <div class="manuscript-nav-controls">
+                  <button class="manuscript-prev-btn" aria-label="Previous Chapter">← Previous</button>
+                  <span class="manuscript-counter">02 / 04</span>
+                  <button class="manuscript-next-btn" aria-label="Next Chapter">Next Chapter →</button>
+                </div>
+              </article>
+
+              <!-- Chapter 3: 204°C Roast Alchemy -->
+              <article class="story-manuscript-card" id="chapter-2" data-chapter="2" role="tabpanel">
+                <div class="manuscript-tag-row">
+                  <span class="manuscript-period-tag">
+                    <span class="period-dot"></span>
+                    ROAST SCIENCE · 204°C FIRST CRACK
+                  </span>
+                  <span class="manuscript-page">FOLIO 03 / 04</span>
+                </div>
+                <h3 class="manuscript-headline">First Crack & The Maillard Caramelization</h3>
+                <p class="manuscript-lead">
+                  Roasting is not burning; it is an unhurried chemical romance between heat, airflow, and sucrose sugars.
+                </p>
+                <p class="manuscript-body">
+                  Inside our cast-iron drum roaster, raw green Arabica seeds undergo the Maillard reaction. At exactly 204°C, cellular pressure fractures the bean with an audible pop — the First Crack. We drop the batch seconds later at a tailored medium-city profile, caramelizing natural sugars while preserving crisp notes of cacao, stone fruit, and biscoff.
+                </p>
+                <div class="student-note-block">
+                  <p class="student-note-text">
+                    "Drop temp: 204°C. Time: 11m 45s. Never burn the bean — respect the fruit and keep the caramel alive."
+                  </p>
+                </div>
+                <div class="manuscript-pills-row">
+                  <span class="manuscript-badge">Small-Batch Drum Roasting</span>
+                  <span class="manuscript-badge">Medium-City Profile</span>
+                  <span class="manuscript-badge">Zero Charcoal Bitterness</span>
+                </div>
+                <div class="manuscript-nav-controls">
+                  <button class="manuscript-prev-btn" aria-label="Previous Chapter">← Previous</button>
+                  <span class="manuscript-counter">03 / 04</span>
+                  <button class="manuscript-next-btn" aria-label="Next Chapter">Next Chapter →</button>
+                </div>
+              </article>
+
+              <!-- Chapter 4: The Modern Campus Sanctuaries -->
+              <article class="story-manuscript-card" id="chapter-3" data-chapter="3" role="tabpanel">
+                <div class="manuscript-tag-row">
+                  <span class="manuscript-period-tag">
+                    <span class="period-dot"></span>
+                    COMMUNITY LIVING · 2026
+                  </span>
+                  <span class="manuscript-page">FOLIO 04 / 04</span>
+                </div>
+                <h3 class="manuscript-headline">From Classroom Sketch to Living Sanctuaries</h3>
+                <p class="manuscript-lead">
+                  What was once a lone daydream on Desk 14 is now a physical haven where students, creators, and coffee purists belong.
+                </p>
+                <p class="manuscript-body">
+                  We built SBC as an extension of the library back row: warm white oak, soft natural sunlight, generous charging docks, zero rushed turnover, and the rhythmic hiss of our slow bar. Paired with our fluffy mascot bear, it's an unhurried space to study, debate, read, and sip coffee, but better.
+                </p>
+                <div class="student-note-block">
+                  <p class="student-note-text">
+                    "We built the space we wished existed during our exam weeks. Pull up a chair — your section is waiting."
+                  </p>
+                </div>
+                <div class="story-float-seed-badge story-float-sanctuary-badge" aria-hidden="true">
+                  <img src="coffee-mug-cutout.png" alt="" class="float-seed-img">
+                  <span>Desk 14 Sanctuary</span>
+                </div>
+                <div class="manuscript-pills-row">
+                  <span class="manuscript-badge">Indirapuram & Bangalore</span>
+                  <span class="manuscript-badge">Study-First Atmosphere</span>
+                  <span class="manuscript-badge">Crafted Daily</span>
+                </div>
+                <div class="manuscript-nav-controls">
+                  <button class="manuscript-prev-btn" aria-label="Previous Chapter">← Previous</button>
+                  <span class="manuscript-counter">04 / 04</span>
+                  <a href="/story" class="btn" style="background: var(--color-forest); color: #FFF; font-size: 0.78rem; font-weight: 700; padding: 0.45rem 1rem; border-radius: 999px; text-decoration: none;">Read Full Story →</a>
+                </div>
+              </article>
+
+            </div>
+
+            <!-- Right Column: Visual Theater Crossfade Frame -->
+            <div class="story-theater-col">
+              <div class="story-theater-frame">
+                
+                <!-- Visual 0: Desk 14 Classroom Full-Bleed Video -->
+                <div class="story-visual-slide active" data-chapter="0">
+                  <div class="theater-media-wrap">
+                    <video class="story-theater-media" muted loop playsinline preload="none">
+                      <source src="videos/student-reach.mp4" type="video/mp4">
+                    </video>
+                    <div class="theater-sketch-badge">
+                      <span class="badge-icon">✏️</span>
+                      <div>
+                        <strong>ARCHIVE · CLASSROOM DESK 14</strong>
+                        <p>"October 2021 · Where the first extraction was daydreamed"</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Visual 1: 1670 Botanical Heritage Art -->
+                <div class="story-visual-slide" data-chapter="1">
+                  <div class="theater-media-wrap">
+                    <img src="coffee-heritage-1670.jpg" alt="1670 Baba Budan Hills Chikmagalur Archival Exploration" class="story-theater-media">
+                    <div class="theater-sketch-badge">
+                      <span class="badge-icon">⚜️</span>
+                      <div>
+                        <strong>1670 AD · BABA BUDAN HILLS</strong>
+                        <p>"Seven smuggled seeds planted at 1,200m elevation in Chikmagalur"</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Visual 2: Roasting 204°C Video & Dial -->
+                <div class="story-visual-slide" data-chapter="2">
+                  <div class="theater-media-wrap">
+                    <video class="story-theater-media" muted loop playsinline preload="none">
+                      <source src="videos/beans-roast-clip.mp4" type="video/mp4">
+                    </video>
+                    <div class="roaster-dial-sketch">
+                      <div class="dial-temp">204°C</div>
+                      <div class="dial-state">FIRST CRACK · SUCROSE ALCHEMY</div>
+                    </div>
+                    <div class="theater-sketch-badge">
+                      <span class="badge-icon">🔥</span>
+                      <div>
+                        <strong>ROAST CHEMISTRY · FIRST CRACK</strong>
+                        <p>"Arresting the roast at 204°C to preserve natural caramel sugars"</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Visual 3: Sanctuary Living Interior -->
+                <div class="story-visual-slide" data-chapter="3">
+                  <div class="theater-media-wrap">
+                    <img src="interior.jpg" alt="SBC Campus Sanctuary Warm Limewash Interior" class="story-theater-media">
+                    <div class="theater-sketch-badge">
+                      <span class="badge-icon">☕</span>
+                      <div>
+                        <strong>SBC CAMPUS SANCTUARIES</strong>
+                        <p>"White oak, library calm & unhurried coffee for thinkers"</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION C — CHAPTER 3: ORIGIN JOURNEY & ROASTING CRAFT (Bento Grid)
+         Using the new Caramel Flowing Video!
+         ======================================================================= -->
+    <section id="origins" class="origins-section" aria-label="Origin Journey & Roasting Craft">
+      <div class="container">
+        
+        <!-- Section Header -->
+        <div class="text-center">
+          <span class="section-eyebrow">DIRECT ESTATE SOURCING</span>
+          <h2 class="section-title">The Western Ghats to Your Cup</h2>
+          <p class="section-subtitle">
+            Every bean is harvested by hand at peak ripeness, measured to tenth-of-a-gram precision, and roasted in small micro-batches every Tuesday and Friday.
+          </p>
+        </div>
+
+        <!-- Floating Whole Beans Accent -->
+        <div class="origins-floating-accent" aria-hidden="true" data-speed="0.3">
+          <img src="coffee-beans-cutout.png" alt="Estate Arabica Beans" class="origins-float-beans">
+        </div>
+
+        <!-- 3-Column Collegiate Spiral Notebook Cards -->
+        <div class="bento-grid notebook-cards-grid">
+          
+          <!-- Spiral Notebook Card 1: Cacao & Biscoff Notes -->
+          <article class="notebook-spiral-card">
+            <!-- Spiral Twin-Ring Wire Binding -->
+            <div class="spiral-binding-bar" aria-hidden="true">
+              <span class="spiral-ring"></span>
+              <span class="spiral-ring"></span>
+              <span class="spiral-ring"></span>
+              <span class="spiral-ring"></span>
+              <span class="spiral-ring"></span>
+              <span class="spiral-ring"></span>
+              <span class="spiral-ring"></span>
+              <span class="spiral-ring"></span>
+            </div>
+
+            <!-- Collegiate Washi Tape Accent -->
+            <div class="washi-tape washi-caramel" aria-hidden="true"></div>
+
+            <!-- Card Top: School Period & Subject Badge -->
+            <div class="notebook-header-info">
+              <span class="school-period-tag">
+                <span class="period-dot"></span> PERIOD 01 · FLAVOR SCIENCE
+              </span>
+              <span class="notebook-page-num">PG. 04</span>
+            </div>
+
+            <!-- Coffee Craft Video Loop -->
+            <div class="notebook-thumb-wrap">
+              <video muted loop playsinline preload="none" class="notebook-thumb-video">
+                <source src="videos/caramel-flowing.mp4" type="video/mp4">
+              </video>
+              <div class="notebook-video-pill">
+                <span>ESTATE ARCHIVE · CHIKMAGALUR</span>
+              </div>
+            </div>
+
+            <!-- Content -->
+            <div class="notebook-body-content">
+              <h3 class="notebook-card-title">Cacao & Biscoff Notes</h3>
+              <p class="notebook-card-desc">
+                Shade-grown under silver oak and jackfruit trees in Chikmagalur, yielding naturally sweet, low-acidity cup profiles with chocolate and speculoos warmth.
+              </p>
+
+              <!-- Handwritten Student Margin Note (Caveat Blue Ink) -->
+              <div class="student-note-block">
+                <p class="student-note-text">
+                  ✦ Arpit's Note: "Tested during 1st period chem — 18hr slow drip yields pure cacao & speculoos. Zero bitterness."
+                </p>
+              </div>
+
+              <!-- Collegiate Rubber Stamp -->
+              <div class="school-stamp" aria-hidden="true">
+                <div class="stamp-border">
+                  <span class="stamp-title">SECTION-B LABS</span>
+                  <span class="stamp-sub">VERIFIED SPECIALTY</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Spiral Notebook Card 2: Medium-Roast Beans -->
+          <article class="notebook-spiral-card">
+            <!-- Spiral Twin-Ring Wire Binding -->
+            <div class="spiral-binding-bar" aria-hidden="true">
+              <span class="spiral-ring"></span>
+              <span class="spiral-ring"></span>
+              <span class="spiral-ring"></span>
+              <span class="spiral-ring"></span>
+              <span class="spiral-ring"></span>
+              <span class="spiral-ring"></span>
+              <span class="spiral-ring"></span>
+              <span class="spiral-ring"></span>
+            </div>
+
+            <!-- Collegiate Washi Tape Accent -->
+            <div class="washi-tape washi-forest" aria-hidden="true"></div>
+
+            <!-- Card Top: School Period & Subject Badge -->
+            <div class="notebook-header-info">
+              <span class="school-period-tag">
+                <span class="period-dot"></span> PERIOD 02 · ROAST SCIENCE LAB
+              </span>
+              <span class="notebook-page-num">PG. 07</span>
+            </div>
+
+            <!-- Coffee Craft Video Loop -->
+            <div class="notebook-thumb-wrap">
+              <video muted loop playsinline preload="none" class="notebook-thumb-video">
+                <source src="videos/beans-roast-clip.mp4" type="video/mp4">
+              </video>
+              <div class="notebook-video-pill">
+                <span>ROAST LAB · SMALL BATCH 204°C</span>
+              </div>
+            </div>
+
+
+            <!-- Content -->
+            <div class="notebook-body-content">
+              <h3 class="notebook-card-title">Medium-Roast Beans</h3>
+              <p class="notebook-card-desc">
+                Small-drum batch roasting timed to perfection, allowing origin volatiles to sing without harsh carbon bitterness or smoky astringency.
+              </p>
+
+              <!-- Handwritten Student Margin Note (Caveat Blue Ink) -->
+              <div class="student-note-block">
+                <p class="student-note-text">
+                  ✦ Lab Observation: "Drum temp dialed to 204°C · First crack hits at 9:15. Smells like toasted hazelnuts & toffee."
+                </p>
+              </div>
+
+              <!-- Collegiate Rubber Stamp -->
+              <div class="school-stamp" aria-hidden="true">
+                <div class="stamp-border stamp-forest">
+                  <span class="stamp-title">GRADE: A+</span>
+                  <span class="stamp-sub">MICRO ROAST CERTIFIED</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Spiral Notebook Card 3: The Perfect Pour -->
+          <article class="notebook-spiral-card">
+            <!-- Spiral Twin-Ring Wire Binding -->
+            <div class="spiral-binding-bar" aria-hidden="true">
+              <span class="spiral-ring"></span>
+              <span class="spiral-ring"></span>
+              <span class="spiral-ring"></span>
+              <span class="spiral-ring"></span>
+              <span class="spiral-ring"></span>
+              <span class="spiral-ring"></span>
+              <span class="spiral-ring"></span>
+              <span class="spiral-ring"></span>
+            </div>
+
+            <!-- Collegiate Washi Tape Accent -->
+            <div class="washi-tape washi-espresso" aria-hidden="true"></div>
+
+            <!-- Card Top: School Period & Subject Badge -->
+            <div class="notebook-header-info">
+              <span class="school-period-tag">
+                <span class="period-dot"></span> PERIOD 03 · ESPRESSO HYDRAULICS
+              </span>
+              <span class="notebook-page-num">PG. 11</span>
+            </div>
+
+            <!-- Coffee Craft Video Loop -->
+            <div class="notebook-thumb-wrap">
+              <video muted loop playsinline preload="none" class="notebook-thumb-video">
+                <source src="videos/espresso-pour-clip.mp4" type="video/mp4">
+              </video>
+              <div class="notebook-video-pill">
+                <span>SLOW BAR · 9.2 BAR EXTRACTION</span>
+              </div>
+            </div>
+
+            <!-- Content -->
+            <div class="notebook-body-content">
+              <h3 class="notebook-card-title">The Perfect Pour</h3>
+              <p class="notebook-card-desc">
+                Dialed in every morning on 9-bar commercial espresso groups and Hario V60 slow-bars for velvety mouthfeel and syrupy crema.
+              </p>
+
+              <!-- Handwritten Student Margin Note (Caveat Blue Ink) -->
+              <div class="student-note-block">
+                <p class="student-note-text">
+                  ✦ Barista Thesis: "9.2 Bar bottomless portafilter · 18g in, 36g out in 27s. Thick golden tiger-stripe crema."
+                </p>
+              </div>
+
+              <!-- Collegiate Rubber Stamp -->
+              <div class="school-stamp" aria-hidden="true">
+                <div class="stamp-border stamp-caramel">
+                  <span class="stamp-title">92.5 PTS</span>
+                  <span class="stamp-sub">CUPPING SCORE</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION D — CHAPTER 4: MASCOT & QUICK-COMMERCE DELIVERY
+         Tasteful Video Loop instead of large static mascot image!
+         ======================================================================= -->
+    <section id="delivery" class="mascot-delivery-section" aria-label="SBC Mascot and Delivery">
+      <div class="container">
+        <div class="delivery-grid-wrapper">
+          
+          <!-- Left: Refined Video Player featuring Mascot Bear in Rugby Polo -->
+          <div class="delivery-video-card">
+            <video class="delivery-video" muted loop playsinline preload="none">
+              <source src="videos/mascot-delivery.mp4" type="video/mp4">
+            </video>
+            <div class="delivery-video-badge">
+              <span>SBC OFFICIAL MASCOT</span>
+            </div>
+          </div>
+
+          <!-- Right: Delivery Details & Quick Commerce Buttons -->
+          <div class="delivery-content">
+            <!-- Mascot Companion Badge -->
+            <div class="delivery-mascot-companion" aria-hidden="true">
+              <img src="mascot-bear-cutout.png" alt="SBC Mascot Bear" class="delivery-mascot-img">
+              <div class="mascot-speech-bubble">
+                <span>"Packaged Ice-Cold & Fresh!" ✦</span>
+              </div>
+            </div>
+
+            <span class="section-eyebrow">DOORSTEP CRAFT DELIVERY</span>
+            <h2 class="section-title">
+              Sip Anywhere.<br>Fresh on Swiggy & Zomato.
+            </h2>
+            <p class="story-lead">
+              Our varsity mascot makes sure your iced lattes, Biscoff cold brews, and fresh bakes arrive ice-cold, sealed, and leak-free.
+            </p>
+            <p class="story-body">
+              Order directly to your study desk, office, or living room through our verified delivery partners across Delhi-NCR and Bangalore.
+            </p>
+
+            <!-- Delivery Buttons -->
+            <div class="delivery-pills-row">
+              <a href="https://www.swiggy.com" target="_blank" rel="noopener noreferrer" class="delivery-hero-pill hero-pill-swiggy">
+                <span>🛵 Order on Swiggy</span>
+              </a>
+              <a href="https://www.zomato.com" target="_blank" rel="noopener noreferrer" class="delivery-hero-pill hero-pill-zomato">
+                <span>🍽️ Order on Zomato</span>
+              </a>
+            </div>
+
+            <!-- Delivery Perks -->
+            <div class="delivery-perks">
+              <div class="delivery-perk-item">
+                <span aria-hidden="true">❄️</span>
+                <span>Insulated Chill-Pouch</span>
+              </div>
+              <div class="delivery-perk-item">
+                <span aria-hidden="true">🔒</span>
+                <span>Tamper-Proof Seal</span>
+              </div>
+              <div class="delivery-perk-item">
+                <span aria-hidden="true">⏱️</span>
+                <span>Freshly Pulled Shots</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION E — CHAPTER 5: WHAT WE BREW & BAKE (Enhanced Specialty Menu)
+         Interactive category tabs: All, Cold Brews, Espresso Slow-Bar, Artisan Bakes
+         Dual Swiggy & Zomato order integration + craft extraction notes
+         ======================================================================= -->
+    <section id="menu" class="origins-section menu-section-enhanced" aria-label="What We Brew & Bake — Specialty Signatures">
+      <div class="container">
+        
+        <div class="text-center" style="margin-bottom: 2.75rem;">
+          <span class="section-eyebrow">SPECIALTY SLOW-BAR & BAKES</span>
+          <h2 class="section-title">What We Brew & Bake</h2>
+          <p class="section-subtitle">
+            Single-origin micro-lots, 18-hour cold extractions, and freshly laminated morning viennoiserie — crafted with obsessive care.
+          </p>
+        </div>
+
+        <!-- Floating Ceramic Mug Accent -->
+        <div class="menu-floating-accent" aria-hidden="true" data-speed="0.25">
+          <img src="coffee-mug-cutout.png" alt="Freshly Brewed Flat White" class="menu-float-mug-img">
+        </div>
+
+        <!-- Interactive Category Filter Bar -->
+        <div class="menu-filter-bar" role="tablist" aria-label="Menu Categories">
+          <button class="menu-filter-btn active" data-filter="all" role="tab" aria-selected="true">
+            ☕ All Signatures (6)
+          </button>
+          <button class="menu-filter-btn" data-filter="cold-brew" role="tab" aria-selected="false">
+            🧊 Cold Brews & Iced
+          </button>
+          <button class="menu-filter-btn" data-filter="espresso" role="tab" aria-selected="false">
+            ☕ Espresso & Slow Bar
+          </button>
+          <button class="menu-filter-btn" data-filter="bakery" role="tab" aria-selected="false">
+            🥐 Artisan Bakes & Savory
+          </button>
+        </div>
+
+        <!-- 6 Signature Menu Cards Grid (Zero Prices, Sensory Feel & Interactive Meters) -->
+        <div class="menu-cards-grid" id="menuCardsGrid">
+          
+          <!-- Item 1: Biscoff Cold Brew (cold-brew) -->
+          <article class="menu-item-card" data-category="cold-brew">
+            <div class="menu-thumb-wrap">
+              <img src="sbc-signature-cup.png" alt="SBC Biscoff Cold Brew Signature Cup" class="menu-thumb-img" style="object-fit: contain; padding: 1.25rem;">
+              <span class="menu-cat-badge">18-HR MOUNTAIN STEEP</span>
+              <span class="menu-feel-badge">HOUSE SIGNATURE</span>
+            </div>
+            <div class="menu-item-body">
+              <span class="menu-craft-sub">CHIKMAGALUR ARABICA · SPECULOOS</span>
+              <h3 class="menu-item-title">Biscoff Cold Brew</h3>
+              <p class="menu-sensory-lead">
+                Slow-dripped over 18 hours. Layered with velvety Belgian speculoos sweet foam and caramelized crunch.
+              </p>
+              
+              <!-- Interactive Sensory Meter -->
+              <div class="menu-sensory-meter">
+                <div class="sensory-row">
+                  <span>Sweetness</span>
+                  <div class="meter-dots"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span><span class="dot"></span></div>
+                </div>
+                <div class="sensory-row">
+                  <span>Body</span>
+                  <div class="meter-dots"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></div>
+                </div>
+              </div>
+
+              <div class="menu-tags-list">
+                <span class="menu-tag-pill">Caramel</span>
+                <span class="menu-tag-pill">Cacao Nibs</span>
+                <span class="menu-tag-pill">Silky Foam</span>
+              </div>
+              <div class="menu-card-actions">
+                <a href="https://www.swiggy.com" target="_blank" rel="noopener noreferrer" class="nav-pill nav-pill-swiggy" aria-label="Order on Swiggy">
+                  🛵 Swiggy
+                </a>
+                <a href="https://www.zomato.com" target="_blank" rel="noopener noreferrer" class="nav-pill nav-pill-zomato" aria-label="Order on Zomato">
+                  🍽️ Zomato
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Item 2: Teddy Bear Spanish Latte (espresso) -->
+          <article class="menu-item-card" data-category="espresso">
+            <div class="menu-thumb-wrap">
+              <img src="teddy-latte.jpg" alt="SBC Teddy Bear Spanish Latte" class="menu-thumb-img">
+              <span class="menu-cat-badge">HOUSE MASCOT SPECIAL</span>
+              <span class="menu-feel-badge">SCULPTED ART</span>
+            </div>
+            <div class="menu-item-body">
+              <span class="menu-craft-sub">DOUBLE RISTRETTO · DULCE DE LECHE</span>
+              <h3 class="menu-item-title">Sculpted Bear Spanish Latte</h3>
+              <p class="menu-sensory-lead">
+                A handcrafted espresso bear melting into dense condensed milk and steamed silky microfoam.
+              </p>
+              
+              <!-- Interactive Sensory Meter -->
+              <div class="menu-sensory-meter">
+                <div class="sensory-row">
+                  <span>Sweetness</span>
+                  <div class="meter-dots"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span><span class="dot"></span></div>
+                </div>
+                <div class="sensory-row">
+                  <span>Richness</span>
+                  <div class="meter-dots"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></div>
+                </div>
+              </div>
+
+              <div class="menu-tags-list">
+                <span class="menu-tag-pill">Mascot Art</span>
+                <span class="menu-tag-pill">Vanilla</span>
+                <span class="menu-tag-pill">Velvet Microfoam</span>
+              </div>
+              <div class="menu-card-actions">
+                <a href="https://www.swiggy.com" target="_blank" rel="noopener noreferrer" class="nav-pill nav-pill-swiggy" aria-label="Order on Swiggy">
+                  🛵 Swiggy
+                </a>
+                <a href="https://www.zomato.com" target="_blank" rel="noopener noreferrer" class="nav-pill nav-pill-zomato" aria-label="Order on Zomato">
+                  🍽️ Zomato
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Item 3: Estate V60 Pourover (espresso) -->
+          <article class="menu-item-card" data-category="espresso">
+            <div class="menu-thumb-wrap">
+              <img src="pourover.jpg" alt="SBC Single-Origin Estate V60 Pourover" class="menu-thumb-img">
+              <span class="menu-cat-badge">MANUAL SLOW BAR</span>
+              <span class="menu-feel-badge">TEA-LIKE CLARITY</span>
+            </div>
+            <div class="menu-item-body">
+              <span class="menu-craft-sub">HARIO V60 · 1,350M SINGLE LOT</span>
+              <h3 class="menu-item-title">Single-Origin Estate V60</h3>
+              <p class="menu-sensory-lead">
+                Poured at 93°C with gooseneck precision. Unfolds with delicate jasmine aromatics and bergamot finish.
+              </p>
+              
+              <!-- Interactive Sensory Meter -->
+              <div class="menu-sensory-meter">
+                <div class="sensory-row">
+                  <span>Clarity</span>
+                  <div class="meter-dots"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></div>
+                </div>
+                <div class="sensory-row">
+                  <span>Acidity</span>
+                  <div class="meter-dots"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+                </div>
+              </div>
+
+              <div class="menu-tags-list">
+                <span class="menu-tag-pill">Jasmine Floral</span>
+                <span class="menu-tag-pill">Bergamot</span>
+                <span class="menu-tag-pill">Clean Bloom</span>
+              </div>
+              <div class="menu-card-actions">
+                <a href="https://www.swiggy.com" target="_blank" rel="noopener noreferrer" class="nav-pill nav-pill-swiggy" aria-label="Order on Swiggy">
+                  🛵 Swiggy
+                </a>
+                <a href="https://www.zomato.com" target="_blank" rel="noopener noreferrer" class="nav-pill nav-pill-zomato" aria-label="Order on Zomato">
+                  🍽️ Zomato
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Item 4: Classic Velvet Flat White (espresso) -->
+          <article class="menu-item-card" data-category="espresso">
+            <div class="menu-thumb-wrap">
+              <img src="coffee-mug-studio.jpg" alt="SBC Classic Velvet Flat White" class="menu-thumb-img">
+              <span class="menu-cat-badge">9.2-BAR EXTRACTION</span>
+              <span class="menu-feel-badge">TIGER CREMA</span>
+            </div>
+            <div class="menu-item-body">
+              <span class="menu-craft-sub">TWIN NAKED SHOTS · 60°C MILK</span>
+              <h3 class="menu-item-title">Classic Velvet Flat White</h3>
+              <p class="menu-sensory-lead">
+                Two tight ristretto extractions folded into glossy textured milk. Deep cacao with toasted macadamia.
+              </p>
+              
+              <!-- Interactive Sensory Meter -->
+              <div class="menu-sensory-meter">
+                <div class="sensory-row">
+                  <span>Roast</span>
+                  <div class="meter-dots"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span><span class="dot"></span></div>
+                </div>
+                <div class="sensory-row">
+                  <span>Body</span>
+                  <div class="meter-dots"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span><span class="dot"></span></div>
+                </div>
+              </div>
+
+              <div class="menu-tags-list">
+                <span class="menu-tag-pill">Dark Cacao</span>
+                <span class="menu-tag-pill">Toasted Nut</span>
+                <span class="menu-tag-pill">Glossy Texture</span>
+              </div>
+              <div class="menu-card-actions">
+                <a href="https://www.swiggy.com" target="_blank" rel="noopener noreferrer" class="nav-pill nav-pill-swiggy" aria-label="Order on Swiggy">
+                  🛵 Swiggy
+                </a>
+                <a href="https://www.zomato.com" target="_blank" rel="noopener noreferrer" class="nav-pill nav-pill-zomato" aria-label="Order on Zomato">
+                  🍽️ Zomato
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Item 5: Truffle Mushroom Sourdough Melt (bakery) -->
+          <article class="menu-item-card" data-category="bakery">
+            <div class="menu-thumb-wrap">
+              <img src="food-sandwich.jpg" alt="SBC Truffle Mushroom Sourdough Melt" class="menu-thumb-img">
+              <span class="menu-cat-badge">HOT ARTISAN KITCHEN</span>
+              <span class="menu-feel-badge">SAVORY CRUNCH</span>
+            </div>
+            <div class="menu-item-body">
+              <span class="menu-craft-sub">36-HR FERMENTED LEVAIN SOURDOUGH</span>
+              <h3 class="menu-item-title">Truffle Mushroom Sourdough Melt</h3>
+              <p class="menu-sensory-lead">
+                Wild mushrooms, molten English cheddar, balsamic caramelized onions, and white truffle glaze on crisp levain.
+              </p>
+              
+              <!-- Interactive Sensory Meter -->
+              <div class="menu-sensory-meter">
+                <div class="sensory-row">
+                  <span>Savory</span>
+                  <div class="meter-dots"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></div>
+                </div>
+                <div class="sensory-row">
+                  <span>Crunch</span>
+                  <div class="meter-dots"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span><span class="dot"></span></div>
+                </div>
+              </div>
+
+              <div class="menu-tags-list">
+                <span class="menu-tag-pill">Wild Truffle</span>
+                <span class="menu-tag-pill">Molten Cheddar</span>
+                <span class="menu-tag-pill">Wood-Fired</span>
+              </div>
+              <div class="menu-card-actions">
+                <a href="https://www.swiggy.com" target="_blank" rel="noopener noreferrer" class="nav-pill nav-pill-swiggy" aria-label="Order on Swiggy">
+                  🛵 Swiggy
+                </a>
+                <a href="https://www.zomato.com" target="_blank" rel="noopener noreferrer" class="nav-pill nav-pill-zomato" aria-label="Order on Zomato">
+                  🍽️ Zomato
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Item 6: Golden Almond Frangipane Croissant (bakery) -->
+          <article class="menu-item-card" data-category="bakery">
+            <div class="menu-thumb-wrap">
+              <img src="bakery-croissant.jpg" alt="SBC French Almond Frangipane Croissant" class="menu-thumb-img">
+              <span class="menu-cat-badge">MORNING VIENNOISERIE</span>
+              <span class="menu-feel-badge">27 BUTTER LAYERS</span>
+            </div>
+            <div class="menu-item-body">
+              <span class="menu-craft-sub">PURE BUTTER · DOUBLE BAKED</span>
+              <h3 class="menu-item-title">Almond Frangipane Croissant</h3>
+              <p class="menu-sensory-lead">
+                Double-baked artisanal French croissant filled with almond cream, toasted almond flakes, and powdered sugar.
+              </p>
+              
+              <!-- Interactive Sensory Meter -->
+              <div class="menu-sensory-meter">
+                <div class="sensory-row">
+                  <span>Flakiness</span>
+                  <div class="meter-dots"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></div>
+                </div>
+                <div class="sensory-row">
+                  <span>Sweetness</span>
+                  <div class="meter-dots"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+                </div>
+              </div>
+
+              <div class="menu-tags-list">
+                <span class="menu-tag-pill">Flaky Butter</span>
+                <span class="menu-tag-pill">Toasted Almond</span>
+                <span class="menu-tag-pill">Warm Vanilla</span>
+              </div>
+              <div class="menu-card-actions">
+                <a href="https://www.swiggy.com" target="_blank" rel="noopener noreferrer" class="nav-pill nav-pill-swiggy" aria-label="Order on Swiggy">
+                  🛵 Swiggy
+                </a>
+                <a href="https://www.zomato.com" target="_blank" rel="noopener noreferrer" class="nav-pill nav-pill-zomato" aria-label="Order on Zomato">
+                  🍽️ Zomato
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Interactive Menu Lookbook Download Banner -->
+        <div class="menu-download-bar">
+          <div class="menu-download-info">
+            <span class="download-badge">OFFICIAL MENU · PRINT & DIGITAL EDITION</span>
+            <strong class="download-title">Section-B Coffee Official Menu</strong>
+            <p class="download-sub">Full craft beverage line, single-origin pour-overs, and artisan kitchen fare (Official 44.9 MB PDF Edition).</p>
+          </div>
+          <div class="menu-download-actions-wrap" style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;">
+            <a href="/download-menu" class="btn-download-action" id="downloadMenuBtn" download="Section-B-Coffee-Official-Menu.pdf">
+              <span>📥 Download Official Menu (PDF)</span>
+            </a>
+            <a href="/section-b-coffee-menu.pdf" target="_blank" rel="noopener noreferrer" class="btn-download-action btn-view-menu" style="background: rgba(52,30,21,0.06); color: var(--color-espresso); border: 2px solid var(--color-espresso);">
+              <span>👁️ View in Browser ↗</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION E.5 — THE SBC REEL (6-Video Gallery)
+         Dark forest background, 3-column asymmetric masonry grid
+         Videos: coffee-splash-02, teddy-iced-01, coffee-steam-portal,
+                 teddy-iced-02, caramel-flow, student-reach
+         ======================================================================= -->
+    <section id="reel" class="reel-section" aria-label="The SBC Reel — Video Gallery">
+      <div class="container">
+
+        <div class="text-center" style="margin-bottom: 3.5rem;">
+          <span class="section-eyebrow" style="color: var(--color-caramel);">MOMENTS IN MOTION</span>
+          <h2 class="section-heading-reel">THE SBC REEL</h2>
+          <p class="section-description-reel">
+            Live extractions, slow-bar rituals, mascot moments, caramel flows, and campus energy — captured frame by frame.
+          </p>
+        </div>
+
+        <!-- 3-Column Asymmetric Video Grid -->
+        <div class="reel-grid">
+
+          <!-- Col 1: Tall card (spans 2 rows) -->
+          <div class="reel-card reel-card--tall" data-reel-index="01" data-reel-title="THE POUR">
+            <video class="reel-video" muted loop playsinline preload="none">
+              <source src="videos/coffee-splash-02.mp4" type="video/mp4">
+            </video>
+            <div class="reel-overlay">
+              <div class="reel-badge">
+                <span class="reel-num">01</span>
+                <span class="reel-name">THE POUR</span>
+              </div>
+              <button class="reel-sound-btn" aria-label="Toggle sound for The Pour">
+                <span class="icon-mute">🔇</span>
+                <span class="icon-sound">🔊</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Col 2: Standard card -->
+          <div class="reel-card" data-reel-index="02" data-reel-title="THE MASCOT">
+            <video class="reel-video" muted loop playsinline preload="none">
+              <source src="videos/teddy-iced-01.mp4" type="video/mp4">
+            </video>
+            <div class="reel-overlay">
+              <div class="reel-badge">
+                <span class="reel-num">02</span>
+                <span class="reel-name">THE MASCOT</span>
+              </div>
+              <button class="reel-sound-btn" aria-label="Toggle sound for The Mascot">
+                <span class="icon-mute">🔇</span>
+                <span class="icon-sound">🔊</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Col 3: Standard card -->
+          <div class="reel-card" data-reel-index="03" data-reel-title="THE RITUAL">
+            <video class="reel-video" muted loop playsinline preload="none">
+              <source src="videos/coffee-steam-portal.mp4" type="video/mp4">
+            </video>
+            <div class="reel-overlay">
+              <div class="reel-badge">
+                <span class="reel-num">03</span>
+                <span class="reel-name">THE RITUAL</span>
+              </div>
+              <button class="reel-sound-btn" aria-label="Toggle sound for The Ritual">
+                <span class="icon-mute">🔇</span>
+                <span class="icon-sound">🔊</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Col 2 (row 2): Standard card -->
+          <div class="reel-card" data-reel-index="04" data-reel-title="THE DELIVERY">
+            <video class="reel-video" muted loop playsinline preload="none">
+              <source src="videos/teddy-iced-02.mp4" type="video/mp4">
+            </video>
+            <div class="reel-overlay">
+              <div class="reel-badge">
+                <span class="reel-num">04</span>
+                <span class="reel-name">THE DELIVERY</span>
+              </div>
+              <button class="reel-sound-btn" aria-label="Toggle sound for The Delivery">
+                <span class="icon-mute">🔇</span>
+                <span class="icon-sound">🔊</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Col 3 (row 2): Caramel flow -->
+          <div class="reel-card" data-reel-index="05" data-reel-title="THE CARAMEL">
+            <video class="reel-video" muted loop playsinline preload="none">
+              <source src="videos/caramel-flow.mp4" type="video/mp4">
+            </video>
+            <div class="reel-overlay">
+              <div class="reel-badge">
+                <span class="reel-num">05</span>
+                <span class="reel-name">THE CARAMEL</span>
+              </div>
+              <button class="reel-sound-btn" aria-label="Toggle sound for The Caramel">
+                <span class="icon-mute">🔇</span>
+                <span class="icon-sound">🔊</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Wide card spanning col 2+3 (row 3) -->
+          <div class="reel-card reel-card--wide" data-reel-index="06" data-reel-title="THE CAMPUS">
+            <video class="reel-video" muted loop playsinline preload="none">
+              <source src="videos/student-reach.mp4" type="video/mp4">
+            </video>
+            <div class="reel-overlay">
+              <div class="reel-badge">
+                <span class="reel-num">06</span>
+                <span class="reel-name">THE CAMPUS</span>
+              </div>
+              <button class="reel-sound-btn" aria-label="Toggle sound for The Campus">
+                <span class="icon-mute">🔇</span>
+                <span class="icon-sound">🔊</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION E.6 — SANCTUARY DISPATCHES & EDITORIAL JOURNAL
+         Stop-scroll scrollytelling pinning stage showcasing glimpses of articles,
+         estimated read times, author credits, and direct reading slugs to /blog/:slug
+         ======================================================================= -->
+    <section id="journal" class="journal-scrolly-section" aria-label="Section-B Editorial Journal & Research Dispatches">
+      <div class="container journal-container">
+        
+        <!-- Desktop Pinned Two-Column Layout -->
+        <div class="journal-scrolly-wrapper">
+
+          <!-- Left Column: Pinned Editorial Guide & Progress Tracker -->
+          <div class="journal-guide-column">
+            <div class="journal-sticky-guide">
+              <span class="section-eyebrow" style="color: var(--color-caramel);">RESEARCH & DISPATCHES · THE JOURNAL</span>
+              <h2 class="journal-heading">Dispatches From Desk 14.</h2>
+              <p class="journal-guide-lead">
+                Roasting thermodynamic math, Western Ghats botanical history, and craft coffee stories drafted in the margins of school notebooks.
+              </p>
+
+              <!-- Live Article Chapter Progress Navigation -->
+              <div class="journal-chapter-list" role="tablist" aria-label="Journal Articles">
+                <button type="button" class="journal-chapter-btn active" data-journal-slide="0" role="tab" aria-selected="true">
+                  <span class="chapter-idx">01</span>
+                  <div class="chapter-meta">
+                    <strong class="chapter-title">The 1670 Smuggled Seeds</strong>
+                    <span class="chapter-cat">Bean Origins · 4 min read</span>
+                  </div>
+                  <span class="chapter-arrow">→</span>
+                </button>
+                <button type="button" class="journal-chapter-btn" data-journal-slide="1" role="tab" aria-selected="false">
+                  <span class="chapter-idx">02</span>
+                  <div class="chapter-meta">
+                    <strong class="chapter-title">The Science of 204°C</strong>
+                    <span class="chapter-cat">Brewing Guides · 5 min read</span>
+                  </div>
+                  <span class="chapter-arrow">→</span>
+                </button>
+                <button type="button" class="journal-chapter-btn" data-journal-slide="2" role="tab" aria-selected="false">
+                  <span class="chapter-idx">03</span>
+                  <div class="chapter-meta">
+                    <strong class="chapter-title">Born in Section-B</strong>
+                    <span class="chapter-cat">SBC Stories · 6 min read</span>
+                  </div>
+                  <span class="chapter-arrow">→</span>
+                </button>
+                <button type="button" class="journal-chapter-btn" data-journal-slide="3" role="tab" aria-selected="false">
+                  <span class="chapter-idx">04</span>
+                  <div class="chapter-meta">
+                    <strong class="chapter-title">V60 vs. Aeropress</strong>
+                    <span class="chapter-cat">Brewing Guides · 4 min read</span>
+                  </div>
+                  <span class="chapter-arrow">→</span>
+                </button>
+              </div>
+
+              <!-- Section CTA: Full Dynamic Blog Directory Link -->
+              <div class="journal-guide-footer">
+                <a href="/blog" class="btn-all-dispatches">
+                  <span>Explore Complete Archive (4 Dispatches) ↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Manuscript Stage with Stop-Scroll Slides -->
+          <div class="journal-stage-column">
+            <div class="journal-manuscripts-deck" id="journalManuscriptsDeck">
+              
+              <!-- Slide 01: The 1670 Smuggled Seeds -->
+              <article class="journal-card active" data-slide-index="0">
+                <div class="journal-card-cover">
+                  <img src="coffee-heritage-1670.jpg" alt="1670 Baba Budan Coffee Heritage Botanical Archive" class="journal-cover-img" loading="lazy">
+                  <div class="journal-card-badges">
+                    <span class="badge-cat">Bean Origins</span>
+                    <span class="badge-time">⏱️ 4 min read</span>
+                  </div>
+                </div>
+                <div class="journal-card-body">
+                  <div class="journal-card-author">
+                    <span class="author-icon">✒️</span>
+                    <span class="author-name">Arpit · Founder (Desk 14)</span>
+                    <span class="author-dot">·</span>
+                    <span class="pub-date">October 2026</span>
+                  </div>
+                  <h3 class="journal-card-title">The 1670 Smuggled Seeds: Tracing India’s Arabica Roots to Chikmagalur</h3>
+                  <p class="journal-card-excerpt">
+                    How an Indian Sufi pilgrim smuggled seven raw coffee seeds out of Yemen strapped against his chest into Karnataka’s Baba Budan Giri hills, quietly launching South Asia’s specialty coffee legacy.
+                  </p>
+                  <blockquote class="journal-pull-quote">
+                    “Indian shade-grown Arabica develops slowly under silver oak and jackfruit canopies, creating low-acidity profiles rich with toffee and cacao.”
+                  </blockquote>
+                  <div class="journal-card-action">
+                    <a href="/blog/tracing-indias-arabica-roots-chikmagalur" class="btn-read-dispatch">
+                      <span>Read Full Dispatch ↗</span>
+                    </a>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Slide 02: The Science of 204°C -->
+              <article class="journal-card" data-slide-index="1">
+                <div class="journal-card-cover">
+                  <img src="hero-coffee.jpg" alt="Specialty Coffee Roasting Precision" class="journal-cover-img" loading="lazy">
+                  <div class="journal-card-badges">
+                    <span class="badge-cat">Brewing Guides</span>
+                    <span class="badge-time">⏱️ 5 min read</span>
+                  </div>
+                </div>
+                <div class="journal-card-body">
+                  <div class="journal-card-author">
+                    <span class="author-icon">☕</span>
+                    <span class="author-name">Head Roaster · Section-B Labs</span>
+                    <span class="author-dot">·</span>
+                    <span class="pub-date">October 2026</span>
+                  </div>
+                  <h3 class="journal-card-title">The Science of 204°C: Why First-Crack Roast Profiling Unlocks Caramel & Cacao Notes</h3>
+                  <p class="journal-card-excerpt">
+                    A technical exploration of the Maillard cascade, caramelized monosaccharides, and small-batch drum roasting calibrated specifically for velvety flat whites and 18-hour cold brew extractions.
+                  </p>
+                  <blockquote class="journal-pull-quote">
+                    “By arresting the roast curve within 90 seconds of first crack at 204°C, we preserve the sweet lactic balance that makes our coffee taste decadent with zero syrups.”
+                  </blockquote>
+                  <div class="journal-card-action">
+                    <a href="/blog/science-of-204c-first-crack-roast-profiling" class="btn-read-dispatch">
+                      <span>Read Full Dispatch ↗</span>
+                    </a>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Slide 03: Born in Section-B -->
+              <article class="journal-card" data-slide-index="2">
+                <div class="journal-card-cover">
+                  <img src="storefront.jpg" alt="Section-B Coffee Cafe Sanctuary" class="journal-cover-img" loading="lazy">
+                  <div class="journal-card-badges">
+                    <span class="badge-cat">SBC Stories</span>
+                    <span class="badge-time">⏱️ 6 min read</span>
+                  </div>
+                </div>
+                <div class="journal-card-body">
+                  <div class="journal-card-author">
+                    <span class="author-icon">🏫</span>
+                    <span class="author-name">Arpit · Founder</span>
+                    <span class="author-dot">·</span>
+                    <span class="pub-date">October 2026</span>
+                  </div>
+                  <h3 class="journal-card-title">Born in Section-B: How a Back-Bench Daydream Turned into Delhi-NCR’s Craft Sanctuary</h3>
+                  <p class="journal-card-excerpt">
+                    Every school has a Section-B — the place for restless dreamers whose notebooks were half chemistry homework and half blueprints for the future. From scribbling extraction math in the margins to roasting micro-lots.
+                  </p>
+                  <blockquote class="journal-pull-quote">
+                    “Specialty coffee shouldn’t be an elitist club with clinical white walls. It should feel like your favorite classroom bench — comfortable, welcoming, and buzzing with honest conversations.”
+                  </blockquote>
+                  <div class="journal-card-action">
+                    <a href="/blog/born-in-section-b-craft-coffee-story" class="btn-read-dispatch">
+                      <span>Read Full Dispatch ↗</span>
+                    </a>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Slide 04: V60 vs Aeropress -->
+              <article class="journal-card" data-slide-index="3">
+                <div class="journal-card-cover">
+                  <img src="pourover.jpg" alt="V60 Pour-Over Manual Slow Bar" class="journal-cover-img" loading="lazy">
+                  <div class="journal-card-badges">
+                    <span class="badge-cat">Brewing Guides</span>
+                    <span class="badge-time">⏱️ 4 min read</span>
+                  </div>
+                </div>
+                <div class="journal-card-body">
+                  <div class="journal-card-author">
+                    <span class="author-icon">🧪</span>
+                    <span class="author-name">SBC Slow-Bar Guild</span>
+                    <span class="author-dot">·</span>
+                    <span class="pub-date">October 2026</span>
+                  </div>
+                  <h3 class="journal-card-title">V60 vs. Aeropress: Demystifying Slow-Bar Extraction Geometry for Home Brewers</h3>
+                  <p class="journal-card-excerpt">
+                    Conical 60-degree flow channels versus immersion pneumatic pressure mechanics: how grind distribution and water temperature alter cup clarity from the exact same single-origin bean.
+                  </p>
+                  <blockquote class="journal-pull-quote">
+                    “If you crave bright jasmine clarity on a warm afternoon, go V60. If you desire a punchy, velvet-smooth morning cup that holds up to oat milk, the Aeropress is your desk companion.”
+                  </blockquote>
+                  <div class="journal-card-action">
+                    <a href="/blog/v60-vs-aeropress-slow-bar-extraction-guide" class="btn-read-dispatch">
+                      <span>Read Full Dispatch ↗</span>
+                    </a>
+                  </div>
+                </div>
+              </article>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Mobile Swipe Indicator Dots -->
+        <div class="journal-mobile-nav" aria-hidden="true">
+          <button class="journal-dot active" data-slide="0"></button>
+          <button class="journal-dot" data-slide="1"></button>
+          <button class="journal-dot" data-slide="2"></button>
+          <button class="journal-dot" data-slide="3"></button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION F — CHAPTER 6: OUR CAMPUSES (Real Locations & Directions)
+         ======================================================================= -->
+
+    <section id="campuses" class="campuses-section" aria-label="Our Campuses">
+      <div class="container">
+        
+        <div class="text-center">
+          <span class="section-eyebrow">VISIT OUR SPACES</span>
+          <h2 class="section-title">Our Campuses</h2>
+          <p class="section-subtitle">
+            Two welcoming neighborhood sanctuaries designed for deep focus blocks, friendly conversations, and unhurried specialty sips.
+          </p>
+        </div>
+
+        <div class="campuses-grid">
+          
+          <!-- Campus 1: Indirapuram -->
+          <article class="campus-card">
+            <div class="campus-img-wrap">
+              <img src="interior.jpg" alt="Interior atmosphere of SBC Indirapuram Campus" class="campus-img">
+              <span class="campus-num-badge">CAMPUS 01</span>
+            </div>
+            <div class="campus-body">
+              <div>
+                <h3 class="campus-title">Indirapuram Sanctuary</h3>
+                <p class="campus-vibe">Sunlit Garden Cafe & Slow Bar</p>
+
+                <div class="campus-info-list">
+                  <div class="campus-info-item">
+                    <span class="campus-info-icon" aria-hidden="true">📍</span>
+                    <span>854, Niti Khand-1, Indirapuram, Ghaziabad, UP 201014</span>
+                  </div>
+                  <div class="campus-info-item">
+                    <span class="campus-info-icon" aria-hidden="true">⏰</span>
+                    <span>Open Daily · 12:00 PM – 11:00 PM</span>
+                  </div>
+                  <div class="campus-info-item">
+                    <span class="campus-info-icon" aria-hidden="true">✨</span>
+                    <span>High-Speed WiFi · Dedicated Laptop Plugs · Outdoor Seating</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="campus-cta-row">
+                <a href="https://maps.app.goo.gl/aEAJmoLQ8FcPe38f6" target="_blank" rel="noopener noreferrer" class="campus-map-btn">
+                  <span>Get Directions ↗</span>
+                </a>
+                <a href="https://www.swiggy.com" target="_blank" rel="noopener noreferrer" class="nav-pill pill-swiggy">
+                  <span>Order on Swiggy</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Campus 2: Rajendra Nagar -->
+          <article class="campus-card">
+            <div class="campus-img-wrap">
+              <img src="storefront.jpg" alt="Boutique storefront of SBC Rajendra Nagar Campus" class="campus-img">
+              <span class="campus-num-badge">CAMPUS 02</span>
+            </div>
+            <div class="campus-body">
+              <div>
+                <h3 class="campus-title">Rajendra Nagar Sanctuary</h3>
+                <p class="campus-vibe">Roastery Express & Neighborhood Cafe</p>
+
+                <div class="campus-info-list">
+                  <div class="campus-info-item">
+                    <span class="campus-info-icon" aria-hidden="true">📍</span>
+                    <span>Sector 5, Dr. Zakir Hussain Marg, Rajendra Nagar, Sahibabad, Ghaziabad, UP 201005</span>
+                  </div>
+                  <div class="campus-info-item">
+                    <span class="campus-info-icon" aria-hidden="true">⏰</span>
+                    <span>Open Daily · 11:00 AM – 11:00 PM</span>
+                  </div>
+                  <div class="campus-info-item">
+                    <span class="campus-info-icon" aria-hidden="true">✨</span>
+                    <span>Quick Brew Counter · Fresh Whole Beans · Cozy Chill Vibe</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="campus-cta-row">
+                <a href="https://maps.app.goo.gl/aEAJmoLQ8FcPe38f6" target="_blank" rel="noopener noreferrer" class="campus-map-btn">
+                  <span>Get Directions ↗</span>
+                </a>
+                <a href="https://www.zomato.com" target="_blank" rel="noopener noreferrer" class="nav-pill pill-zomato">
+                  <span>Order on Zomato</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION E2 — COMMUNITY & EVENT GALLERY
+         Lively cafe culture, barista slow-bar workshops, community run clubs & cuppings
+         ======================================================================= -->
+    <section id="gallery" class="gallery-section blackboard-section" aria-label="Section-B Classroom Blackboard & Real Events Gallery">
+      <div class="container blackboard-container">
+        
+        <div class="text-center gallery-header">
+          <span class="section-eyebrow" style="color: var(--color-caramel);">SANCTUARY ARCHIVES · CAMPUS NOTICE BOARD</span>
+          <h2 class="section-title">Classroom Culture & Real Events.</h2>
+          <p class="section-subtitle">
+            Barista calibration workshops, Sunday morning 5K run clubs, campus opening jams, and artisan kitchen pop-ups — featuring live reels from @sectionbcoffee.india.
+          </p>
+
+          <!-- Chalkboard Filter Bar -->
+          <div class="gallery-filter-bar blackboard-filter-bar" role="tablist" aria-label="Filter community notice board">
+            <button type="button" class="gallery-filter-btn active" data-filter="all">All Notices (8)</button>
+            <button type="button" class="gallery-filter-btn" data-filter="workshops">Coffee School & Workshops</button>
+            <button type="button" class="gallery-filter-btn" data-filter="launches">Campus Launches</button>
+            <button type="button" class="gallery-filter-btn" data-filter="community">Run Club & Meetups</button>
+            <button type="button" class="gallery-filter-btn" data-filter="bakes">Kitchen & Bakes</button>
+          </div>
+        </div>
+
+        <!-- Authentic Classroom Blackboard Board with Oak Wood Frame -->
+        <div class="classroom-blackboard-frame">
+          <div class="blackboard-wood-bevel">
+            
+            <!-- Blackboard Header Chalkboard Banner -->
+            <div class="blackboard-top-header">
+              <div class="blackboard-brass-plaque">
+                <span>SECTION-B LABS · BULLETIN BOARD NO. 04</span>
+              </div>
+              <div class="blackboard-chalk-notes">
+                <span class="chalk-sketch chalk-left">✎ Attendance mandatory for cupping table!</span>
+                <span class="chalk-sketch chalk-right">☕ Dial-in 9.2 Bar · @sectionbcoffee.india</span>
+              </div>
+            </div>
+
+            <!-- Dynamic Blackboard Cards Grid (Populated dynamically from data/gallery.json or rendered statically) -->
+            <div class="gallery-grid blackboard-grid" id="communityGalleryGrid">
+              
+              <!-- Card 1: SBC Coffee School -->
+              <article class="gallery-card blackboard-card" data-category="workshops" data-index="0" data-video="videos/espresso-pour-clip.mp4">
+                <div class="blackboard-clip" aria-hidden="true"></div>
+                <div class="gallery-card-media blackboard-card-media">
+                  <video class="blackboard-reel-video" muted loop playsinline preload="none">
+                    <source src="videos/espresso-pour-clip.mp4" type="video/mp4">
+                  </video>
+                  <img src="pourover.jpg" alt="SBC Coffee School Dial-In" class="gallery-card-img" loading="lazy">
+                  <span class="gallery-card-badge">Coffee School & Workshops</span>
+                  <span class="blackboard-reel-badge">▶ SBC REEL · @sectionbcoffee.india</span>
+                  <div class="gallery-card-hover-overlay">
+                    <span class="gallery-expand-icon">🔍 Full Reel & View</span>
+                  </div>
+                </div>
+                <div class="gallery-card-info blackboard-card-info">
+                  <span class="blackboard-event-tag">Barista Masterclass · SBC Labs</span>
+                  <h4 class="gallery-card-title">SBC Coffee School: 9.2-Bar Dial-In & Calibration</h4>
+                  <p class="gallery-card-caption">Our hands-on slow-bar workshop: dialing in single-origin Chikmagalur lots on commercial 9-bar groups, understanding TDS extraction yields, and silky microfoam texturing.</p>
+                </div>
+              </article>
+
+              <!-- Card 2: Indirapuram Sanctuary Launch -->
+              <article class="gallery-card blackboard-card" data-category="launches" data-index="1" data-video="videos/student-coffee.mp4">
+                <div class="blackboard-clip" aria-hidden="true"></div>
+                <div class="gallery-card-media blackboard-card-media">
+                  <video class="blackboard-reel-video" muted loop playsinline preload="none">
+                    <source src="videos/student-coffee.mp4" type="video/mp4">
+                  </video>
+                  <img src="interior.jpg" alt="Indirapuram Sanctuary Launch" class="gallery-card-img" loading="lazy">
+                  <span class="gallery-card-badge">Campus Launches</span>
+                  <span class="blackboard-reel-badge">▶ SBC REEL · @sectionbcoffee.india</span>
+                  <div class="gallery-card-hover-overlay">
+                    <span class="gallery-expand-icon">🔍 Full Reel & View</span>
+                  </div>
+                </div>
+                <div class="gallery-card-info blackboard-card-info">
+                  <span class="blackboard-event-tag">Flagship Campus · 854 Niti Khand-1</span>
+                  <h4 class="gallery-card-title">Indirapuram Sanctuary Grand Launch & Community Jam</h4>
+                  <p class="gallery-card-caption">Opening the doors to our flagship collegiate sanctuary in Indirapuram. 400+ neighborhood regulars, live slow-bar pourovers, acoustic chords, and midnight cold brews.</p>
+                </div>
+              </article>
+
+              <!-- Card 3: Bangalore Sarjapur Hub Launch -->
+              <article class="gallery-card blackboard-card" data-category="launches" data-index="2" data-video="videos/beans-roast-clip.mp4">
+                <div class="blackboard-clip" aria-hidden="true"></div>
+                <div class="gallery-card-media blackboard-card-media">
+                  <video class="blackboard-reel-video" muted loop playsinline preload="none">
+                    <source src="videos/beans-roast-clip.mp4" type="video/mp4">
+                  </video>
+                  <img src="storefront.jpg" alt="Bangalore Sarjapur Hub Launch" class="gallery-card-img" loading="lazy">
+                  <span class="gallery-card-badge">Campus Launches</span>
+                  <span class="blackboard-reel-badge">▶ SBC REEL · @sectionbcoffee.india</span>
+                  <div class="gallery-card-hover-overlay">
+                    <span class="gallery-expand-icon">🔍 Full Reel & View</span>
+                  </div>
+                </div>
+                <div class="gallery-card-info blackboard-card-info">
+                  <span class="blackboard-event-tag">New Campus · Sarjapur Road</span>
+                  <h4 class="gallery-card-title">Bangalore Sarjapur Hub Launch: Taking SBC South</h4>
+                  <p class="gallery-card-caption">Section-B Coffee landing in the craft capital of South India! Freshly roasted Western Ghats Arabica, signature sculpted bear lattes, and study bench vibes.</p>
+                </div>
+              </article>
+
+              <!-- Card 4: Sunday Run Club -->
+              <article class="gallery-card blackboard-card" data-category="community" data-index="3" data-video="videos/coffee-splash-02.mp4">
+                <div class="blackboard-clip" aria-hidden="true"></div>
+                <div class="gallery-card-media blackboard-card-media">
+                  <video class="blackboard-reel-video" muted loop playsinline preload="none">
+                    <source src="videos/coffee-splash-02.mp4" type="video/mp4">
+                  </video>
+                  <img src="food-sandwich.jpg" alt="Sunday Morning Run Club" class="gallery-card-img" loading="lazy">
+                  <span class="gallery-card-badge">Run Club & Meetups</span>
+                  <span class="blackboard-reel-badge">▶ SBC REEL · @sectionbcoffee.india</span>
+                  <div class="gallery-card-hover-overlay">
+                    <span class="gallery-expand-icon">🔍 Full Reel & View</span>
+                  </div>
+                </div>
+                <div class="gallery-card-info blackboard-card-info">
+                  <span class="blackboard-event-tag">Sunday Ritual · 5K Run Club</span>
+                  <h4 class="gallery-card-title">Sunday Morning Community Run Club & Cold Brews</h4>
+                  <p class="gallery-card-caption">Every Sunday at 7 AM: neighborhood runners lace up for 5K around Indirapuram, finishing at Section-B for iced cold brews, electrolyte tonics, and sourdough truffle melts.</p>
+                </div>
+              </article>
+
+              <!-- Card 5: Sculpted Bear Latte -->
+              <article class="gallery-card blackboard-card" data-category="workshops" data-index="4" data-video="videos/teddy-iced-01.mp4">
+                <div class="blackboard-clip" aria-hidden="true"></div>
+                <div class="gallery-card-media blackboard-card-media">
+                  <video class="blackboard-reel-video" muted loop playsinline preload="none">
+                    <source src="videos/teddy-iced-01.mp4" type="video/mp4">
+                  </video>
+                  <img src="teddy-latte.jpg" alt="Signature Sculpted Bear Latte Masterclass" class="gallery-card-img" loading="lazy">
+                  <span class="gallery-card-badge">Coffee School & Workshops</span>
+                  <span class="blackboard-reel-badge">▶ SBC REEL · @sectionbcoffee.india</span>
+                  <div class="gallery-card-hover-overlay">
+                    <span class="gallery-expand-icon">🔍 Full Reel & View</span>
+                  </div>
+                </div>
+                <div class="gallery-card-info blackboard-card-info">
+                  <span class="blackboard-event-tag">House Mascot · Slow Bar</span>
+                  <h4 class="gallery-card-title">Signature Sculpted Bear Latte: The Meltdown Ritual</h4>
+                  <p class="gallery-card-caption">Learning the art of Section-B's mascot bear latte: freezing double ristretto espresso bears and watching them melt over sweet condensed milk and steamed oat milk.</p>
+                </div>
+              </article>
+
+              <!-- Card 6: Panuozzo & Viennoiserie Bakes Pop-Up -->
+              <article class="gallery-card blackboard-card" data-category="bakes" data-index="5" data-video="videos/caramel-flow.mp4">
+                <div class="blackboard-clip" aria-hidden="true"></div>
+                <div class="gallery-card-media blackboard-card-media">
+                  <video class="blackboard-reel-video" muted loop playsinline preload="none">
+                    <source src="videos/caramel-flow.mp4" type="video/mp4">
+                  </video>
+                  <img src="bakery-croissant.jpg" alt="Wood-Fired Panuozzo Pop-Up" class="gallery-card-img" loading="lazy">
+                  <span class="gallery-card-badge">Kitchen & Bakes</span>
+                  <span class="blackboard-reel-badge">▶ SBC REEL · @sectionbcoffee.india</span>
+                  <div class="gallery-card-hover-overlay">
+                    <span class="gallery-expand-icon">🔍 Full Reel & View</span>
+                  </div>
+                </div>
+                <div class="gallery-card-info blackboard-card-info">
+                  <span class="blackboard-event-tag">Artisan Bakes · Live Oven</span>
+                  <h4 class="gallery-card-title">Wood-Fired Panuozzo & Almond Viennoiserie Pop-Up</h4>
+                  <p class="gallery-card-caption">Hot out of the stone oven: authentic Italian pizza-dough sandwiches (Panuozzos) stuffed with fior di latte and wild mushrooms, paired with double-baked almond croissants.</p>
+                </div>
+              </article>
+
+              <!-- Card 7: Sensory Cupping Table -->
+              <article class="gallery-card blackboard-card" data-category="workshops" data-index="6" data-video="videos/coffee-journey-1080p.mp4">
+                <div class="blackboard-clip" aria-hidden="true"></div>
+                <div class="gallery-card-media blackboard-card-media">
+                  <video class="blackboard-reel-video" muted loop playsinline preload="none">
+                    <source src="videos/coffee-journey-1080p.mp4" type="video/mp4">
+                  </video>
+                  <img src="hero-coffee.jpg" alt="Sensory Cupping Workshop" class="gallery-card-img" loading="lazy">
+                  <span class="gallery-card-badge">Coffee School & Workshops</span>
+                  <span class="blackboard-reel-badge">▶ SBC REEL · @sectionbcoffee.india</span>
+                  <div class="gallery-card-hover-overlay">
+                    <span class="gallery-expand-icon">🔍 Full Reel & View</span>
+                  </div>
+                </div>
+                <div class="gallery-card-info blackboard-card-info">
+                  <span class="blackboard-event-tag">Cupping Table · Origin Archive</span>
+                  <h4 class="gallery-card-title">Weekend Sensory Cupping: Western Ghats Terroir</h4>
+                  <p class="gallery-card-caption">Evaluating roast curves, wet vs honey processing, and identifying natural notes of jasmine, toffee, and dark cocoa with fellow specialty coffee enthusiasts.</p>
+                </div>
+              </article>
+
+              <!-- Card 8: Desk 14 Midnight Study Sessions -->
+              <article class="gallery-card blackboard-card" data-category="community" data-index="7" data-video="videos/student-reach.mp4">
+                <div class="blackboard-clip" aria-hidden="true"></div>
+                <div class="gallery-card-media blackboard-card-media">
+                  <video class="blackboard-reel-video" muted loop playsinline preload="none">
+                    <source src="videos/student-reach.mp4" type="video/mp4">
+                  </video>
+                  <img src="interior.jpg" alt="Desk 14 Midnight Study Sessions" class="gallery-card-img" loading="lazy">
+                  <span class="gallery-card-badge">Run Club & Meetups</span>
+                  <span class="blackboard-reel-badge">▶ SBC REEL · @sectionbcoffee.india</span>
+                  <div class="gallery-card-hover-overlay">
+                    <span class="gallery-expand-icon">🔍 Full Reel & View</span>
+                  </div>
+                </div>
+                <div class="gallery-card-info blackboard-card-info">
+                  <span class="blackboard-event-tag">Study Sanctuary · Open till 11 PM</span>
+                  <h4 class="gallery-card-title">Desk 14 Midnight Study Sessions & Focus Blocks</h4>
+                  <p class="gallery-card-caption">Laptops glowing, acoustic tracks softly humming through the speakers, and ice clinking in sparkling espresso tonics. Section-B remains your collegiate harbor.</p>
+                </div>
+              </article>
+
+            </div>
+
+            <!-- Blackboard Chalk Tray Shelf with Chalk Sticks & Eraser -->
+            <div class="blackboard-chalk-tray" aria-hidden="true">
+              <div class="chalk-tray-wood">
+                <div class="chalk-stick chalk-stick--white"></div>
+                <div class="chalk-stick chalk-stick--yellow"></div>
+                <div class="chalk-stick chalk-stick--mint"></div>
+                <div class="chalk-eraser">
+                  <span class="eraser-label">SECTION-B</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Blackboard Bottom Instagram Banner -->
+        <div class="blackboard-bottom-banner text-center">
+          <a href="https://www.instagram.com/sectionbcoffee.india/" target="_blank" rel="noopener noreferrer" class="blackboard-insta-link" aria-label="Follow Section-B Coffee on Instagram @sectionbcoffee.india">
+            <span class="insta-icon">📸</span>
+            <span>Follow live dispatches, barista reels & weekly schedules on Instagram: <strong>@sectionbcoffee.india</strong> ↗</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION — ALUMNI REVIEWS & DISPATCHES (Voices From Desk 14)
+         Authentic community reviews extracted from campus regulars
+         ======================================================================= -->
+    <section id="alumni" class="alumni-section" aria-label="Alumni Reviews & Dispatches">
+      
+      <!-- Relocated Artisanal Mug Accent with Steam -->
+      <div class="alumni-floating-mug-wrap" aria-hidden="true">
+        <img src="coffee-mug-cutout.png" alt="Steaming Flat White Mug" class="alumni-float-mug">
+        <span class="alumni-mug-tag">CLASS FAVORITE · FLAT WHITE</span>
+      </div>
+
+      <div class="container">
+        
+        <div class="text-center alumni-header">
+          <span class="section-eyebrow">HONOR ROLL · SECTION-B ALUMNI DISPATCHES</span>
+          <h2 class="section-title">Voices From Desk 14 & Beyond.</h2>
+          <p class="section-subtitle">
+            From morning focus blocks and post-run debriefs to unhurried weekend catchups — candid dispatches from the Class of Section-B.
+          </p>
+
+          <!-- Collegiate Summary Scoreboard -->
+          <div class="alumni-scoreboard-wrap">
+            <div class="alumni-scoreboard">
+              <div class="scoreboard-item">
+                <span class="scoreboard-number">5.0 ★</span>
+                <span class="scoreboard-label">Community Rating</span>
+              </div>
+              <div class="scoreboard-divider"></div>
+              <div class="scoreboard-item">
+                <span class="scoreboard-number">100%</span>
+                <span class="scoreboard-label">Arabica Integrity</span>
+              </div>
+              <div class="scoreboard-divider"></div>
+              <div class="scoreboard-item">
+                <span class="scoreboard-number">1,200+</span>
+                <span class="scoreboard-label">Daily Bench Sips</span>
+              </div>
+            </div>
+
+            <div class="alumni-cta-bar" style="margin-top: 1.5rem;">
+              <button type="button" class="btn-pen-dispatch" id="openReviewModalBtn">
+                <span>✍️ Write an Alumni Dispatch</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alumni Reviews Cards Grid (Pinned Collegiate Notebook Sticky Notes) -->
+        <div class="alumni-grid notebook-pinboard-grid">
+          
+          <!-- Note 1: Canary Yellow Legal Pad (Raunak Khandelwal) -->
+          <article class="alumni-card note-sticky note-yellow-legal" data-tilt="-2.5">
+            <div class="note-pin pin-brass" aria-hidden="true"></div>
+            <div class="alumni-card-top">
+              <div class="alumni-avatar avatar-forest">RK</div>
+              <div class="alumni-author-info">
+                <h4 class="alumni-name">Raunak Khandelwal</h4>
+                <span class="alumni-badge">Class of '22 · Desk Regular</span>
+              </div>
+              <div class="alumni-rating" aria-label="5 out of 5 stars">
+                ★★★★★
+              </div>
+            </div>
+            <blockquote class="alumni-quote note-handwriting">
+              “This place is a total gem! Amazing ambience, super chill vibes, and the coffee is seriously next level. Every sip feels premium. And let’s talk about the sandwiches — just WOW 😍 fresh, loaded, and insanely tasty. Once you visit, you’ll definitely want to come back again and again.”
+            </blockquote>
+            <div class="alumni-card-footer note-order-stamp">
+              <span class="alumni-favorite-label">✦ Order Slip:</span>
+              <span class="alumni-favorite-item">Biscoff Cold Brew & Truffle Melt</span>
+            </div>
+          </article>
+
+          <!-- Note 2: Vintage Graph Paper (Rohan Choudhary) -->
+          <article class="alumni-card note-sticky note-graph-paper" data-tilt="2.2">
+            <div class="note-washi washi-top-right" aria-hidden="true"></div>
+            <div class="alumni-card-top">
+              <div class="alumni-avatar avatar-caramel">RC</div>
+              <div class="alumni-author-info">
+                <h4 class="alumni-name">Rohan Choudhary</h4>
+                <span class="alumni-badge">Class of '23 · Study Hall Patron</span>
+              </div>
+              <div class="alumni-rating" aria-label="5 out of 5 stars">
+                ★★★★★
+              </div>
+            </div>
+            <blockquote class="alumni-quote note-handwriting">
+              “Section-B is a great place to chill with friends. The food is delicious and well-crafted — loved the burgers, wraps, and cold coffee. The ambience is cozy and welcoming, and the staff is really polite and friendly. Service is quick, and overall the vibe is perfect for casual hangouts. Definitely worth visiting again!”
+            </blockquote>
+            <div class="alumni-card-footer note-order-stamp">
+              <span class="alumni-favorite-label">✦ Order Slip:</span>
+              <span class="alumni-favorite-item">Classic Velvet Flat White & House Wrap</span>
+            </div>
+          </article>
+
+          <!-- Note 3: Warm Archival Kraft Note (Esha Shiromani) -->
+          <article class="alumni-card note-sticky note-kraft-paper" data-tilt="-1.8">
+            <div class="note-pin pin-brass" aria-hidden="true"></div>
+            <div class="alumni-card-top">
+              <div class="alumni-avatar avatar-espresso">ES</div>
+              <div class="alumni-author-info">
+                <h4 class="alumni-name">Esha Shiromani</h4>
+                <span class="alumni-badge">Class of '21 · Remote Desk Fellow</span>
+              </div>
+              <div class="alumni-rating" aria-label="5 out of 5 stars">
+                ★★★★★
+              </div>
+            </div>
+            <blockquote class="alumni-quote note-handwriting">
+              “This cafe is a gem! Cozy vibe, delicious coffee, and the staff are super friendly. Perfect spot to catch up with friends or get some deep focus work done with great acoustic tunes and zero rush ☕️”
+            </blockquote>
+            <div class="alumni-card-footer note-order-stamp">
+              <span class="alumni-favorite-label">✦ Order Slip:</span>
+              <span class="alumni-favorite-item">Single-Origin V60 Pour-Over</span>
+            </div>
+          </article>
+
+          <!-- Note 4: Soft Sage Limewash Note (Inder Sharma) -->
+          <article class="alumni-card note-sticky note-sage-wash" data-tilt="2.5">
+            <div class="note-washi washi-top-left" aria-hidden="true"></div>
+            <div class="alumni-card-top">
+              <div class="alumni-avatar avatar-forest">IS</div>
+              <div class="alumni-author-info">
+                <h4 class="alumni-name">Inder Sharma</h4>
+                <span class="alumni-badge">Class of '23 · Slow Bar Regular</span>
+              </div>
+              <div class="alumni-rating" aria-label="5 out of 5 stars">
+                ★★★★★
+              </div>
+            </div>
+            <blockquote class="alumni-quote note-handwriting">
+              “Best quality food, very nice and humble staff. The ambiance is warm, welcoming, and every espresso extraction is pulled with genuine care. Section-B sets an uncompromising benchmark for craft coffee in NCR.”
+            </blockquote>
+            <div class="alumni-card-footer note-order-stamp">
+              <span class="alumni-favorite-label">✦ Order Slip:</span>
+              <span class="alumni-favorite-item">Sculpted Spanish Bear Latte</span>
+            </div>
+          </article>
+
+          <!-- Note 5: Warm Peach Memo (Pakhi S.) -->
+          <article class="alumni-card note-sticky note-peach-memo" data-tilt="-2.2">
+            <div class="note-pin pin-brass" aria-hidden="true"></div>
+            <div class="alumni-card-top">
+              <div class="alumni-avatar avatar-caramel">PS</div>
+              <div class="alumni-author-info">
+                <h4 class="alumni-name">Pakhi S.</h4>
+                <span class="alumni-badge">Class of '24 · Weekend Regular</span>
+              </div>
+              <div class="alumni-rating" aria-label="5 out of 5 stars">
+                ★★★★★
+              </div>
+            </div>
+            <blockquote class="alumni-quote note-handwriting">
+              “Ngl one of the best places to be cozy and spend time with friends. The team is amazing, the iced lattes are unmatched, and everything was 10/10. Definitely our regular weekend study spot.”
+            </blockquote>
+            <div class="alumni-card-footer note-order-stamp">
+              <span class="alumni-favorite-label">✦ Order Slip:</span>
+              <span class="alumni-favorite-item">Iced Biscoff & Garlic Sourdough</span>
+            </div>
+          </article>
+
+          <!-- Note 6: Pinned Collegiate Flyer Invitation Card -->
+          <article class="alumni-card alumni-card--cta note-sticky note-bulletin-flyer" data-tilt="1.2">
+            <div class="note-washi washi-top-center" aria-hidden="true"></div>
+            <div class="alumni-cta-inner">
+              <span class="alumni-cta-stamp">CLASS OF 2026</span>
+              <h4 class="alumni-cta-title">Pull Up a Bench in Section-B</h4>
+              <p class="alumni-cta-desc">
+                Whether you're prepping for exams, writing your next chapter, or simply craving an honest cup of coffee — your desk is waiting.
+              </p>
+              <div class="alumni-cta-actions">
+                <a href="#campuses" class="btn-alumni-visit">Visit Our Campuses ↗</a>
+                <a href="https://www.instagram.com/sectionbcoffee.india/" target="_blank" rel="noopener noreferrer" class="btn-alumni-insta">Tag @sectionbcoffee.india</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION G — THE BACK-ROW SANCTUARY: INTERACTIVE COMMUNITY HUB
+         1. Interactive Coffee Persona & Flavor Matcher
+         2. Study Desk 14 Live Interactive Guestbook
+         ======================================================================= -->
+    <section id="community" class="community-interactive-section" aria-label="Section-B Community Sanctuary">
+      <div class="container">
+        
+        <!-- Section Header -->
+        <div class="text-center">
+          <span class="section-eyebrow">THE BACK ROW · SECTION-B ALUMNI</span>
+          <h2 class="section-title">Pull Up a Chair to the Table</h2>
+          <p class="section-subtitle">
+            Whether you're daydreaming of opening a campus sanctuary in your city, discovering your signature brew, or leaving a mark on our study desk — you're part of Section-B.
+          </p>
+        </div>
+
+        <!-- Two-Column Interactive Grid -->
+        <div class="interactive-grid-two-col">
+          
+          <!-- Column 1: Interactive Coffee Persona & Flavor Matcher -->
+          <div class="interactive-quiz-card" id="coffeeMatcherCard">
+            <div class="quiz-card-header">
+              <span class="quiz-eyebrow">
+                <span class="period-dot"></span> CLASSROOM EXPERIMENT 04
+              </span>
+              <h3 class="quiz-title">Find Your Section-B Persona</h3>
+              <p class="quiz-desc">Answer 3 quick questions about your school daydreaming habits to reveal your custom brew match.</p>
+              
+              <div class="quiz-progress-bar-wrap">
+                <div class="quiz-progress-bar" id="quizProgressBar"></div>
+              </div>
+
+              <!-- Mascot Peeking Out -->
+              <div class="community-mascot-corner" aria-hidden="true">
+                <img src="mascot-bear-cutout.png" alt="SBC Bear" class="community-mascot-img">
+              </div>
+            </div>
+
+            <!-- Quiz Step 1 -->
+            <div class="quiz-step-pane active" id="quizStep1" data-step="1">
+              <p class="quiz-question-text">1. What did you daydream about in the back row?</p>
+              <div class="quiz-options-list">
+                <button type="button" class="quiz-option-btn" data-value="explorer">
+                  <span class="quiz-option-icon">🏔️</span>
+                  <span>Escaping to misty hills, forests & coffee estates</span>
+                </button>
+                <button type="button" class="quiz-option-btn" data-value="visionary">
+                  <span class="quiz-option-icon">💡</span>
+                  <span>Sketching and daydreaming my own independent craft venture</span>
+                </button>
+                <button type="button" class="quiz-option-btn" data-value="alchemist">
+                  <span class="quiz-option-icon">🧪</span>
+                  <span>Deconstructing science formulas, bean roasting & flavor alchemy</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Quiz Step 2 -->
+            <div class="quiz-step-pane" id="quizStep2" data-step="2">
+              <p class="quiz-question-text">2. What's your ideal focus sanctuary?</p>
+              <div class="quiz-options-list">
+                <button type="button" class="quiz-option-btn" data-value="sunlit">
+                  <span class="quiz-option-icon">🌿</span>
+                  <span>Sunlit garden cafe with lush plants & warm acoustic lo-fi</span>
+                </button>
+                <button type="button" class="quiz-option-btn" data-value="quiet">
+                  <span class="quiz-option-icon">🛋️</span>
+                  <span>Quiet wooden corner desk with high-speed WiFi & laptop plugged in</span>
+                </button>
+                <button type="button" class="quiz-option-btn" data-value="espresso">
+                  <span class="quiz-option-icon">⚡</span>
+                  <span>Bustling espresso slow-bar with rich crema aromas & friendly banter</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Quiz Step 3 -->
+            <div class="quiz-step-pane" id="quizStep3" data-step="3">
+              <p class="quiz-question-text">3. Which flavor profile makes you smile?</p>
+              <div class="quiz-options-list">
+                <button type="button" class="quiz-option-btn" data-value="biscoff">
+                  <span class="quiz-option-icon">🍪</span>
+                  <span>Sweet Belgian Biscoff crunch, vanilla foam & iced caramel</span>
+                </button>
+                <button type="button" class="quiz-option-btn" data-value="purist">
+                  <span class="quiz-option-icon">☕</span>
+                  <span>9.2-Bar velvety crema, roasted hazelnuts & rich dark cacao</span>
+                </button>
+                <button type="button" class="quiz-option-btn" data-value="floral">
+                  <span class="quiz-option-icon">🌸</span>
+                  <span>Single-origin V60 clarity with wild jasmine & sweet citrus bloom</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Dynamic Quiz Result View -->
+            <div class="quiz-result-view" id="quizResultView">
+              <span class="result-badge" id="resultBadge">MATCH VERIFIED</span>
+              <h4 class="result-persona-title" id="resultPersona">The Back-Row Visionary</h4>
+              <p class="result-matched-pour" id="resultDrink">Signature Teddy Bear Biscoff Cold Brew</p>
+              <p class="result-description" id="resultDesc">
+                You turn afternoon daydreams into reality. You appreciate an unhurried 18-hour cold brew topped with velvety speculoos cream and zero bitterness.
+              </p>
+              <div class="result-cta-row">
+                <a href="https://www.swiggy.com" target="_blank" rel="noopener noreferrer" class="nav-pill pill-swiggy">
+                  <span>🛵 Order on Swiggy</span>
+                </a>
+                <a href="https://www.zomato.com" target="_blank" rel="noopener noreferrer" class="nav-pill pill-zomato">
+                  <span>🍽️ Order on Zomato</span>
+                </a>
+              </div>
+              <button type="button" class="quiz-restart-btn" id="restartQuizBtn">↺ Retake Experiment</button>
+            </div>
+
+          </div>
+
+          <!-- Column 2: Interactive Study Desk 14 Guestbook -->
+          <div class="study-desk-guestbook" id="studyDeskGuestbook">
+            <div class="desk-header">
+              <div>
+                <span class="desk-eyebrow">LIVE SCRATCHPAD</span>
+                <h3 class="desk-title">Study Desk 14</h3>
+              </div>
+              <span class="desk-tag-pill">SECTION-B ARCHIVE</span>
+            </div>
+
+            <!-- Scrollable Sticky Notes Wall -->
+            <div class="desk-notes-wall" id="deskNotesWall">
+              
+              <!-- Pre-seeded Note 1 -->
+              <div class="desk-sticky-note" style="transform: rotate(-1.5deg);">
+                <div class="sticky-pin"></div>
+                <span class="sticky-author">ARPIT · FOUNDER</span>
+                <p class="sticky-message">"Started with doodles in notebook Section-B. Today we roast for Delhi-NCR & Bangalore. Coffee, but better."</p>
+              </div>
+
+              <!-- Pre-seeded Note 2 -->
+              <div class="desk-sticky-note" style="transform: rotate(2deg);">
+                <div class="sticky-pin" style="background: #2563EB;"></div>
+                <span class="sticky-author">SNEHA · CA ASPIRANT</span>
+                <p class="sticky-message">"Surviving CA final revision thanks to the Iced Spanish Latte and quiet corners at Indirapuram."</p>
+              </div>
+
+              <!-- Pre-seeded Note 3 -->
+              <div class="desk-sticky-note" style="transform: rotate(-2.5deg);">
+                <div class="sticky-pin" style="background: #059669;"></div>
+                <span class="sticky-author">RAHUL & DEV · BANGALORE</span>
+                <p class="sticky-message">"Best Biscoff cold brew outside of Indiranagar. Welcome to Sarjapura Road!"</p>
+              </div>
+
+              <!-- Pre-seeded Note 4 -->
+              <div class="desk-sticky-note" style="transform: rotate(1deg);">
+                <div class="sticky-pin" style="background: #D97706;"></div>
+                <span class="sticky-author">AMAN · SAHIBABAD REGULAR</span>
+                <p class="sticky-message">"9.2-Bar bottomless extraction every morning. The tiger-stripe crema is perfection."</p>
+              </div>
+
+            </div>
+
+            <!-- Interactive Form: Scribble on Desk -->
+            <form class="desk-form" id="deskNoteForm">
+              <div class="desk-form-row">
+                <input type="text" id="deskAuthorInput" class="desk-input" placeholder="Your Name or Handle" required maxlength="25">
+                <select id="deskCampusInput" class="desk-select">
+                  <option value="Indirapuram Campus">Indirapuram Sanctuary</option>
+                  <option value="Sahibabad Bar">Sahibabad Coffee Bar</option>
+                  <option value="Bangalore Hub">Bangalore Hub</option>
+                  <option value="Future Campus">My City Soon!</option>
+                </select>
+              </div>
+              <textarea id="deskMessageInput" class="desk-textarea" placeholder="Leave your daydream, study memory, or coffee thought..." required maxlength="120"></textarea>
+              <button type="submit" class="desk-submit-btn">
+                <span>✍️ Pin to Study Desk</span>
+              </button>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION H — FINAL BRAND MOMENT ("PULL UP A CHAIR.")
+         Deep varsity green background, oversized typography, campus invitation,
+         delivery CTA pills, and official Instagram link
+         ======================================================================= -->
+    <section id="closing" class="final-brand-section" aria-label="Invitation to Visit Section-B Coffee">
+      <div class="final-watermark-mascot" aria-hidden="true">
+        <img src="sbc-mascot-bear.png" alt="" class="watermark-bear-img">
+      </div>
+      <div class="container final-brand-container">
+        <div class="final-brand-content text-center">
+          <span class="section-eyebrow" style="color: var(--color-caramel);">THE DOOR IS ALWAYS OPEN</span>
+          <h2 class="final-brand-heading">PULL UP<br><span class="text-caramel">A CHAIR.</span></h2>
+          <p class="final-brand-subtitle">
+            Sanctuaries across Delhi-NCR and Bangalore. Sourced with obsessively high standards, roasted in small micro-batches, and poured without pretension.
+          </p>
+          
+          <div class="final-cta-group">
+            <a href="https://www.swiggy.com" target="_blank" rel="noopener noreferrer" class="final-cta-btn btn-swiggy">
+              <span>🛵 Order on Swiggy</span>
+            </a>
+            <a href="https://www.zomato.com" target="_blank" rel="noopener noreferrer" class="final-cta-btn btn-zomato">
+              <span>🍽️ Order on Zomato</span>
+            </a>
+            <a href="#campuses" class="final-cta-btn btn-campuses">
+              <span>📍 Find Your Campus</span>
+            </a>
+          </div>
+
+          <div class="final-social-pill-wrap">
+            <a href="https://www.instagram.com/sectionbcoffee.india/" target="_blank" rel="noopener noreferrer" class="final-social-pill" aria-label="Follow Section-B Coffee on Instagram @sectionbcoffee.india">
+              <span class="social-icon">📸</span>
+              <span class="social-handle">@sectionbcoffee.india</span>
+              <span class="social-arrow">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       COMMUNITY GALLERY LIGHTBOX VIEWER
+       ========================================================================= -->
+  <div id="galleryLightbox" class="gallery-lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Expanded Gallery View">
+    <div class="lightbox-backdrop" id="galleryLightboxBackdrop"></div>
+    <div class="lightbox-container">
+      <button class="lightbox-close-btn" id="closeGalleryLightbox" aria-label="Close Lightbox">✕</button>
+      <button class="lightbox-nav-btn lightbox-prev" id="galleryPrevBtn" aria-label="Previous Image">‹</button>
+      <button class="lightbox-nav-btn lightbox-next" id="galleryNextBtn" aria-label="Next Image">›</button>
+      
+      <div class="lightbox-content">
+        <div class="lightbox-media-wrap">
+          <img id="lightboxImg" src="" alt="" class="lightbox-img">
+          <video id="lightboxVideo" class="lightbox-video" controls loop playsinline preload="none" style="display: none; max-width: 100%; max-height: 480px; width: 100%; background: #000;"></video>
+        </div>
+        <div class="lightbox-info">
+          <span class="lightbox-tag" id="lightboxTag">Events & Meetups</span>
+          <h3 class="lightbox-title" id="lightboxTitle"></h3>
+          <p class="lightbox-caption" id="lightboxCaption"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       ALUMNI DISPATCH (REVIEW) SUBMISSION MODAL
+       ========================================================================= -->
+  <div id="reviewModal" class="review-submit-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Pen an Alumni Dispatch">
+    <div class="review-modal-backdrop" id="reviewModalBackdrop"></div>
+    <div class="review-modal-box">
+      <button class="review-close-btn" id="closeReviewModal" aria-label="Close modal">✕</button>
+      <span class="quiz-eyebrow">HONOR ROLL SUBMISSION</span>
+      <h3 style="font-size: 1.5rem; font-weight: 800; color: var(--color-espresso); margin: 0.35rem 0;">Pen an Alumni Dispatch</h3>
+      <p style="font-size: 0.88rem; color: var(--color-text-muted); line-height: 1.5; margin-bottom: 1.25rem;">
+        Share your study desk memories, favorite sips, or honest reflections from Section-B.
+      </p>
+
+      <form id="submitReviewForm">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label" for="reviewName">Your Name</label>
+            <input type="text" id="reviewName" class="form-control" placeholder="e.g. Priyanshu Sharma" required maxlength="40">
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label" for="reviewRole">Role / Affiliation</label>
+            <input type="text" id="reviewRole" class="form-control" placeholder="e.g. Regular Desk Fellow" required maxlength="40">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label" for="reviewRating">Star Rating</label>
+            <select id="reviewRating" class="form-control">
+              <option value="5">★★★★★ (5 Stars - Exceptional)</option>
+              <option value="4">★★★★☆ (4 Stars - Great)</option>
+              <option value="3">★★★☆☆ (3 Stars - Good)</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label" for="reviewFavorite">Favorite Order</label>
+            <input type="text" id="reviewFavorite" class="form-control" placeholder="e.g. Iced Biscoff Latte" required maxlength="50">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reviewQuote">Your Dispatch / Note</label>
+          <textarea id="reviewQuote" class="form-control" style="height: 90px; resize: none;" placeholder="Tell us about the coffee, ambience, or your study session..." required maxlength="250"></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary-action" style="width: 100%; justify-content: center; padding: 0.85rem; font-size: 0.95rem; margin-top: 0.5rem;">
+          <span>Submit for Honor Roll Approval ↗</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       CINEMA FULLSCREEN BRAND FILM MODAL
+       ========================================================================= -->
+  <div id="cinemaModal" class="cinema-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="SBC Brand Cinema">
+    <div id="cinemaBackdrop" class="cinema-backdrop"></div>
+    <div class="cinema-container">
+      <button id="closeCinemaModal" class="cinema-close-btn" aria-label="Close cinema modal">✕</button>
+      <div class="cinema-video-frame">
+        <video id="cinemaVideo" class="cinema-video" controls playsinline preload="none">
+          <source src="videos/coffee-journey-1080p.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       FOOTER (Collegiate Varsity Theme)
+       ========================================================================= -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      
+      <div class="footer-top">
+        <div>
+          <h4 class="footer-brand-title">SBC</h4>
+          <p class="footer-brand-motto">"Coffee, But Better."</p>
+          <p class="footer-desc">
+            Born in a classroom daydream, roasted for coffee enthusiasts across Delhi-NCR and Bangalore. Single-origin estate beans, unhurried extraction, and genuine hospitality.
+          </p>
+        </div>
+
+        <div>
+          <h5 class="footer-col-title">NAVIGATION</h5>
+          <div class="footer-links">
+            <a href="#hero" class="footer-link">Home</a>
+            <a href="#story" class="footer-link">Our Story</a>
+            <a href="#origins" class="footer-link">Estate Origins</a>
+            <a href="#menu" class="footer-link">Menu Signatures</a>
+            <a href="#gallery" class="footer-link">Community Gallery</a>
+            <a href="#alumni" class="footer-link">Alumni Notes</a>
+            <a href="/blog" class="footer-link">Journal & Dispatches</a>
+            <a href="#campuses" class="footer-link">Campuses</a>
+            <a href="#community" class="footer-link">Community Lab</a>
+          </div>
+        </div>
+
+        <div>
+          <h5 class="footer-col-title">CAMPUS HOURS</h5>
+          <div class="footer-links">
+            <span class="footer-link">Indirapuram: 12:00 PM – 11:00 PM</span>
+            <span class="footer-link">Rajendra Nagar: 11:00 AM – 11:00 PM</span>
+            <span class="footer-link">Bangalore Hub: Carmelaram</span>
+            <span class="footer-link">Delivery via Swiggy & Zomato</span>
+            <a href="https://www.instagram.com/sectionbcoffee.india/" target="_blank" rel="noopener noreferrer" class="footer-link" style="color: var(--color-caramel); font-weight: 700;">📸 @sectionbcoffee.india</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 SBC (SECTION-B COFFEE)<span id="stealthAdminTrigger" style="cursor: default; user-select: none;" title="">·</span> All Rights Reserved.</p>
+        <p>Crafted with single-origin beans and passion across India.</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       INTERACTIVE DOWNLOAD SIMULATION TOAST / MODAL
+       ========================================================================= -->
+  <div id="downloadToast" class="download-toast-modal" aria-hidden="true" role="status">
+    <div class="download-toast-box">
+      <div class="toast-header-row">
+        <span class="toast-stamp">✦ SECTION-B LABS</span>
+        <button id="closeDownloadToast" class="toast-close-btn" aria-label="Close notification">✕</button>
+      </div>
+      <div class="toast-content-body">
+        <div class="toast-icon-wrap" id="toastIcon">📥</div>
+        <div>
+          <h4 class="toast-title" id="toastTitle">Preparing Document...</h4>
+          <p class="toast-desc" id="toastDesc">Compiling official PDF compendium from Section-B roastery records.</p>
+        </div>
+      </div>
+      <div class="toast-progress-track">
+        <div class="toast-progress-fill" id="toastProgressFill"></div>
+      </div>
+      <div class="toast-status-row">
+        <span id="toastStatusText">Compiling single-origin notes...</span>
+        <span id="toastPercent">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>

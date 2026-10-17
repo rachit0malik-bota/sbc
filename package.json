@@ -1,0 +1,24 @@
+{
+  "name": "section-b-coffee",
+  "version": "1.0.0",
+  "description": "Section-B Coffee (SBC) — Flagship Experience, Collegiate Story, Journal & Stealth Admin Console",
+  "main": "serve.js",
+  "scripts": {
+    "start": "node serve.js",
+    "dev": "node serve.js",
+    "build": "echo 'SBC build ready for Vercel deployment'"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "section-b-coffee",
+    "specialty-coffee",
+    "chikmagalur-arabica",
+    "collegiate-sanctuary",
+    "craft-roastery",
+    "desk-14"
+  ],
+  "author": "Section-B Coffee Guild (Desk 14)",
+  "license": "ISC"
+}

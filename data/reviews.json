@@ -1,0 +1,74 @@
+[
+  {
+    "id": "rev-1792216707976",
+    "name": "Tanvi Saxena",
+    "role": "Indirapuram Study Fellow",
+    "initials": "TS",
+    "theme": "forest",
+    "rating": 5,
+    "quote": "Desk 14 in the morning with natural limewash sunlight is absolute bliss.",
+    "favoriteOrder": "Iced Biscoff & Truffle Sourdough",
+    "status": "pending",
+    "createdAt": "2026-10-17T05:58:27.976Z"
+  },
+  {
+    "id": "rev-1",
+    "name": "Raunak Khandelwal",
+    "role": "Class of '22 · Desk Regular",
+    "initials": "RK",
+    "theme": "forest",
+    "rating": 5,
+    "quote": "This place is a total gem! Amazing ambience, super chill vibes, and the coffee is seriously next level. Every sip feels premium. And let’s talk about the sandwiches — just WOW 😍 fresh, loaded, and insanely tasty. Once you visit, you’ll definitely want to come back again and again.",
+    "favoriteOrder": "Biscoff Cold Brew & Truffle Melt",
+    "status": "approved",
+    "createdAt": "2026-02-15T12:00:00Z"
+  },
+  {
+    "id": "rev-2",
+    "name": "Rohan Choudhary",
+    "role": "Class of '23 · Study Hall Patron",
+    "initials": "RC",
+    "theme": "caramel",
+    "rating": 5,
+    "quote": "Section-B is a great place to chill with friends. The food is delicious and well-crafted — loved the burgers, wraps, and cold coffee. The ambience is cozy and welcoming, and the staff is really polite and friendly. Service is quick, and overall the vibe is perfect for casual hangouts. Definitely worth visiting again!",
+    "favoriteOrder": "Classic Velvet Flat White & House Wrap",
+    "status": "approved",
+    "createdAt": "2026-02-18T15:30:00Z"
+  },
+  {
+    "id": "rev-3",
+    "name": "Esha Shiromani",
+    "role": "Class of '21 · Remote Desk Fellow",
+    "initials": "ES",
+    "theme": "espresso",
+    "rating": 5,
+    "quote": "This cafe is a gem! Cozy vibe, delicious coffee, and the staff are super friendly. Perfect spot to catch up with friends or get some deep focus work done with great acoustic tunes and zero rush ☕️",
+    "favoriteOrder": "Single-Origin V60 Pour-Over",
+    "status": "approved",
+    "createdAt": "2026-02-22T09:20:00Z"
+  },
+  {
+    "id": "rev-4",
+    "name": "Inder Sharma",
+    "role": "Class of '23 · Slow Bar Regular",
+    "initials": "IS",
+    "theme": "forest",
+    "rating": 5,
+    "quote": "Best quality food, very nice and humble staff. The ambiance is warm, welcoming, and every espresso extraction is pulled with genuine care. Section-B sets an uncompromising benchmark for craft coffee in NCR.",
+    "favoriteOrder": "Sculpted Spanish Bear Latte",
+    "status": "approved",
+    "createdAt": "2026-06-10T16:45:00Z"
+  },
+  {
+    "id": "rev-5",
+    "name": "Pakhi S.",
+    "role": "Class of '24 · Weekend Regular",
+    "initials": "PS",
+    "theme": "caramel",
+    "rating": 5,
+    "quote": "Ngl one of the best places to be cozy and spend time with friends. The team is amazing, the iced lattes are unmatched, and everything was 10/10. Definitely our regular weekend study spot.",
+    "favoriteOrder": "Iced Biscoff & Garlic Sourdough",
+    "status": "approved",
+    "createdAt": "2026-07-04T18:10:00Z"
+  }
+]

@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Story · Born in Classroom Desk 14 | Section-B Coffee (SBC)</title>
+  <meta name="description" content="Discover the complete chronicle of Section-B Coffee (SBC): born in classroom Desk 14 in 2021, tracing Western Ghats Arabica back to 1670, and roasting at 204°C for pure caramel sweetness.">
+  <link rel="canonical" href="http://localhost:3005/story">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Our Story · Born in Classroom Desk 14 | Section-B Coffee">
+  <meta property="og:description" content="From classroom margin daydreams to Western Ghats heritage lots and 9.2-bar slow-bar craft. The full story of SBC.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://localhost:3005/story">
+  <meta property="og:image" content="http://localhost:3005/coffee-heritage-1670.jpg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/styles.css">
+
+  <style>
+    /* Dedicated Story Page Enhancements */
+    .story-hero-section {
+      position: relative;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 9rem 2rem 5rem;
+      background: #1C120C;
+      color: #FBF8F2;
+      overflow: hidden;
+      text-align: center;
+    }
+    .story-hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.38;
+      filter: saturate(1.1) brightness(0.85);
+    }
+    .story-hero-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(28, 18, 12, 0.4) 0%, rgba(28, 18, 12, 0.95) 100%);
+    }
+    .story-hero-content {
+      position: relative;
+      z-index: 5;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .story-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(200, 125, 50, 0.22);
+      border: 1px solid var(--color-caramel);
+      color: #E89E58;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.45rem 1.15rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+    }
+    .story-hero-title {
+      font-size: clamp(2.5rem, 5.5vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin: 0 0 1.5rem;
+      color: #FFFFFF;
+    }
+    .story-hero-title span {
+      color: var(--color-caramel);
+      font-style: italic;
+    }
+    .story-hero-lead {
+      font-size: clamp(1.05rem, 2vw, 1.3rem);
+      line-height: 1.6;
+      color: rgba(251, 248, 242, 0.85);
+      margin: 0 auto 2.5rem;
+      max-width: 720px;
+    }
+    .story-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    @media (max-width: 768px) {
+      .story-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    .story-stat-box {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(8px);
+      border-radius: 14px;
+      padding: 1rem 0.75rem;
+    }
+    .stat-val {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #FFF;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-caramel);
+    }
+
+    /* Chapter Reading Layout */
+    .story-content-wrap {
+      background: var(--color-cream);
+      padding: 5rem 1.5rem;
+      position: relative;
+    }
+    .story-chapter {
+      max-width: 1040px;
+      margin: 0 auto 6rem;
+      background: #FFFFFF;
+      border: 2px solid var(--color-espresso);
+      border-radius: 20px;
+      padding: 3.5rem 3.5rem 4rem;
+      box-shadow: 6px 8px 0px rgba(52, 30, 21, 0.12);
+      position: relative;
+    }
+    @media (max-width: 768px) {
+      .story-chapter {
+        padding: 2.25rem 1.5rem 2.5rem;
+        margin-bottom: 4rem;
+      }
+    }
+    .chapter-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-forest);
+      background: rgba(10, 77, 52, 0.08);
+      border-radius: 999px;
+      padding: 4px 12px;
+      margin-bottom: 1rem;
+    }
+    .chapter-title {
+      font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--color-espresso);
+      margin: 0 0 1.5rem;
+      letter-spacing: -0.02em;
+    }
+    .chapter-lead-quote {
+      font-family: 'Caveat', cursive;
+      font-size: 1.45rem;
+      color: #1E40AF;
+      border-left: 3px solid var(--color-caramel);
+      padding-left: 1.25rem;
+      margin: 1.5rem 0 2rem;
+      line-height: 1.4;
+    }
+    .chapter-prose p {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: #4A3A31;
+      margin-bottom: 1.35rem;
+    }
+    .chapter-media-box {
+      margin: 2.5rem 0;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 2px solid var(--color-espresso);
+      box-shadow: 4px 5px 0px rgba(52, 30, 21, 0.1);
+      position: relative;
+    }
+    .chapter-media-box img,
+    .chapter-media-box video {
+      width: 100%;
+      height: auto;
+      max-height: 480px;
+      object-fit: cover;
+      display: block;
+    }
+    .chapter-caption {
+      background: #FAF8F2;
+      padding: 0.85rem 1.25rem;
+      font-size: 0.82rem;
+      color: #6E5C54;
+      border-top: 1px solid rgba(52, 30, 21, 0.08);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .chapter-highlight-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+    @media (max-width: 768px) {
+      .chapter-highlight-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .chapter-highlight-card {
+      background: #FAF8F2;
+      border: 1.5px solid rgba(52, 30, 21, 0.15);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    .chapter-highlight-card h4 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--color-espresso);
+      margin: 0 0 6px;
+    }
+    .chapter-highlight-card p {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: #6E5C54;
+      margin: 0;
+    }
+    .stamp-pinned {
+      position: absolute;
+      top: 2rem;
+      right: 2.5rem;
+      transform: rotate(6deg);
+    }
+    @media (max-width: 768px) {
+      .stamp-pinned {
+        display: none;
+      }
+    }
+    .story-navigation-footer {
+      background: #FFFFFF;
+      border: 2px solid var(--color-espresso);
+      border-radius: 20px;
+      padding: 3rem;
+      text-align: center;
+      max-width: 1040px;
+      margin: 0 auto;
+      box-shadow: 6px 8px 0px rgba(52, 30, 21, 0.12);
+    }
+    .story-cta-btns {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1.75rem;
+    }
+  </style>
+</head>
+<body class="page-story">
+
+  <!-- =========================================================================
+       STICKY MINIMALIST NAVIGATION BAR
+       ========================================================================= -->
+  <header id="siteHeader" class="site-header scrolled" role="banner" style="background-color: rgba(251, 248, 242, 0.96); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(10, 77, 52, 0.08); box-shadow: 0 4px 24px rgba(52, 30, 21, 0.08);">
+    <div class="nav-container">
+      
+      <!-- Brand Wordmark -->
+      <a href="/" class="nav-brand" aria-label="SBC — Section-B Coffee Home">
+        <span class="nav-logo-bold" style="color: var(--color-espresso); text-shadow: none;">SBC</span>
+        <span class="nav-brand-sep" style="color: var(--color-caramel);" aria-hidden="true">/</span>
+        <span class="nav-logo-sub" style="color: var(--color-forest); text-shadow: none;">SECTION-B COFFEE</span>
+      </a>
+
+      <!-- 4 Curated Anchors -->
+      <nav class="nav-menu" aria-label="Primary Navigation">
+        <a href="/story" class="nav-link active" style="color: var(--color-caramel); font-weight: 800;">Story</a>
+        <a href="/#menu" class="nav-link" style="color: var(--color-espresso); text-shadow: none;">Menu</a>
+        <a href="/journal" class="nav-link" style="color: var(--color-espresso); text-shadow: none;">Journal</a>
+        <a href="/#campuses" class="nav-link" style="color: var(--color-espresso); text-shadow: none;">Campuses</a>
+      </nav>
+
+      <!-- Right: Order Online Dropdown + Mobile Toggle -->
+      <div class="nav-actions">
+        <div class="nav-order-dropdown" id="navOrderDropdown">
+          <button type="button" class="nav-order-trigger" id="navOrderBtn" aria-expanded="false" aria-haspopup="true">
+            <span class="order-indicator-dot" aria-hidden="true"></span>
+            <span class="order-btn-label">Order Online</span>
+            <span class="order-chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="nav-order-popover" id="navOrderPopover" role="menu" aria-hidden="true">
+            <a href="https://www.swiggy.com" target="_blank" rel="noopener noreferrer" class="nav-popover-item" role="menuitem">
+              <span class="popover-icon">🛵</span>
+              <div class="popover-meta">
+                <span class="popover-title">Swiggy Delivery</span>
+                <small class="popover-sub">Indirapuram &amp; Rajendra Nagar</small>
+              </div>
+              <span class="popover-arrow">↗</span>
+            </a>
+            <a href="https://www.zomato.com" target="_blank" rel="noopener noreferrer" class="nav-popover-item" role="menuitem">
+              <span class="popover-icon">🍽️</span>
+              <div class="popover-meta">
+                <span class="popover-title">Zomato Delivery</span>
+                <small class="popover-sub">Fresh Bakes &amp; Cold Brews</small>
+              </div>
+              <span class="popover-arrow">↗</span>
+            </a>
+            <div class="nav-popover-divider"></div>
+            <a href="/download-menu" class="nav-popover-item" role="menuitem">
+              <span class="popover-icon">📥</span>
+              <div class="popover-meta">
+                <span class="popover-title">Official Menu (PDF)</span>
+                <small class="popover-sub">Direct Download · 44.95 MB</small>
+              </div>
+              <span class="popover-arrow">↓</span>
+            </a>
+          </div>
+        </div>
+
+        <button id="mobileMenuBtn" class="mobile-toggle-btn" aria-label="Toggle navigation drawer" aria-expanded="false">
+          <span class="hamburger-bar" style="background-color: var(--color-espresso);"></span>
+          <span class="hamburger-bar" style="background-color: var(--color-espresso);"></span>
+          <span class="hamburger-bar" style="background-color: var(--color-espresso);"></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div id="mobileDrawerBackdrop" class="drawer-backdrop" aria-hidden="true"></div>
+  <aside id="mobileDrawer" class="mobile-drawer" aria-label="Mobile Navigation" aria-hidden="true">
+    <div class="drawer-header">
+      <div class="drawer-brand">
+        <span class="drawer-logo-text">SBC</span>
+        <span class="drawer-logo-sub">SECTION-B COFFEE</span>
+      </div>
+      <button id="closeMobileDrawer" class="drawer-close-btn" aria-label="Close navigation drawer">✕</button>
+    </div>
+    <nav class="drawer-links" aria-label="Mobile Menu Links">
+      <a href="/" class="drawer-link">Home</a>
+      <a href="/story" class="drawer-link" style="color: var(--color-caramel); font-weight: 800;">Our Story</a>
+      <a href="/#menu" class="drawer-link">Menu Signatures</a>
+      <a href="/journal" class="drawer-link">Journal &amp; Dispatches</a>
+      <a href="/#gallery" class="drawer-link">Community Gallery</a>
+      <a href="/#alumni" class="drawer-link">Alumni Reviews</a>
+      <a href="/#campuses" class="drawer-link">Our Campuses</a>
+    </nav>
+    <div class="drawer-delivery">
+      <p class="drawer-delivery-title">ORDER DOORSTEP CRAFT</p>
+      <div class="drawer-delivery-grid">
+        <a href="https://www.swiggy.com" target="_blank" rel="noopener noreferrer" class="nav-pill pill-swiggy" style="justify-content: center; width: 100%;">
+          <span>🛵 Order on Swiggy</span>
+        </a>
+        <a href="https://www.zomato.com" target="_blank" rel="noopener noreferrer" class="nav-pill pill-zomato" style="justify-content: center; width: 100%;">
+          <span>🍽️ Order on Zomato</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       HERO BANNER
+       ========================================================================= -->
+  <section class="story-hero-section">
+    <img src="/coffee-heritage-1670.jpg" alt="Section-B Archival History" class="story-hero-bg">
+    <div class="story-hero-vignette"></div>
+    <div class="story-hero-content">
+      <div class="story-badge">
+        <span>✏️ THE ARCHIVAL CHRONICLE</span>
+        <span>·</span>
+        <span>DESK 14 TO SANCTUARY</span>
+      </div>
+      <h1 class="story-hero-title">Born in Section-B. <span>Crafted Without Pretension.</span></h1>
+      <p class="story-hero-lead">
+        In October 2021, two friends sat at the back of Classroom Desk 14, tired of burnt commercial chains and pretentious specialty snobbery. We daydreamed about a cafe that treated extraction as a joyful science and hospitality as genuine sanctuary.
+      </p>
+      <div class="story-stats-grid">
+        <div class="story-stat-box">
+          <span class="stat-val">2021</span>
+          <span class="stat-label">Founded</span>
+        </div>
+        <div class="story-stat-box">
+          <span class="stat-val">1670 AD</span>
+          <span class="stat-label">Origin Heritage</span>
+        </div>
+        <div class="story-stat-box">
+          <span class="stat-val">204°C</span>
+          <span class="stat-label">First Crack Roast</span>
+        </div>
+        <div class="story-stat-box">
+          <span class="stat-val">9.2 Bar</span>
+          <span class="stat-label">Slow Bar Dial-In</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       CHAPTER NARRATIVE
+       ========================================================================= -->
+  <main class="story-content-wrap">
+
+    <!-- CHAPTER 01 -->
+    <article class="story-chapter" id="chapter1">
+      <div class="chapter-tag">CHAPTER 01 · OCTOBER 2021</div>
+      <h2 class="chapter-title">The Daydream at Desk 14: Escaping the Rote Curriculum</h2>
+      
+      <div class="chapter-lead-quote">
+        "While the lecture moved through textbook chemistry formulas, we were sketching portafilter pressure hydraulics and sucrose caramelization curves in our notebook margins."
+      </div>
+
+      <div class="chapter-prose">
+        <p>
+          Section-B wasn’t conceived in a venture capitalist boardroom or an upscale design studio. It was born at <strong>Desk 14 in Section-B</strong> of a Delhi college lecture hall in October 2021.
+        </p>
+        <p>
+          Our founders, Arpit and his close friends, found themselves caught between two extremes in the Indian coffee landscape: on one side, massive multinational chains serving over-extracted, hyper-sweetened commodity coffee with zero bean traceability; on the other side, third-wave specialty roasteries that felt intimidating, clinical, and pretentious for anyone who didn’t speak fluent barista jargon.
+        </p>
+        <p>
+          We asked a simple question that became our permanent north star: <em>Why can’t world-class specialty coffee be as welcoming as your high-school classroom common room?</em>
+        </p>
+      </div>
+
+      <div class="chapter-media-box">
+        <video autoplay muted loop playsinline preload="metadata">
+          <source src="/videos/student-reach.mp4" type="video/mp4">
+        </video>
+        <div class="chapter-caption">
+          <span>✏️</span>
+          <span>Archival Recording: Classroom Desk 14, where extraction math was daydreamed on ruled notebooks.</span>
+        </div>
+      </div>
+
+      <div class="chapter-highlight-grid">
+        <div class="chapter-highlight-card">
+          <h4>No Pretentious Jargon</h4>
+          <p>We explain origin, acidity, and processing methods in plain, friendly English that invites questions rather than intimidating guests.</p>
+        </div>
+        <div class="chapter-highlight-card">
+          <h4>Study-First Ergonomics</h4>
+          <p>Every table at our sanctuaries features power outlets, natural oak grain, comfortable seating, and ambient acoustics suited for deep work.</p>
+        </div>
+        <div class="chapter-highlight-card">
+          <h4>Collegiate Culture</h4>
+          <p>Section-B honours the energy of school and college friendships — unpretentious, collaborative, and endlessly curious.</p>
+        </div>
+      </div>
+
+      <div class="school-stamp stamp-pinned" aria-hidden="true">
+        <div class="stamp-border">
+          <span class="stamp-title">CLASS OF '21</span>
+          <span class="stamp-sub">DESK 14 CERTIFIED</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- CHAPTER 02 -->
+    <article class="story-chapter" id="chapter2">
+      <div class="chapter-tag">CHAPTER 02 · 1670 HERITAGE & TERROIR</div>
+      <h2 class="chapter-title">The Seven Smuggled Seeds: Tracing Western Ghats Provenance</h2>
+      
+      <div class="chapter-lead-quote">
+        "India's coffee history didn't start with corporate imports. It began in 1670 with seven smuggled seeds hidden across a pilgrim's chest into the misty Baba Budan Hills."
+      </div>
+
+      <div class="chapter-prose">
+        <p>
+          To roast extraordinary coffee, we had to go back to where Indian specialty coffee originated. In 1670 AD, the legendary Sufi saint <strong>Baba Budan</strong> journeyed on a pilgrimage through Yemen. Deeply moved by the aromatic clarity of Coffea Arabica, and knowing the Ottoman Empire strictly forbade exporting raw beans, he wrapped seven viable seeds around his waist.
+        </p>
+        <p>
+          He planted those seven seeds in the fertile volcanic red soils of the Chandragiri range in Chikmagalur, Karnataka. Today, that mountain range bears his name: the <strong>Baba Budan Giri Hills</strong>.
+        </p>
+        <p>
+          Unlike industrial coffee plantations around the globe, Indian specialty Arabica is grown entirely under <strong>biodiverse double canopy shade</strong>. High-altitude silver oak, wild jackfruit, and black pepper vines filter the tropical sun, allowing coffee cherries to ripen at 1,200 meters elevation across 9 unhurried months. The result is an estate cup with naturally sweet sucrose, low bitterness, and wild chocolate-toffee notes.
+        </p>
+      </div>
+
+      <div class="chapter-media-box">
+        <img src="/coffee-heritage-1670.jpg" alt="Botanical exploration map of Baba Budan Hills 1670" loading="lazy">
+        <div class="chapter-caption">
+          <span>⚜️</span>
+          <span>Archival Botanical Map: Baba Budan Hills Chikmagalur lot heritage, preserved at Section-B roastery library.</span>
+        </div>
+      </div>
+
+      <div class="chapter-highlight-grid">
+        <div class="chapter-highlight-card">
+          <h4>1,200m High Elevation</h4>
+          <p>Slow cherry maturation yields denser beans with complex natural sugar concentration and delicate floral aromatics.</p>
+        </div>
+        <div class="chapter-highlight-card">
+          <h4>Double Canopy Shade</h4>
+          <p>Native Western Ghats trees protect soil microbiology and foster sweet, balanced acidity without chemical fertilizers.</p>
+        </div>
+        <div class="chapter-highlight-card">
+          <h4>Direct Farm Partnerships</h4>
+          <p>We work directly with multigenerational estate growers in Chikmagalur and Coorg, ensuring living wages and lot traceability.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- CHAPTER 03 -->
+    <article class="story-chapter" id="chapter3">
+      <div class="chapter-tag">CHAPTER 03 · ROAST CHEMISTRY</div>
+      <h2 class="chapter-title">The 204°C First Crack: Sweetness Over Scorched Ash</h2>
+      
+      <div class="chapter-lead-quote">
+        "Anyone can roast coffee dark until it tastes like liquid barbecue coal. It takes precision thermochemistry to stop the drum at 204°C and keep the toffee intact."
+      </div>
+
+      <div class="chapter-prose">
+        <p>
+          Commercial coffee roasters often hide low-grade beans by incinerating them into deep Italian or French roasts past 225°C. At that temperature, all natural bean sugars are carbonized into harsh ash and smoky bitterness, forcing consumers to mask the taste with excess sugar and artificial syrups.
+        </p>
+        <p>
+          At Section-B, our roasting philosophy is strictly centered on <strong>sweetness preservation</strong>. We roast in small 12kg precision drum batches. As the drum hits 198°C, the moisture inside the cellular matrix rapidly expands until the beans pop like popcorn — the critical event known in specialty roasting as <em>First Crack</em>.
+        </p>
+        <p>
+          Rather than letting the roast run wild into second crack, our roastmaster arrests the drum at exactly <strong>204°C</strong> with immediate ambient air cooling. This freezes the Maillard reactions at peak sucrose caramelization, locking in notes of Belgian speculoos, hazelnut praline, and dark cacao.
+        </p>
+      </div>
+
+      <div class="chapter-media-box">
+        <video autoplay muted loop playsinline preload="metadata">
+          <source src="/videos/beans-roast-clip.mp4" type="video/mp4">
+        </video>
+        <div class="chapter-caption">
+          <span>🔥</span>
+          <span>Small-Batch Roasting Drum: Cooling tray discharge at 204°C first crack alchemy.</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- CHAPTER 04 -->
+    <article class="story-chapter" id="chapter4">
+      <div class="chapter-tag">CHAPTER 04 · BARISTA HYDRAULICS</div>
+      <h2 class="chapter-title">9.2-Bar Espresso Hydraulics &amp; The Mascot Meltdown</h2>
+      
+      <div class="chapter-lead-quote">
+        "A bottomless portafilter never lies. 18 grams in, 36 grams out in 27 seconds of golden tiger-stripe crema."
+      </div>
+
+      <div class="chapter-prose">
+        <p>
+          Behind our slow-bars, extraction is calibrated every morning before the doors open. We dial in temperature-stable dual boilers to 93°C water and 9.2-bar extraction pressure. Using precision 18-gram VST baskets and WDT needle distribution, our baristas eliminate micro-channeling for a syrupy, full-bodied extraction that coats the palate.
+        </p>
+        <p>
+          It was during an experimental summer slow-bar session in 2022 that our baristas created what would become our signature icon: the <strong>Sculpted Teddy Bear Latte</strong>. Handcrafting chilled double ristretto espresso into our collegiate mascot bear and placing it inside warm condensed milk and velvety steamed oat milk created an interactive, slowly melting dessert ritual loved across the NCR.
+        </p>
+      </div>
+
+      <div class="chapter-media-box">
+        <video autoplay muted loop playsinline preload="metadata">
+          <source src="/videos/espresso-pour-clip.mp4" type="video/mp4">
+        </video>
+        <div class="chapter-caption">
+          <span>☕</span>
+          <span>Bottomless Extraction: 9.2-bar dialed single-origin Chikmagalur extraction bloom.</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- CHAPTER 05 -->
+    <article class="story-chapter" id="chapter5">
+      <div class="chapter-tag">CHAPTER 05 · NEIGHBORHOOD SANCTUARIES</div>
+      <h2 class="chapter-title">Indirapuram &amp; Rajendra Nagar: Sanctuaries for the Curious</h2>
+      
+      <div class="chapter-prose">
+        <p>
+          Today, Section-B Coffee welcomes hundreds of daily regulars across our two flagship campuses in Ghaziabad &amp; Delhi NCR:
+        </p>
+        <ul>
+          <li><strong>Indirapuram Flagship Sanctuary:</strong> 854, Niti Khand-1 · Open 12:00 PM – 11:00 PM for late-night laptop study sessions, acoustic jams, and weekend cold brew meetups.</li>
+          <li><strong>Rajendra Nagar Sanctuary:</strong> Sector 5, Sahibabad · Open 11:00 AM – 11:00 PM with leafy sunlit windows, fresh sourdough toasties, and slow-bar pourovers.</li>
+        </ul>
+        <p>
+          Whether you visit for an 18-hour cold brew on your Sunday morning 5K run debrief, or settle into a corner booth with your laptop until 11 PM, Section-B is your campus away from campus. Welcome to Section-B.
+        </p>
+      </div>
+    </article>
+
+    <!-- STORY CTA FOOTER -->
+    <div class="story-navigation-footer">
+      <h3 style="font-size: 1.8rem; font-weight: 800; color: var(--color-espresso); margin: 0 0 0.5rem;">Experience the Section-B Ritual</h3>
+      <p style="color: #6E5C54; font-size: 1.05rem; margin: 0 auto; max-width: 600px;">Explore what we brew and bake, browse dispatches on our journal, or find your way to our nearest sanctuary.</p>
+      <div class="story-cta-btns">
+        <a href="/#menu" class="btn btn-primary" style="background: var(--color-forest); color: #FFF; padding: 0.8rem 1.75rem; border-radius: 999px; text-decoration: none; font-weight: 700;">Explore The Menu →</a>
+        <a href="/journal" class="btn btn-secondary" style="background: #FAF8F2; border: 2px solid var(--color-espresso); color: var(--color-espresso); padding: 0.8rem 1.75rem; border-radius: 999px; text-decoration: none; font-weight: 700;">Read The Journal 📖</a>
+        <a href="/download-menu" class="btn" style="background: var(--color-caramel); color: #FFF; padding: 0.8rem 1.75rem; border-radius: 999px; text-decoration: none; font-weight: 700;">Download Official Menu (PDF) 📥</a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- =========================================================================
+       FOOTER
+       ========================================================================= -->
+  <footer class="site-footer" style="background: #1C120C; color: #FAF8F2; padding: 4rem 2rem 2rem;">
+    <div class="container" style="max-width: 1200px; margin: 0 auto; text-align: center;">
+      <div style="display: flex; justify-content: center; align-items: baseline; gap: 8px; margin-bottom: 1.5rem;">
+        <span style="font-size: 1.8rem; font-weight: 800; color: #FFF;">SBC</span>
+        <span style="color: var(--color-caramel);">/</span>
+        <span style="font-size: 0.85rem; font-weight: 800; letter-spacing: 0.14em; color: #4ADE80;">SECTION-B COFFEE</span>
+      </div>
+      <p style="color: rgba(255,255,255,0.7); max-width: 520px; margin: 0 auto 2rem; font-size: 0.95rem;">
+        Specialty coffee roasters &amp; collegiate study sanctuaries in Delhi NCR. Single-origin Arabica, 204°C micro roasts, and zero pretension.
+      </p>
+      <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 2.5rem; font-size: 0.88rem; font-weight: 700;">
+        <a href="/" style="color: rgba(255,255,255,0.85); text-decoration: none;">Home</a>
+        <a href="/story" style="color: var(--color-caramel); text-decoration: none;">Our Story</a>
+        <a href="/#menu" style="color: rgba(255,255,255,0.85); text-decoration: none;">Menu</a>
+        <a href="/journal" style="color: rgba(255,255,255,0.85); text-decoration: none;">The Journal</a>
+        <a href="/#campuses" style="color: rgba(255,255,255,0.85); text-decoration: none;">Campuses</a>
+        <a href="/download-menu" style="color: rgba(255,255,255,0.85); text-decoration: none;">Download Menu PDF</a>
+      </div>
+      <div style="border-top: 1px solid rgba(255,255,255,0.12); padding-top: 1.5rem; font-size: 0.78rem; color: rgba(255,255,255,0.5);">
+        © 2021–2026 Section-B Coffee (SBC). All rights reserved. · <span id="stealthAdminTrigger" style="cursor: pointer;">Built at Desk 14</span>.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" fill="none">
+  <!-- Section-B Coffee Primary Logo with Teddy Bear Mascot -->
+  <g class="bear-icon" transform="translate(10, 10)">
+    <!-- Bear Head & Body Silhouette -->
+    <!-- Ears -->
+    <circle cx="28" cy="28" r="16" fill="#3D4C3A" />
+    <circle cx="28" cy="28" r="9" fill="#EFECE6" opacity="0.3" />
+    <circle cx="72" cy="28" r="16" fill="#3D4C3A" />
+    <circle cx="72" cy="28" r="9" fill="#EFECE6" opacity="0.3" />
+    
+    <!-- Head -->
+    <ellipse cx="50" cy="46" rx="30" ry="26" fill="#3D4C3A" />
+    
+    <!-- Muzzle -->
+    <ellipse cx="50" cy="52" rx="14" ry="11" fill="#F7F5F0" />
+    
+    <!-- Nose -->
+    <path d="M46 48 Q50 51 54 48 Q50 54 46 48 Z" fill="#242B22" />
+    <!-- Mouth -->
+    <path d="M50 52 L50 57 M47 55 Q50 58 53 55" stroke="#242B22" stroke-width="1.8" stroke-linecap="round" fill="none" />
+    
+    <!-- Eyes -->
+    <ellipse cx="40" cy="43" rx="3" ry="3.5" fill="#F7F5F0" />
+    <circle cx="41" cy="42" r="1.2" fill="#242B22" />
+    <ellipse cx="60" cy="43" rx="3" ry="3.5" fill="#F7F5F0" />
+    <circle cx="59" cy="42" r="1.2" fill="#242B22" />
+    
+    <!-- Tiny Bowtie or Coffee Bean Lapel -->
+    <g transform="translate(50, 72) scale(0.9)">
+      <path d="M-9 -4 L-1 0 L-9 4 Z" fill="#C49B71" />
+      <path d="M9 -4 L1 0 L9 4 Z" fill="#C49B71" />
+      <circle cx="0" cy="0" r="2.5" fill="#F7F5F0" />
+    </g>
+
+    <!-- Paws holding a tiny coffee cup -->
+    <path d="M30 78 Q24 82 28 92 Q34 94 40 88 Q34 82 30 78 Z" fill="#3D4C3A" />
+    <path d="M70 78 Q76 82 72 92 Q66 94 60 88 Q66 82 70 78 Z" fill="#3D4C3A" />
+    <!-- Cup -->
+    <path d="M42 82 L58 82 L55 95 L45 95 Z" fill="#F7F5F0" />
+    <path d="M58 85 Q62 85 62 89 Q62 93 57 92" stroke="#F7F5F0" stroke-width="1.5" fill="none" />
+  </g>
+
+  <!-- Typography -->
+  <g class="brand-text" transform="translate(125, 0)">
+    <text x="0" y="52" font-family="'Playfair Display', Georgia, serif" font-size="34" font-weight="700" letter-spacing="3" fill="#242B22">
+      SECTION-B
+    </text>
+    <text x="2" y="76" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="600" letter-spacing="6" fill="#6B7966">
+      COFFEE ROASTERS
+    </text>
+    <path d="M2 88 L215 88" stroke="#C49B71" stroke-width="1" opacity="0.6" />
+    <text x="2" y="99" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="8.5" font-weight="500" letter-spacing="2.5" fill="#8C6D58">
+      DELHI NCR · RAJENDRA NAGAR &amp; INDIRAPURAM
+    </text>
+  </g>
+</svg>

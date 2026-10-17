@@ -1,0 +1,13 @@
+shots/
+maps-page.png
+screenshot-*.png
+check_cutouts.js
+test_capture_*.js
+verify_*.js
+inspect_menu_pdf.js
+find_overflow.js
+scratch_inspect.js
+extract_assets.js
+generate_all_cutouts.js
+process_mascot_cutout.js
+test_cutout.js
