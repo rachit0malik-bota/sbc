@@ -442,7 +442,18 @@ document.addEventListener('DOMContentLoaded', () => {
       const reelY = getDocCenterY('#reel', 0.52);
       const journalY = getDocCenterY('#journal', 0.60);
       const campusesY = getDocCenterY('#campuses', 0.70);
-      const alumniY = getDocCenterY('#alumni', 0.82);
+      const alumniY = getDocCenterY('#alumni', 0.80);
+      const communityY = getDocCenterY('#community', 0.88);
+
+      // Measure exact doodle guy mug opening marker for stream termination
+      const doodleMarker = document.getElementById('coffeeTailCupMarker');
+      let tailX = center;
+      let tailY = totalH - 320;
+      if (doodleMarker) {
+        const dRect = doodleMarker.getBoundingClientRect();
+        tailX = dRect.left + dRect.width * 0.5;
+        tailY = dRect.top + window.scrollY + dRect.height * 0.5;
+      }
 
       const points = [
         // 0. Exactly at the cup mouth
@@ -483,14 +494,19 @@ document.addEventListener('DOMContentLoaded', () => {
         new THREE.Vector3(center, -(alumniY - 400), 2),
         new THREE.Vector3(leftGutter, -alumniY, -3),
         new THREE.Vector3(leftGutter + 30, -(alumniY + 600), 3),
-        // 12. Final Brand & Footer: Soft pooling into page bottom
-        new THREE.Vector3(center, -(totalH - 350), 0),
+        // 12. Community Interactive Sanctuary: Smooth transition toward center
+        new THREE.Vector3(midRight, -(communityY - 200), 2),
+        new THREE.Vector3(midLeft, -communityY, -2),
+        // 13. Final Brand Moment: Curving gracefully straight down into the Doodle Guy's Ceramic Mug!
+        new THREE.Vector3(tailX - 45, -(tailY - 320), 2),
+        new THREE.Vector3(tailX - 12, -(tailY - 110), 1),
+        new THREE.Vector3(tailX, -tailY, 0),
       ];
 
       streamCurve = new THREE.CatmullRomCurve3(points, false, 'catmullrom', 0.2);
 
       // Construct Ribbon Geometry
-      const divisions = 420;
+      const divisions = 440;
       const positions = [];
       const uvs = [];
       const indices = [];
@@ -501,18 +517,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const tangent = streamCurve.getTangent(t);
         const normal = new THREE.Vector3(-tangent.y, tangent.x, 0).normalize();
 
-        // Width dynamics: Starts small (~16px) at cup mouth, then expands into luscious flow
-        let streamWidth = 56.0;
+        // Width dynamics: Starts small (~14px) at cup mouth, expands into luscious flow, tapers into doodle mug
+        let streamWidth = 54.0;
         if (t < 0.035) {
-          streamWidth = 16.0 + (t / 0.035) * 40.0;
-        } else if (t > 0.94) {
-          streamWidth = 56.0 + ((t - 0.94) / 0.06) * 45.0; // soft pool at bottom
+          streamWidth = 14.0 + (t / 0.035) * 40.0;
+        } else if (t > 0.96) {
+          streamWidth = 54.0 - ((t - 0.96) / 0.04) * 32.0; // soft taper into mug
         } else {
-          streamWidth = 52.0 + Math.sin(t * 14.0) * 10.0;
+          streamWidth = 48.0 + Math.sin(t * 16.0) * 8.0;
         }
 
         // Mobile responsive width scaling
-        if (w < 768) streamWidth *= 0.65;
+        if (w < 768) streamWidth *= 0.68;
 
         const pLeft = pt.clone().addScaledVector(normal, -streamWidth * 0.5);
         const pRight = pt.clone().addScaledVector(normal, streamWidth * 0.5);
@@ -536,7 +552,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ribbonGeo.setIndex(indices);
       ribbonGeo.computeVertexNormals();
 
-      // Fluid Coffee Shader Material
+      // Frothy Liquid Coffee Shader Material
       const ribbonMat = new THREE.ShaderMaterial({
         uniforms,
         vertexShader: `
@@ -549,11 +565,18 @@ document.addEventListener('DOMContentLoaded', () => {
             vUv = uv;
             vNormal = normal;
             vec3 pos = position;
-            // Fluid wave displacement along Z
-            pos.z += sin(pos.y * 0.008 + uTime * 2.6) * 8.0;
-            // Subtle organic fluid lateral meander along X (damped to 0 at cup mouth)
-            float mouthDamping = smoothstep(0.0, 0.03, vUv.y);
-            pos.x += sin(pos.y * 0.004 + uTime * 1.8) * 6.0 * mouthDamping;
+
+            // Smooth damping at both ends (cup mouth at top, doodle mug at bottom)
+            float mouthDamping = smoothstep(0.0, 0.035, vUv.y);
+            float tailDamping = smoothstep(1.0, 0.965, vUv.y);
+            float damp = mouthDamping * tailDamping;
+
+            // Fluid wave displacement along Z (depth undulation)
+            pos.z += (sin(pos.y * 0.005 + uTime * 2.4) * 6.0 + cos(pos.y * 0.011 - uTime * 1.8) * 3.5) * damp;
+
+            // Organic lateral fluid sway along X
+            pos.x += (sin(pos.y * 0.003 + uTime * 1.6) * 7.0 + sin(pos.y * 0.008 - uTime * 2.8) * 3.5) * damp;
+
             vPosition = pos;
             gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
           }
@@ -594,47 +617,69 @@ document.addEventListener('DOMContentLoaded', () => {
             return 130.0 * dot(m, g);
           }
 
+          float fbm(vec2 p) {
+            float f = 0.0;
+            f += 0.5000 * snoise(p); p *= 2.02;
+            f += 0.2500 * snoise(p); p *= 2.03;
+            f += 0.1250 * snoise(p);
+            return f;
+          }
+
           void main() {
-            // Flow coordinate moving downwards along the stream
-            float flow = vUv.y * 32.0 - uTime * 2.5;
+            // Viscous fluid flow coordinate moving downwards
+            float flow = vUv.y * 36.0 - uTime * 2.6 - uScrollVelocity * 0.02;
 
-            // Two octaves of fluid noise
-            float n1 = snoise(vec2(vUv.x * 3.5, flow * 0.7));
-            float n2 = snoise(vec2(vUv.x * 7.0 + n1 * 0.35, flow * 1.5));
-            float fluid = (n1 * 0.65 + n2 * 0.35);
+            // Domain-warped crema swirl veins (authentic latte/crema marbling)
+            vec2 warp = vec2(
+              snoise(vec2(vUv.x * 4.0, flow * 0.6)),
+              snoise(vec2(vUv.x * 4.0 + 5.2, flow * 0.6 + 1.7))
+            );
+            float cremaVein = fbm(vec2(vUv.x * 5.0 + warp.x * 1.2, flow * 0.8 + warp.y * 1.2));
 
-            // Coffee Palette
-            vec3 espresso = vec3(0.14, 0.07, 0.04); // #24120A
-            vec3 caramel = vec3(0.68, 0.37, 0.14);  // #AD5E24
-            vec3 crema = vec3(0.92, 0.70, 0.42);    // #EBB36B
-            vec3 froth = vec3(0.98, 0.93, 0.84);    // #FAF0D6
+            // Cellular micro-bubble foam texture along the liquid stream
+            float bubbleNoise = snoise(vec2(vUv.x * 24.0, flow * 4.5));
+            float microBubbles = smoothstep(0.42, 0.88, bubbleNoise);
 
-            // Radial distance from center of ribbon
-            float centerDist = abs(vUv.x - 0.5) * 2.0;
+            // Authentic Coffee & Froth Palette (No harsh metallic copper wire look)
+            vec3 espresso = vec3(0.12, 0.055, 0.025);     // #1F0E06 - deep extraction
+            vec3 darkRoast = vec3(0.26, 0.11, 0.045);     // #421C0B - rich body
+            vec3 caramel = vec3(0.72, 0.40, 0.16);        // #B86629 - warm amber
+            vec3 richCrema = vec3(0.88, 0.64, 0.36);      // #E0A35C - golden crema
+            vec3 velvetyFoam = vec3(0.97, 0.92, 0.82);    // #F7EBD1 - light milk foam
 
-            // Body mix: deeper espresso in middle, amber caramel toward meniscus
-            float mixVal = smoothstep(0.15, 0.85, centerDist + fluid * 0.35);
-            vec3 col = mix(espresso, caramel, mixVal);
+            // Radial profile across the stream width
+            float lateral = abs(vUv.x - 0.5) * 2.0;
 
-            // Crema swirl ribbons along flow
-            float cremaSwirl = smoothstep(0.48, 0.78, sin(flow * 1.8 + vUv.x * 6.2 + n1 * 2.2) * 0.5 + 0.5);
-            cremaSwirl *= smoothstep(0.1, 0.65, centerDist);
-            col = mix(col, crema, cremaSwirl * 0.68);
+            // Viscous body blend: deep espresso center blending into amber roast and crema veins
+            vec3 baseCol = mix(espresso, darkRoast, smoothstep(0.15, 0.80, lateral));
+            baseCol = mix(baseCol, caramel, smoothstep(0.10, 0.68, cremaVein * 0.5 + 0.5));
+            baseCol = mix(baseCol, richCrema, smoothstep(0.52, 0.90, cremaVein * 0.5 + 0.5));
 
-            // Wet Specular Sheen (glossy reflections of fresh hot coffee)
-            float glossLine = pow(max(0.0, 1.0 - abs(vUv.x - 0.38 - n1 * 0.08) * 4.2), 6.0);
-            float glossRipple = pow(max(0.0, sin(flow * 1.4 + vUv.x * 5.0)), 10.0);
-            float specular = (glossLine * 0.65 + glossRipple * 0.35);
-            col += froth * specular * 0.62;
+            // Soft micro-bubble foam clusters near the surface and meniscus
+            baseCol = mix(baseCol, velvetyFoam, microBubbles * smoothstep(0.30, 0.95, lateral) * 0.55);
 
-            // Feathered Meniscus Alpha (soft, organic fluid edge)
-            float edgeAlpha = smoothstep(0.0, 0.16, vUv.x) * smoothstep(1.0, 0.84, vUv.x);
-            float alpha = edgeAlpha * (0.80 + specular * 0.20);
+            // Rounded liquid volume profile across the stream (cylinder cross-section)
+            float cylinder = sqrt(max(0.0, 1.0 - pow(lateral * 1.02, 2.0)));
 
-            // Fade in smoothly right at the lip of the cup (no abrupt cutoff)
-            alpha *= smoothstep(0.0, 0.006, vUv.y);
+            // Velvet liquid diffuse sheen (broad and soft, NOT a sharp wire specular reflection)
+            float diffuseSheen = pow(cylinder, 1.5) * (0.75 + 0.25 * sin(flow * 1.5 + vUv.x * 3.0));
+            baseCol += richCrema * diffuseSheen * 0.24;
 
-            gl_FragColor = vec4(col, alpha);
+            // Soft rolling fluid highlight (diffuse, organic, follows the crema warp)
+            float softGloss = pow(max(0.0, 1.0 - abs(vUv.x - 0.46 + warp.x * 0.14) * 2.2), 3.0);
+            baseCol += velvetyFoam * softGloss * 0.32 * cylinder;
+
+            // Organic undulating fluid meniscus edge
+            float edgePerturb = snoise(vec2(vUv.x * 12.0, flow * 1.8)) * 0.035;
+            float edgeDist = min(vUv.x, 1.0 - vUv.x) + edgePerturb;
+            float edgeAlpha = smoothstep(0.015, 0.14, edgeDist);
+            float alpha = edgeAlpha * (0.86 + 0.14 * diffuseSheen);
+
+            // Seamless fade-in at cup lip and fade-in into doodle mug
+            alpha *= smoothstep(0.0, 0.008, vUv.y);
+            alpha *= smoothstep(1.0, 0.992, vUv.y);
+
+            gl_FragColor = vec4(baseCol, alpha);
           }
         `,
         transparent: true,
@@ -646,15 +691,15 @@ document.addEventListener('DOMContentLoaded', () => {
       scene.add(ribbonMesh);
 
       // Floating Crema Droplets & Liquid Beads along stream
-      const dropletCount = 38;
+      const dropletCount = 44;
       const dropletPositions = new Float32Array(dropletCount * 3);
       const dropletColors = new Float32Array(dropletCount * 3);
 
       const colorPalette = [
-        new THREE.Color('#C87D32'),
-        new THREE.Color('#E8A858'),
-        new THREE.Color('#7B3F1D'),
-        new THREE.Color('#F5D09B'),
+        new THREE.Color('#D9924E'), // golden crema
+        new THREE.Color('#FAF0D6'), // velvety froth
+        new THREE.Color('#8C481A'), // amber roast
+        new THREE.Color('#F2CE9B'), // milk foam
       ];
 
       for (let i = 0; i < dropletCount; i++) {
@@ -687,7 +732,7 @@ document.addEventListener('DOMContentLoaded', () => {
           void main() {
             vColor = color;
             vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-            gl_PointSize = 12.0;
+            gl_PointSize = 10.0;
             gl_Position = projectionMatrix * mvPosition;
           }
         `,
@@ -696,7 +741,7 @@ document.addEventListener('DOMContentLoaded', () => {
           void main() {
             float dist = length(gl_PointCoord - vec2(0.5));
             if (dist > 0.5) discard;
-            float alpha = smoothstep(0.5, 0.1, dist) * 0.72;
+            float alpha = smoothstep(0.5, 0.1, dist) * 0.70;
             gl_FragColor = vec4(vColor, alpha);
           }
         `,
@@ -710,6 +755,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Build the initial 3D stream
     buildStream();
+
+    // Rebuild on window load to ensure settled coordinates of doodle marker
+    window.addEventListener('load', () => {
+      setTimeout(buildStream, 200);
+    });
 
     // Rebuild on window resize or layout change
     let resizeTimer = null;

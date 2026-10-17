@@ -39,6 +39,18 @@ const fs = require('fs');
   await new Promise(r => setTimeout(r, 600));
   await page.screenshot({ path: 'shots/shot4-menu.png' });
 
+  // 5. Scroll to Doodle Guy before Footer
+  await page.evaluate(() => {
+    const m = document.getElementById('coffeeTailCupMarker');
+    if (m) {
+      const mr = m.getBoundingClientRect();
+      const targetScroll = (mr.top + window.scrollY) - (window.innerHeight / 2);
+      window.scrollTo(0, targetScroll);
+    }
+  });
+  await new Promise(r => setTimeout(r, 600));
+  await page.screenshot({ path: 'shots/shot5-doodle-tail.png' });
+
   console.log('CONSOLE LOGS COUNT:', logs.length);
   if (logs.length > 0) {
     console.log(JSON.stringify(logs, null, 2));

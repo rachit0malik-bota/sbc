@@ -1138,7 +1138,6 @@ button {
 }
 
 .reel-section,
-.final-brand-section,
 .site-footer {
   position: relative;
   z-index: 2;
@@ -2867,6 +2866,95 @@ button {
 .final-social-pill:hover .social-arrow {
   transform: translate(2px, -2px);
 }
+
+/* --------------------------------------------------------------------------
+   COLLEGIATE DOODLE GUY (Daydream Drinking Coffee Before Footer)
+   -------------------------------------------------------------------------- */
+.coffee-tail-doodle-stage {
+  position: relative;
+  z-index: 2;
+  margin-top: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.coffee-tail-doodle-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.tail-doodle-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.35));
+}
+
+.coffee-tail-doodle-caption {
+  font-family: 'Caveat', cursive, sans-serif;
+  font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+  font-weight: 700;
+  color: var(--color-caramel);
+  margin-top: 0.75rem;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Doodle Micro Animations */
+@keyframes steamFloatA {
+  0%, 100% {
+    transform: translateY(0) scaleY(1);
+    opacity: 0.75;
+  }
+  50% {
+    transform: translateY(-8px) scaleY(1.08);
+    opacity: 0.35;
+  }
+}
+
+@keyframes steamFloatB {
+  0%, 100% {
+    transform: translateY(0) scaleY(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-10px) scaleY(1.12);
+    opacity: 0.25;
+  }
+}
+
+@keyframes dropPulse {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-4px) scale(1.15);
+  }
+}
+
+.tail-doodle-svg .steam-1 {
+  animation: steamFloatA 3.6s ease-in-out infinite;
+  transform-origin: 248px 112px;
+}
+
+.tail-doodle-svg .steam-2 {
+  animation: steamFloatB 4.2s ease-in-out infinite 0.5s;
+  transform-origin: 262px 110px;
+}
+
+.tail-doodle-svg .splash-drop {
+  animation: dropPulse 2.8s ease-in-out infinite alternate;
+}
+
+.tail-doodle-svg .drop-b { animation-delay: 0.4s; }
+.tail-doodle-svg .drop-c { animation-delay: 0.8s; }
+.tail-doodle-svg .drop-d { animation-delay: 1.2s; }
 
 /* ==========================================================================
    INTERACTIVE COMMUNITY ENDING (The Back Row Sanctuary & Connect Hub)
