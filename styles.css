@@ -161,6 +161,8 @@ button {
 }
 
 .container {
+  position: relative;
+  z-index: 3;
   width: 100%;
   max-width: var(--container-max);
   margin-left: auto;
@@ -174,6 +176,25 @@ button {
     padding-left: 2.5rem;
     padding-right: 2.5rem;
   }
+}
+
+/* Content cards and elements sit firmly above the atmospheric coffee canvas (z-index: 1) */
+.notebook-spiral-card,
+.delivery-grid-wrapper,
+.menu-grid,
+.menu-card-enhanced,
+.reel-card,
+.campus-card,
+.alumni-card,
+.blackboard-card,
+.interactive-card,
+.final-brand-content,
+.final-brand-heading,
+.final-brand-subtitle,
+.final-cta-group,
+.final-social-pill-wrap {
+  position: relative;
+  z-index: 3;
 }
 
 /* Utility color classes */
@@ -1137,10 +1158,14 @@ button {
   background-color: transparent !important;
 }
 
-.reel-section,
 .site-footer {
   position: relative;
   z-index: 2;
+}
+
+.reel-section {
+  position: relative;
+  z-index: auto;
 }
 
 .story-scrolly-stage,
@@ -1156,6 +1181,58 @@ button {
 .delivery-visual-card {
   position: relative;
   z-index: 3;
+}
+
+/* --------------------------------------------------------------------------
+   COLLEGIATE COFFEE MARKS (Authentic Paper Cup Rings & Droplet Splatters)
+   -------------------------------------------------------------------------- */
+.coffee-paper-ring-mark {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: multiply;
+  opacity: 0.82;
+  transition: opacity 0.3s ease;
+  user-select: none;
+}
+
+.coffee-splatter-group {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: multiply;
+  opacity: 0.72;
+  user-select: none;
+}
+
+.origin-cup-ring-1 {
+  bottom: -35px;
+  right: 14%;
+  transform: rotate(-12deg);
+}
+
+.notebook-cup-ring-1 {
+  top: -24px;
+  right: -20px;
+  transform: rotate(24deg);
+}
+
+.notebook-cup-ring-2 {
+  bottom: -40px;
+  left: -30px;
+  transform: rotate(-18deg);
+}
+
+.journal-cup-ring {
+  top: 50px;
+  left: -15px;
+  transform: rotate(8deg);
+}
+
+.campuses-cup-ring {
+  top: -30px;
+  right: 4%;
+  transform: rotate(-28deg);
 }
 
 /* Section Typography Legibility over WebGL Canvas */

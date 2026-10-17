@@ -316,13 +316,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.querySelectorAll(
-      '.story-theater-media, .notebook-thumb-video, .delivery-video, .reel-video'
+      '.story-theater-media, .notebook-thumb-video, .delivery-video, .reel-card--tall .reel-video'
     ).forEach((v) => {
       if (v.tagName === 'VIDEO') {
         videoScrollObserver.observe(v);
       }
     });
   }
+
+  // Secondary Reel cards: hover & tap play for instant response without video decoder bottlenecks
+  function attachReelCardHover() {
+    document.querySelectorAll('.reel-card:not(.reel-card--tall)').forEach((card) => {
+      const video = card.querySelector('.reel-video');
+      if (!video) return;
+
+      card.addEventListener('mouseenter', () => {
+        const p = video.play();
+        if (p !== undefined) p.catch(() => {});
+      });
+
+      card.addEventListener('mouseleave', () => {
+        if (!video.paused && video.muted) {
+          video.pause();
+        }
+      });
+    });
+  }
+  attachReelCardHover();
 
   // Blackboard cards: hover / tap video play for instant responsive feel
   function attachBlackboardCardHover() {
@@ -477,10 +497,11 @@ document.addEventListener('DOMContentLoaded', () => {
         new THREE.Vector3(rightGutter, -(cupY + 380), -2),
         new THREE.Vector3(rightGutter - 20, -(cupY + 950), 3),
         new THREE.Vector3(rightGutter, -(cupY + 1600), -3),
-        // 4. Smooth river curve across transition zone between Story pin and Origins
-        new THREE.Vector3(midRight, -(storyEnd - 200), 2),
-        new THREE.Vector3(midLeft, -(originsY - 300), -2),
-        // 5. Framing the left margin of Bean Origins
+        // 4. Smooth river curve across transition zone between Story pin and Origins (above Origins header)
+        new THREE.Vector3(midRight, -(storyEnd - 300), 2),
+        new THREE.Vector3(center, -(originsY - 580), -2),
+        new THREE.Vector3(leftGutter, -(originsY - 420), 2),
+        // 5. Framing the left margin of Bean Origins (flanking the notebook cards)
         new THREE.Vector3(leftGutter, -originsY, 4),
         new THREE.Vector3(leftGutter + 20, -(originsY + 600), -2),
         // 6. Gentle meander behind mascot section
@@ -528,12 +549,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const tangent = streamCurve.getTangent(t);
         const normal = new THREE.Vector3(-tangent.y, tangent.x, 0).normalize();
 
-        // Width dynamics: Starts small (~14px) at cup mouth, expands into luscious flow, tapers into doodle stream entry
-        let streamWidth = 54.0;
+        // Width dynamics: Starts small (~14px) at cup mouth, expands into luscious viscous flow, tapers into doodle stream entry
+        let streamWidth = 46.0;
         if (t < 0.035) {
-          streamWidth = 14.0 + (t / 0.035) * 40.0;
+          streamWidth = 14.0 + (t / 0.035) * 32.0;
         } else {
-          streamWidth = 48.0 + Math.sin(t * 16.0) * 8.0;
+          // Viscous fluid ripples & necking: natural expanding & pinching pulses of pouring liquid
+          const ripple = Math.sin(t * 22.0) * 5.0 + Math.cos(t * 48.0) * 2.8;
+          streamWidth = 44.0 + ripple;
         }
 
         // Mobile responsive width scaling
@@ -567,7 +590,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ribbonGeo.setIndex(indices);
       ribbonGeo.computeVertexNormals();
 
-      // Frothy Liquid Coffee Shader Material
+      // Frothy Viscous Liquid Coffee Shader Material (No rigid pipe/cylinder look)
       const ribbonMat = new THREE.ShaderMaterial({
         uniforms,
         vertexShader: `
@@ -581,7 +604,7 @@ document.addEventListener('DOMContentLoaded', () => {
             vNormal = normal;
             vec3 pos = position;
 
-            // Smooth damping at both ends (cup mouth at top, doodle mug at bottom)
+            // Smooth damping at both ends (cup mouth at top, doodle character at bottom)
             float mouthDamping = smoothstep(0.0, 0.035, vUv.y);
             float tailDamping = smoothstep(1.0, 0.965, vUv.y);
             float damp = mouthDamping * tailDamping;
@@ -655,42 +678,46 @@ document.addEventListener('DOMContentLoaded', () => {
             float bubbleNoise = snoise(vec2(vUv.x * 24.0, flow * 4.5));
             float microBubbles = smoothstep(0.42, 0.88, bubbleNoise);
 
-            // Authentic Coffee & Froth Palette (No harsh metallic copper wire look)
+            // Authentic Coffee & Froth Palette (Rich specialty coffee tones)
             vec3 espresso = vec3(0.12, 0.055, 0.025);     // #1F0E06 - deep extraction
             vec3 darkRoast = vec3(0.26, 0.11, 0.045);     // #421C0B - rich body
             vec3 caramel = vec3(0.72, 0.40, 0.16);        // #B86629 - warm amber
             vec3 richCrema = vec3(0.88, 0.64, 0.36);      // #E0A35C - golden crema
             vec3 velvetyFoam = vec3(0.97, 0.92, 0.82);    // #F7EBD1 - light milk foam
 
-            // Radial profile across the stream width
+            // Lateral profile across the stream width (0 at center, 1 at edge)
             float lateral = abs(vUv.x - 0.5) * 2.0;
 
-            // Viscous body blend: deep espresso center blending into amber roast and crema veins
-            vec3 baseCol = mix(espresso, darkRoast, smoothstep(0.15, 0.80, lateral));
-            baseCol = mix(baseCol, caramel, smoothstep(0.10, 0.68, cremaVein * 0.5 + 0.5));
-            baseCol = mix(baseCol, richCrema, smoothstep(0.52, 0.90, cremaVein * 0.5 + 0.5));
+            // Fluid meniscus profile: broad smooth core with delicate capillary thinning at edges (NOT a rigid pipe cylinder)
+            float liquidCore = smoothstep(1.0, 0.15, lateral);
+
+            // Subsurface scattering: warm caramel/amber glow through coffee depth
+            vec3 sssGlow = caramel * (1.0 - smoothstep(0.0, 0.85, lateral)) * 0.28;
+
+            // Viscous body blend: deep espresso center into amber roast with swirling golden crema veins
+            vec3 baseCol = mix(espresso, darkRoast, smoothstep(0.12, 0.72, lateral));
+            baseCol = mix(baseCol, caramel, smoothstep(0.15, 0.68, cremaVein * 0.5 + 0.5));
+            baseCol = mix(baseCol, richCrema, smoothstep(0.50, 0.88, cremaVein * 0.5 + 0.5));
+            baseCol += sssGlow;
 
             // Soft micro-bubble foam clusters near the surface and meniscus
-            baseCol = mix(baseCol, velvetyFoam, microBubbles * smoothstep(0.30, 0.95, lateral) * 0.55);
+            baseCol = mix(baseCol, velvetyFoam, microBubbles * smoothstep(0.25, 0.95, lateral) * 0.45);
 
-            // Rounded liquid volume profile across the stream (cylinder cross-section)
-            float cylinder = sqrt(max(0.0, 1.0 - pow(lateral * 1.02, 2.0)));
+            // Diffuse liquid surface sheen (soft, organic, follows the flowing crema ripples)
+            float fluidSheen = pow(liquidCore, 1.2) * (0.80 + 0.20 * sin(flow * 1.5 + vUv.x * 3.5));
+            baseCol += richCrema * fluidSheen * 0.20;
 
-            // Velvet liquid diffuse sheen (broad and soft, NOT a sharp wire specular reflection)
-            float diffuseSheen = pow(cylinder, 1.5) * (0.75 + 0.25 * sin(flow * 1.5 + vUv.x * 3.0));
-            baseCol += richCrema * diffuseSheen * 0.24;
+            // Soft rolling liquid highlight (diffuse, organic, follows the crema warp)
+            float wetHighlight = pow(max(0.0, 1.0 - abs(vUv.x - 0.48 + warp.x * 0.12) * 2.2), 2.5);
+            baseCol += velvetyFoam * wetHighlight * 0.25 * liquidCore;
 
-            // Soft rolling fluid highlight (diffuse, organic, follows the crema warp)
-            float softGloss = pow(max(0.0, 1.0 - abs(vUv.x - 0.46 + warp.x * 0.14) * 2.2), 3.0);
-            baseCol += velvetyFoam * softGloss * 0.32 * cylinder;
-
-            // Organic undulating fluid meniscus edge
-            float edgePerturb = snoise(vec2(vUv.x * 12.0, flow * 1.8)) * 0.035;
+            // Fluid edge transparency: soft meniscus falloff rather than a hard pipe wall
+            float edgePerturb = snoise(vec2(vUv.x * 12.0, flow * 2.0)) * 0.04;
             float edgeDist = min(vUv.x, 1.0 - vUv.x) + edgePerturb;
-            float edgeAlpha = smoothstep(0.015, 0.14, edgeDist);
-            float alpha = edgeAlpha * (0.86 + 0.14 * diffuseSheen);
+            float edgeAlpha = smoothstep(0.008, 0.16, edgeDist);
+            float alpha = edgeAlpha * (0.84 + 0.16 * fluidSheen);
 
-            // Seamless fade-in at cup lip and fade-in into doodle mug
+            // Seamless fade-in at cup lip and fade-in into doodle mouth
             alpha *= smoothstep(0.0, 0.008, vUv.y);
             alpha *= smoothstep(1.0, 0.992, vUv.y);
 
@@ -705,49 +732,58 @@ document.addEventListener('DOMContentLoaded', () => {
       ribbonMesh = new THREE.Mesh(ribbonGeo, ribbonMat);
       scene.add(ribbonMesh);
 
-      // Floating Crema Droplets & Liquid Beads along stream
-      const dropletCount = 44;
+      // Floating Crema Droplets & Liquid Beads along stream (satellite droplets trailing pour)
+      const dropletCount = 110;
       const dropletPositions = new Float32Array(dropletCount * 3);
       const dropletColors = new Float32Array(dropletCount * 3);
+      const dropletSizes = new Float32Array(dropletCount);
 
       const colorPalette = [
         new THREE.Color('#D9924E'), // golden crema
         new THREE.Color('#FAF0D6'), // velvety froth
         new THREE.Color('#8C481A'), // amber roast
         new THREE.Color('#F2CE9B'), // milk foam
+        new THREE.Color('#542A0C'), // deep roasted espresso drop
       ];
 
       for (let i = 0; i < dropletCount; i++) {
-        const t = 0.05 + (i / dropletCount) * 0.90;
+        const t = 0.03 + (i / dropletCount) * 0.94;
         const pt = streamCurve.getPoint(t);
         const tangent = streamCurve.getTangent(t);
         const normal = new THREE.Vector3(-tangent.y, tangent.x, 0).normalize();
-        const lateralOffset = (Math.sin(i * 1.7) * 45.0 + 20.0);
-
-        const dPos = pt.clone().addScaledVector(normal, lateralOffset);
+        
+        // Organic dispersal: droplets peel off and trail the main pour
+        const lateralSpread = (Math.sin(i * 2.3) * 38.0 + Math.cos(i * 1.7) * 24.0);
+        const dPos = pt.clone().addScaledVector(normal, lateralSpread);
+        
         dropletPositions[i * 3] = dPos.x;
         dropletPositions[i * 3 + 1] = dPos.y;
-        dropletPositions[i * 3 + 2] = (i % 2 === 0 ? 8 : -8);
+        dropletPositions[i * 3 + 2] = (i % 2 === 0 ? 6 : -6);
 
         const col = colorPalette[i % colorPalette.length];
         dropletColors[i * 3] = col.r;
         dropletColors[i * 3 + 1] = col.g;
         dropletColors[i * 3 + 2] = col.b;
+
+        // Varied droplet sizes: small micro-droplets (5px) to rich crema pearls (13px)
+        dropletSizes[i] = 5.0 + (i % 5) * 2.0;
       }
 
       const dropletGeo = new THREE.BufferGeometry();
       dropletGeo.setAttribute('position', new THREE.BufferAttribute(dropletPositions, 3));
       dropletGeo.setAttribute('color', new THREE.BufferAttribute(dropletColors, 3));
+      dropletGeo.setAttribute('size', new THREE.BufferAttribute(dropletSizes, 1));
 
       // Circular droplet shader material for buttery smooth soft particles
       const dropletMat = new THREE.ShaderMaterial({
         vertexShader: `
           attribute vec3 color;
+          attribute float size;
           varying vec3 vColor;
           void main() {
             vColor = color;
             vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-            gl_PointSize = 10.0;
+            gl_PointSize = size;
             gl_Position = projectionMatrix * mvPosition;
           }
         `,
@@ -756,7 +792,7 @@ document.addEventListener('DOMContentLoaded', () => {
           void main() {
             float dist = length(gl_PointCoord - vec2(0.5));
             if (dist > 0.5) discard;
-            float alpha = smoothstep(0.5, 0.1, dist) * 0.70;
+            float alpha = smoothstep(0.5, 0.12, dist) * 0.75;
             gl_FragColor = vec4(vColor, alpha);
           }
         `,
