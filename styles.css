@@ -958,7 +958,7 @@ button {
   overflow: hidden;
 }
 
-.fluid-stream-svg {
+.coffee-fountain-svg {
   position: absolute;
   top: 0;
   left: 0;
@@ -967,27 +967,39 @@ button {
   pointer-events: none;
 }
 
-.fluid-path-caramel {
-  stroke-dasharray: 6000;
-  stroke-dashoffset: 0;
-  will-change: stroke-dashoffset, transform;
-}
-
-.fluid-path-dashed {
-  stroke-dasharray: 12 12;
-  will-change: stroke-dashoffset;
-  animation: fluidDashDrift 45s linear infinite;
-}
-
-@keyframes fluidDashDrift {
-  to {
-    stroke-dashoffset: -400;
-  }
-}
-
-.fluid-path-echo {
-  stroke-dasharray: 6000;
+.coffee-fountain-glow {
   will-change: transform;
+}
+
+.coffee-fountain-body {
+  will-change: transform;
+  filter: drop-shadow(0 2px 8px rgba(200, 125, 50, 0.15));
+}
+
+.coffee-crema-stream {
+  will-change: transform;
+  filter: drop-shadow(0 1px 4px rgba(232, 168, 88, 0.25));
+}
+
+.coffee-fountain-drop {
+  will-change: transform;
+  animation: dropGlisten 6s ease-in-out infinite alternate;
+}
+
+.coffee-fountain-bead {
+  will-change: transform;
+  animation: beadPulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes dropGlisten {
+  0% { transform: translateY(0px) scale(1); opacity: 0.85; }
+  50% { transform: translateY(-8px) scale(1.08); opacity: 1; }
+  100% { transform: translateY(6px) scale(0.95); opacity: 0.75; }
+}
+
+@keyframes beadPulse {
+  0% { transform: scale(1); opacity: 0.3; }
+  100% { transform: scale(1.35); opacity: 0.65; }
 }
 
 /* Soft Ambient Fluid Pods */
@@ -2108,7 +2120,7 @@ button {
 .campuses-section {
   position: relative;
   background-color: var(--color-bg-alt);
-  padding: 6.5rem 0 7rem;
+  padding: 3rem 0 3.5rem;
 }
 
 .campuses-grid {
@@ -4127,7 +4139,7 @@ button {
    ========================================================================== */
 .journal-scrolly-section {
   position: relative;
-  padding: 6.5rem 0;
+  padding: 2.75rem 0 2rem;
   background-color: var(--color-bg);
   border-top: 1px solid rgba(52, 30, 21, 0.08);
   border-bottom: 1px solid rgba(52, 30, 21, 0.08);

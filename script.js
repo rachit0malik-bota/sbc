@@ -344,33 +344,52 @@ document.addEventListener('DOMContentLoaded', () => {
   attachBlackboardCardHover();
 
   // -------------------------------------------------------------------------
-  // 8. Minimal Fluid Flow Background System (Oryzo.ai Organic Liquid Mechanics)
+  // 8. Artisanal Coffee Spill Fountain Flow System
   // -------------------------------------------------------------------------
-  const fluidCaramel = document.getElementById('fluidStreamCaramel');
-  const fluidEcho = document.getElementById('fluidStreamEcho');
+  const coffeeFountainBody = document.getElementById('coffeeFountainBody');
+  const coffeeCremaStream = document.getElementById('coffeeCremaStream');
+  const coffeeDrops = document.querySelectorAll('.coffee-fountain-drop, .coffee-fountain-bead');
 
-  if (fluidCaramel && hasGsap && hasScrollTrigger && !prefersReducedMotion) {
-    gsap.to(fluidCaramel, {
-      scrollTrigger: {
-        trigger: document.body,
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 1.2,
-      },
-      strokeDashoffset: 0,
-      ease: 'none',
-    });
-
-    if (fluidEcho) {
-      gsap.to(fluidEcho, {
+  if (hasGsap && hasScrollTrigger && !prefersReducedMotion) {
+    if (coffeeFountainBody) {
+      gsap.to(coffeeFountainBody, {
         scrollTrigger: {
           trigger: document.body,
           start: 'top top',
           end: 'bottom bottom',
-          scrub: 1.5,
+          scrub: 1.2,
         },
-        y: -150,
+        y: -120,
         ease: 'none',
+      });
+    }
+
+    if (coffeeCremaStream) {
+      gsap.to(coffeeCremaStream, {
+        scrollTrigger: {
+          trigger: document.body,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 1.6,
+        },
+        y: -160,
+        ease: 'none',
+      });
+    }
+
+    if (coffeeDrops.length > 0) {
+      coffeeDrops.forEach((drop, i) => {
+        const speed = i % 2 === 0 ? 1.4 : 0.9;
+        gsap.to(drop, {
+          scrollTrigger: {
+            trigger: document.body,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: speed,
+          },
+          y: -90 * speed,
+          ease: 'none',
+        });
       });
     }
 
@@ -784,11 +803,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (journalSection && window.innerWidth >= 992 && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     ScrollTrigger.create({
       trigger: journalSection,
-      start: 'top top+=60',
-      end: '+=180%',
+      start: 'top top+=65',
+      end: '+=850',
       pin: true,
       pinSpacing: true,
-      scrub: 0.6,
+      scrub: 0.45,
+      anticipatePin: 1,
       onUpdate: (self) => {
         const progress = self.progress;
         const totalSlides = journalCards.length;

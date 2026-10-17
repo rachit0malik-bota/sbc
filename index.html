@@ -216,38 +216,80 @@
     </section>
 
     <!-- =======================================================================
-         MINIMAL FLUID FLOW BACKGROUND SYSTEM (Oryzo.ai Organic Liquid Mechanics)
-         Subtle caramel and forest liquid waves, dashed contour paths & floating droplets
+         ARTISANAL COFFEE SPILL FOUNTAIN FLOW (Organic Specialty Brew Cascade)
+         Replaces the road-like dashed lines with a rich, cascading liquid coffee
+         fountain flow, velvety crema ribbons, and soft splash droplets
          ======================================================================= -->
     <div class="minimal-fluid-flow-bg" aria-hidden="true">
-      <svg class="fluid-stream-svg" viewBox="0 0 1440 4800" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg class="coffee-fountain-svg" viewBox="0 0 1440 5400" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <linearGradient id="fluidCaramelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#C87D32" stop-opacity="0.28" />
-            <stop offset="50%" stop-color="#3B2219" stop-opacity="0.18" />
-            <stop offset="100%" stop-color="#C87D32" stop-opacity="0.25" />
+          <!-- Deep Espresso to Warm Amber Caramel Cascade -->
+          <linearGradient id="coffeeFountainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#C87D32" stop-opacity="0.26" />
+            <stop offset="20%" stop-color="#7B3F1D" stop-opacity="0.22" />
+            <stop offset="45%" stop-color="#341E15" stop-opacity="0.18" />
+            <stop offset="70%" stop-color="#9C5221" stop-opacity="0.24" />
+            <stop offset="90%" stop-color="#C87D32" stop-opacity="0.22" />
+            <stop offset="100%" stop-color="#5A2E12" stop-opacity="0.16" />
           </linearGradient>
-          <linearGradient id="fluidForestGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#0A4D34" stop-opacity="0.14" />
-            <stop offset="50%" stop-color="#235441" stop-opacity="0.08" />
-            <stop offset="100%" stop-color="#0A4D34" stop-opacity="0.16" />
+
+          <!-- Silky Crema & Honey Bloom Layer -->
+          <linearGradient id="coffeeCremaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#E8A858" stop-opacity="0.32" />
+            <stop offset="35%" stop-color="#C87D32" stop-opacity="0.20" />
+            <stop offset="70%" stop-color="#F4EFE6" stop-opacity="0.12" />
+            <stop offset="100%" stop-color="#E8A858" stop-opacity="0.25" />
           </linearGradient>
+
+          <!-- Droplet Gloss Gradient -->
+          <radialGradient id="coffeeDropGrad" cx="35%" cy="30%" r="65%">
+            <stop offset="0%" stop-color="#E8A858" stop-opacity="0.45" />
+            <stop offset="60%" stop-color="#C87D32" stop-opacity="0.30" />
+            <stop offset="100%" stop-color="#341E15" stop-opacity="0.20" />
+          </radialGradient>
+
+          <!-- Ambient Coffee Spill Diffusion Filter -->
+          <filter id="coffeeSpillFilter" x="-20%" y="-10%" width="140%" height="120%">
+            <feGaussianBlur stdDeviation="8" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+          </filter>
         </defs>
 
-        <!-- Primary Fluid Stream: Liquid Caramel Pour connecting Hero -> Story -> Origins -> Menu -> Campuses -->
-        <path id="fluidStreamCaramel" class="fluid-path-caramel" 
-              d="M 720,0 C 780,350 1180,650 1120,1100 C 1060,1550 320,1850 380,2350 C 440,2850 1200,3150 1140,3650 C 1080,4150 680,4450 720,4800" 
-              stroke="url(#fluidCaramelGrad)" stroke-width="3" stroke-linecap="round" fill="none" />
+        <!-- 1. Ambient Warm Coffee Fountain Glow Ribbon (Broad Background Diffusion) -->
+        <path class="coffee-fountain-glow" 
+              d="M 720,0 C 820,380 1160,700 1100,1150 C 1040,1600 340,1900 400,2400 C 460,2900 1180,3200 1120,3700 C 1060,4200 660,4550 720,5400" 
+              stroke="url(#coffeeFountainGrad)" stroke-width="64" stroke-linecap="round" fill="none" opacity="0.35" filter="url(#coffeeSpillFilter)" />
 
-        <!-- Secondary Architectural Flow Contour: Delicate Dashed Line -->
-        <path id="fluidStreamDashed" class="fluid-path-dashed" 
-              d="M 700,20 C 760,370 1150,670 1100,1120 C 1040,1570 340,1870 400,2370 C 460,2870 1180,3170 1120,3670 C 1060,4170 700,4470 740,4800" 
-              stroke="url(#fluidForestGrad)" stroke-width="1.8" stroke-dasharray="10 12" stroke-linecap="round" fill="none" />
+        <!-- 2. Primary Cascading Liquid Pour Ribbon (Silky Flowing Coffee Stream) -->
+        <path id="coffeeFountainBody" class="coffee-fountain-body" 
+              d="M 720,0 C 800,360 1140,680 1080,1130 C 1020,1580 360,1880 420,2380 C 480,2880 1160,3180 1100,3680 C 1040,4180 680,4520 720,5400" 
+              stroke="url(#coffeeFountainGrad)" stroke-width="18" stroke-linecap="round" fill="none" />
 
-        <!-- Tertiary Subtle Wave Ribbon: Soft Echo -->
-        <path id="fluidStreamEcho" class="fluid-path-echo" 
-              d="M 740,-20 C 800,330 1210,630 1140,1080 C 1080,1530 300,1830 360,2330 C 420,2830 1220,3130 1160,3630 C 1100,4130 660,4430 700,4800" 
-              stroke="rgba(200, 125, 50, 0.12)" stroke-width="1.2" stroke-linecap="round" fill="none" />
+        <!-- 3. Inner Velvet Crema Stream (Tapered Flowing Ribbon with Zero Dash) -->
+        <path id="coffeeCremaStream" class="coffee-crema-stream" 
+              d="M 730,20 C 810,380 1120,690 1060,1140 C 1000,1590 380,1890 440,2390 C 500,2890 1140,3190 1080,3690 C 1020,4190 695,4530 730,5400" 
+              stroke="url(#coffeeCremaGrad)" stroke-width="6" stroke-linecap="round" fill="none" />
+
+        <!-- 4. Fountain Spill Splash Droplets & Liquid Beads along the cascade -->
+        <!-- Spill Crest 1 (Hero -> Story Cascade) -->
+        <ellipse cx="1090" cy="1120" rx="14" ry="20" fill="url(#coffeeDropGrad)" class="coffee-fountain-drop" />
+        <circle cx="1125" cy="1160" r="7" fill="#C87D32" opacity="0.35" class="coffee-fountain-bead" />
+        <circle cx="1060" cy="1185" r="5" fill="#E8A858" opacity="0.4" class="coffee-fountain-bead" />
+
+        <!-- Spill Crest 2 (Story -> Origins Cascade) -->
+        <ellipse cx="390" cy="2370" rx="18" ry="24" fill="url(#coffeeDropGrad)" class="coffee-fountain-drop" />
+        <circle cx="355" cy="2410" r="8" fill="#C87D32" opacity="0.32" class="coffee-fountain-bead" />
+        <circle cx="430" cy="2440" r="6" fill="#8B4513" opacity="0.3" class="coffee-fountain-bead" />
+
+        <!-- Spill Crest 3 (Origins -> Menu Cascade) -->
+        <ellipse cx="1110" cy="3670" rx="16" ry="22" fill="url(#coffeeDropGrad)" class="coffee-fountain-drop" />
+        <circle cx="1145" cy="3715" r="8" fill="#E8A858" opacity="0.35" class="coffee-fountain-bead" />
+        <circle cx="1075" cy="3740" r="5" fill="#C87D32" opacity="0.35" class="coffee-fountain-bead" />
+
+        <!-- Spill Crest 4 (Menu -> Campuses Cascade) -->
+        <ellipse cx="690" cy="4520" rx="15" ry="20" fill="url(#coffeeDropGrad)" class="coffee-fountain-drop" />
+        <circle cx="660" cy="4560" r="7" fill="#C87D32" opacity="0.3" class="coffee-fountain-bead" />
+        <circle cx="725" cy="4585" r="6" fill="#E8A858" opacity="0.35" class="coffee-fountain-bead" />
       </svg>
 
       <!-- Soft Ambient Liquid Pods that gently drift in background -->
