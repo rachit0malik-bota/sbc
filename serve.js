@@ -113,6 +113,19 @@ async function handleRequest(req, res) {
     return;
   }
 
+  // 1.2 Favicon
+  if (urlPath === '/favicon.ico') {
+    const favPath = path.join(__dirname, 'coffee-bean.svg');
+    if (fs.existsSync(favPath)) {
+      res.writeHead(200, { 'Content-Type': 'image/svg+xml' });
+      res.end(fs.readFileSync(favPath));
+      return;
+    }
+    res.writeHead(204);
+    res.end();
+    return;
+  }
+
   // 1.5 Official Menu PDF Direct Download
   if (urlPath === '/download-menu' || urlPath === '/menu.pdf') {
     const pdfPath = path.join(__dirname, 'section-b-coffee-menu.pdf');

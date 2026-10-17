@@ -511,9 +511,6 @@ button {
   box-shadow: 3px 3px 0px var(--color-espresso);
   color: #FFFFFF;
 }
-  transform: translate(-1px, -1px);
-  box-shadow: 3px 3px 0px var(--color-espresso);
-}
 
 @media (max-width: 991px) {
   .pill-instagram, .pill-cinema {
@@ -945,113 +942,200 @@ button {
 }
 
 /* --------------------------------------------------------------------------
-   6. MINIMAL FLUID FLOW BACKGROUND SYSTEM (Oryzo.ai Organic Liquid Mechanics)
+   6. ARTISANAL THREE.JS COFFEE FLOW & SMALL TIPPED CUP ORIGIN SYSTEM
+   Procedural Three.js WebGL liquid stream flowing strictly in the background (z-index: 0)
+   Starting at the small tipped craft cup below the Hero section ("small cup, too much coffee")
    -------------------------------------------------------------------------- */
-.minimal-fluid-flow-bg {
-  position: absolute;
+.coffee-canvas {
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   pointer-events: none;
   z-index: 1;
-  overflow: hidden;
+  will-change: transform;
 }
 
-.coffee-fountain-svg {
-  position: absolute;
-  top: 0;
-  left: 0;
+/* ==========================================================================
+   COFFEE SPILL ORIGIN — THE SMALL CUP (Small Cup, Too Much Coffee)
+   ========================================================================== */
+.coffee-spill-origin-zone {
+  position: relative;
   width: 100%;
-  height: 100%;
+  height: 100px;
+  margin-top: -30px;
+  margin-bottom: -50px;
+  z-index: 4;
   pointer-events: none;
+  overflow: visible;
 }
 
-.coffee-fountain-glow {
+.coffee-spill-origin-container {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: clamp(1.5rem, 9vw, 9rem);
+}
+
+.spill-cup-assembly {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 1.15rem;
+  pointer-events: auto;
+}
+
+.spill-cup-wrapper {
+  position: relative;
+  width: clamp(72px, 7vw, 92px); /* Deliberately small & compact */
+  transform: rotate(-32deg); /* Tilted downwards pouring into the stream */
+  transform-origin: 75% 45%;
+  filter: drop-shadow(0 14px 24px rgba(40, 20, 10, 0.42))
+          drop-shadow(0 4px 8px rgba(200, 125, 50, 0.25));
+  animation: cupGentleBob 5s ease-in-out infinite alternate;
   will-change: transform;
 }
 
-.coffee-fountain-body {
-  will-change: transform;
-  filter: drop-shadow(0 2px 8px rgba(200, 125, 50, 0.15));
+.spill-cup-img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
-.coffee-crema-stream {
-  will-change: transform;
-  filter: drop-shadow(0 1px 4px rgba(232, 168, 88, 0.25));
+/* Crema froth glow at the lip of the pouring cup */
+.spill-cup-lip-crema {
+  position: absolute;
+  top: 52%;
+  right: 14%;
+  width: 24px;
+  height: 24px;
+  background: radial-gradient(circle, #F5D09B 0%, #E8A858 50%, rgba(200, 125, 50, 0) 75%);
+  border-radius: 50%;
+  filter: blur(1.5px);
+  animation: cremaPulse 2.5s ease-in-out infinite;
 }
 
-.coffee-fountain-drop {
-  will-change: transform;
-  animation: dropGlisten 6s ease-in-out infinite alternate;
-}
-
-.coffee-fountain-bead {
-  will-change: transform;
-  animation: beadPulse 4s ease-in-out infinite alternate;
-}
-
-@keyframes dropGlisten {
-  0% { transform: translateY(0px) scale(1); opacity: 0.85; }
-  50% { transform: translateY(-8px) scale(1.08); opacity: 1; }
-  100% { transform: translateY(6px) scale(0.95); opacity: 0.75; }
-}
-
-@keyframes beadPulse {
-  0% { transform: scale(1); opacity: 0.3; }
-  100% { transform: scale(1.35); opacity: 0.65; }
-}
-
-/* Soft Ambient Fluid Pods */
-.fluid-pod {
+/* Micro drip beads falling from cup */
+.spill-cup-drip-bead {
   position: absolute;
   border-radius: 50%;
-  filter: blur(55px);
-  pointer-events: none;
-  opacity: 0.45;
-  will-change: transform;
+  opacity: 0.85;
 }
 
-.fluid-pod-1 {
-  top: 800px;
-  right: -80px;
-  width: 380px;
-  height: 380px;
-  background: radial-gradient(circle, rgba(200, 125, 50, 0.12) 0%, rgba(200, 125, 50, 0) 70%);
-  animation: podFloat 12s ease-in-out infinite alternate;
+.spill-cup-drip-bead.drip-1 {
+  width: 6px;
+  height: 8px;
+  bottom: -6px;
+  right: 28%;
+  background: #9C5221;
+  animation: dripDrop 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
-.fluid-pod-2 {
-  top: 1700px;
-  left: -100px;
-  width: 440px;
-  height: 440px;
-  background: radial-gradient(circle, rgba(10, 77, 52, 0.08) 0%, rgba(10, 77, 52, 0) 70%);
-  animation: podFloat 15s ease-in-out infinite alternate-reverse;
+.spill-cup-drip-bead.drip-2 {
+  width: 4px;
+  height: 5px;
+  bottom: -14px;
+  right: 22%;
+  background: #E8A858;
+  animation: dripDrop 3s cubic-bezier(0.4, 0, 0.2, 1) infinite 0.7s;
 }
 
-.fluid-pod-3 {
-  top: 2600px;
-  right: -60px;
-  width: 360px;
-  height: 360px;
-  background: radial-gradient(circle, rgba(200, 125, 50, 0.1) 0%, rgba(200, 125, 50, 0) 70%);
-  animation: podFloat 14s ease-in-out infinite alternate;
+.spill-cup-tag {
+  display: inline-flex;
+  align-items: center;
 }
 
-.fluid-pod-4 {
-  top: 3600px;
-  left: 5%;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(10, 77, 52, 0.07) 0%, rgba(10, 77, 52, 0) 70%);
-  animation: podFloat 18s ease-in-out infinite alternate;
+.spill-tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.95rem;
+  background: rgba(254, 252, 248, 0.94);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(200, 125, 50, 0.35);
+  border-radius: 9999px;
+  box-shadow: 0 4px 14px rgba(52, 30, 21, 0.08);
+  font-family: 'Caveat', cursive, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #7B3F1D;
+  white-space: nowrap;
 }
 
-@keyframes podFloat {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(25px, -30px) scale(1.06); }
-  100% { transform: translate(-20px, 20px) scale(0.96); }
+.spill-tag-bullet {
+  color: #C87D32;
+  font-size: 0.9rem;
+}
+
+@keyframes cupGentleBob {
+  0% { transform: rotate(-32deg) translateY(0); }
+  50% { transform: rotate(-35deg) translateY(-4px); }
+  100% { transform: rotate(-30deg) translateY(3px); }
+}
+
+@keyframes cremaPulse {
+  0%, 100% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+
+@keyframes dripDrop {
+  0% { transform: translateY(0) scale(1); opacity: 0.9; }
+  80% { transform: translateY(22px) scale(0.8); opacity: 0.3; }
+  100% { transform: translateY(30px) scale(0.3); opacity: 0; }
+}
+
+/* Ensure all page sections and wrappers are positioned above the Three.js canvas */
+.hero-section {
+  position: relative;
+  z-index: 3;
+}
+
+.story-scrolly-section,
+.origins-section,
+.quick-delivery-section,
+.mascot-delivery-section,
+.menu-section,
+.reel-section,
+.journal-preview-section,
+.journal-scrolly-section,
+.campuses-section,
+.community-gallery-section,
+.alumni-reviews-section,
+.community-interactive-section,
+.final-brand-section,
+.site-footer {
+  position: relative;
+  z-index: 2;
+  background-color: transparent !important;
+}
+
+.story-scrolly-stage,
+.notebook-spiral-card,
+.campus-card,
+.reel-card,
+.bento-card,
+.menu-item-card,
+.article-featured-card,
+.dispatch-compact-card,
+.alumni-card,
+.flavor-card,
+.delivery-visual-card {
+  position: relative;
+  z-index: 3;
+}
+
+/* Section Typography Legibility over WebGL Canvas */
+.section-title,
+.section-eyebrow,
+.section-subtitle,
+.story-main-title,
+.origins-heading,
+.menu-title,
+.reel-title,
+.campuses-title,
+.chapter-heading {
+  text-shadow: 0 2px 16px rgba(253, 251, 247, 0.96), 0 1px 3px rgba(253, 251, 247, 0.9);
 }
 
 /* ==========================================================================

@@ -20,5 +20,8 @@
     "desk-14"
   ],
   "author": "Section-B Coffee Guild (Desk 14)",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "puppeteer-core": "^25.14.0"
+  }
 }

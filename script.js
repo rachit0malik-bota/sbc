@@ -298,6 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
     videoScrollObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         const video = entry.target;
+        if (!video || video.tagName !== 'VIDEO') return;
         if (entry.isIntersecting) {
           const playPromise = video.play();
           if (playPromise !== undefined) {
@@ -317,7 +318,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll(
       '.story-theater-media, .notebook-thumb-video, .delivery-video, .reel-video'
     ).forEach((v) => {
-      videoScrollObserver.observe(v);
+      if (v.tagName === 'VIDEO') {
+        videoScrollObserver.observe(v);
+      }
     });
   }
 
@@ -344,55 +347,366 @@ document.addEventListener('DOMContentLoaded', () => {
   attachBlackboardCardHover();
 
   // -------------------------------------------------------------------------
-  // 8. Artisanal Coffee Spill Fountain Flow System
+  // 8. Artisanal Three.js Animated Coffee Flow System
+  // Procedural WebGL liquid stream flowing strictly in the background (z-index: 0).
+  // Originates at the small tipped craft cup below Hero ("small cup, too much coffee").
   // -------------------------------------------------------------------------
-  const coffeeFountainBody = document.getElementById('coffeeFountainBody');
-  const coffeeCremaStream = document.getElementById('coffeeCremaStream');
-  const coffeeDrops = document.querySelectorAll('.coffee-fountain-drop, .coffee-fountain-bead');
+  function initThreeCoffeeFlow() {
+    const canvas = document.getElementById('coffeeCanvas');
+    if (!canvas || typeof THREE === 'undefined') return;
+
+    let renderer, scene, camera, ribbonMesh, dropletsMesh;
+    let ribbonGeo = null;
+    let streamCurve = null;
+    const uniforms = {
+      uTime: { value: 0.0 },
+      uScrollVelocity: { value: 0.0 },
+    };
+
+    try {
+      renderer = new THREE.WebGLRenderer({
+        canvas,
+        alpha: true,
+        antialias: true,
+        powerPreference: 'high-performance',
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      scene = new THREE.Scene();
+      camera = new THREE.OrthographicCamera(
+        0,
+        window.innerWidth,
+        0,
+        -window.innerHeight,
+        -1000,
+        1000
+      );
+      camera.position.z = 200;
+    } catch (e) {
+      console.warn('Three.js WebGL initialization skipped:', e);
+      return;
+    }
+
+    // Helper to get element Y center in document space
+    function getDocCenterY(selector, fallbackRatio) {
+      const el = document.querySelector(selector);
+      if (el) {
+        const r = el.getBoundingClientRect();
+        return r.top + window.scrollY + r.height * 0.5;
+      }
+      return document.documentElement.scrollHeight * fallbackRatio;
+    }
+
+    // Build the spline curve and 3D fluid ribbon mesh
+    function buildStream() {
+      if (ribbonMesh) {
+        scene.remove(ribbonMesh);
+        if (ribbonGeo) ribbonGeo.dispose();
+      }
+      if (dropletsMesh) {
+        scene.remove(dropletsMesh);
+      }
+
+      const w = window.innerWidth;
+      const totalH = Math.max(document.documentElement.scrollHeight, 6000);
+
+      // Measure small cup position
+      const cupAssembly = document.getElementById('spillCupAssembly');
+      let cupX = w * 0.74;
+      let cupY = window.innerHeight * 0.98;
+
+      if (cupAssembly) {
+        const rect = cupAssembly.getBoundingClientRect();
+        cupX = rect.left + rect.width * 0.42; // lip of the tipped cup
+        cupY = rect.top + window.scrollY + rect.height * 0.52;
+      }
+
+      // 3D Spline Path: Starting precisely at the lip of the tipped cup
+      const points = [
+        new THREE.Vector3(cupX, -cupY, 0),
+        new THREE.Vector3(cupX + 35, -(cupY + 220), 4),
+        new THREE.Vector3(w * 0.88, -getDocCenterY('#story', 0.20), -8),
+        new THREE.Vector3(w * 0.64, -(getDocCenterY('#story', 0.22) + 650), 2),
+        new THREE.Vector3(w * 0.16, -getDocCenterY('#origins', 0.36), 6),
+        new THREE.Vector3(w * 0.48, -getDocCenterY('.quick-delivery-section', 0.46), -4),
+        new THREE.Vector3(w * 0.88, -getDocCenterY('#menu', 0.56), 6),
+        new THREE.Vector3(w * 0.20, -getDocCenterY('#reel', 0.66), -2),
+        new THREE.Vector3(w * 0.82, -getDocCenterY('#campuses', 0.78), 4),
+        new THREE.Vector3(w * 0.18, -getDocCenterY('#alumni', 0.88), -6),
+        new THREE.Vector3(w * 0.50, -(totalH - 350), 0),
+      ];
+
+      streamCurve = new THREE.CatmullRomCurve3(points, false, 'centripetal', 0.4);
+
+      // Construct Ribbon Geometry
+      const divisions = 380;
+      const positions = [];
+      const uvs = [];
+      const indices = [];
+
+      for (let i = 0; i <= divisions; i++) {
+        const t = i / divisions;
+        const pt = streamCurve.getPoint(t);
+        const tangent = streamCurve.getTangent(t);
+        const normal = new THREE.Vector3(-tangent.y, tangent.x, 0).normalize();
+
+        // Width dynamics: Starts small (~16px) at cup mouth, then expands into luscious flow
+        let streamWidth = 56.0;
+        if (t < 0.04) {
+          streamWidth = 16.0 + (t / 0.04) * 40.0;
+        } else if (t > 0.94) {
+          streamWidth = 56.0 + ((t - 0.94) / 0.06) * 45.0; // soft pool at bottom
+        } else {
+          streamWidth = 52.0 + Math.sin(t * 14.0) * 12.0;
+        }
+
+        // Mobile responsive width scaling
+        if (w < 768) streamWidth *= 0.65;
+
+        const pLeft = pt.clone().addScaledVector(normal, -streamWidth * 0.5);
+        const pRight = pt.clone().addScaledVector(normal, streamWidth * 0.5);
+
+        positions.push(pLeft.x, pLeft.y, pLeft.z);
+        positions.push(pRight.x, pRight.y, pRight.z);
+
+        uvs.push(0.0, t);
+        uvs.push(1.0, t);
+
+        if (i < divisions) {
+          const base = i * 2;
+          indices.push(base, base + 1, base + 2);
+          indices.push(base + 1, base + 3, base + 2);
+        }
+      }
+
+      ribbonGeo = new THREE.BufferGeometry();
+      ribbonGeo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      ribbonGeo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+      ribbonGeo.setIndex(indices);
+      ribbonGeo.computeVertexNormals();
+
+      // Fluid Coffee Shader Material
+      const ribbonMat = new THREE.ShaderMaterial({
+        uniforms,
+        vertexShader: `
+          varying vec2 vUv;
+          varying vec3 vNormal;
+          varying vec3 vPosition;
+          uniform float uTime;
+
+          void main() {
+            vUv = uv;
+            vNormal = normal;
+            vec3 pos = position;
+            // Fluid wave displacement along Z
+            pos.z += sin(pos.y * 0.008 + uTime * 2.8) * 10.0;
+            vPosition = pos;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+          }
+        `,
+        fragmentShader: `
+          varying vec2 vUv;
+          varying vec3 vNormal;
+          varying vec3 vPosition;
+          uniform float uTime;
+          uniform float uScrollVelocity;
+
+          // Simplex noise helper
+          vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
+          float snoise(vec2 v){
+            const vec4 C = vec4(0.211324865405187, 0.366025403784439,
+                     -0.577350269189626, 0.024390243902439);
+            vec2 i  = floor(v + dot(v, C.yy) );
+            vec2 x0 = v -   i + dot(i, C.xx);
+            vec2 i1;
+            i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+            vec4 x12 = x0.xyxy + C.xxzz;
+            x12.xy -= i1;
+            i = mod(i, 289.0);
+            vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 ))
+            + i.x + vec3(0.0, i1.x, 1.0 ));
+            vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy),
+              dot(x12.zw,x12.zw)), 0.0);
+            m = m*m;
+            m = m*m;
+            vec3 x = 2.0 * fract(p * C.www) - 1.0;
+            vec3 h = abs(x) - 0.5;
+            vec3 ox = floor(x + 0.5);
+            vec3 a0 = x - ox;
+            m *= 1.79284291400159 - 0.85373472095314 * ( a0*a0 + h*h );
+            vec3 g;
+            g.x  = a0.x  * x0.x  + h.x  * x0.y;
+            g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+            return 130.0 * dot(m, g);
+          }
+
+          void main() {
+            // Flow coordinate moving downwards along the stream
+            float flow = vUv.y * 32.0 - uTime * 2.5;
+
+            // Two octaves of fluid noise
+            float n1 = snoise(vec2(vUv.x * 3.5, flow * 0.7));
+            float n2 = snoise(vec2(vUv.x * 7.0 + n1 * 0.35, flow * 1.5));
+            float fluid = (n1 * 0.65 + n2 * 0.35);
+
+            // Coffee Palette
+            vec3 espresso = vec3(0.14, 0.07, 0.04); // #24120A
+            vec3 caramel = vec3(0.68, 0.37, 0.14);  // #AD5E24
+            vec3 crema = vec3(0.92, 0.70, 0.42);    // #EBB36B
+            vec3 froth = vec3(0.98, 0.93, 0.84);    // #FAF0D6
+
+            // Radial distance from center of ribbon
+            float centerDist = abs(vUv.x - 0.5) * 2.0;
+
+            // Body mix: deeper espresso in middle, amber caramel toward meniscus
+            float mixVal = smoothstep(0.15, 0.85, centerDist + fluid * 0.35);
+            vec3 col = mix(espresso, caramel, mixVal);
+
+            // Crema swirl ribbons along flow
+            float cremaSwirl = smoothstep(0.48, 0.78, sin(flow * 1.8 + vUv.x * 6.2 + n1 * 2.2) * 0.5 + 0.5);
+            cremaSwirl *= smoothstep(0.1, 0.65, centerDist);
+            col = mix(col, crema, cremaSwirl * 0.68);
+
+            // Wet Specular Sheen (glossy reflections of fresh hot coffee)
+            float glossLine = pow(max(0.0, 1.0 - abs(vUv.x - 0.38 - n1 * 0.08) * 4.2), 6.0);
+            float glossRipple = pow(max(0.0, sin(flow * 1.4 + vUv.x * 5.0)), 10.0);
+            float specular = (glossLine * 0.65 + glossRipple * 0.35);
+            col += froth * specular * 0.62;
+
+            // Feathered Meniscus Alpha (soft, organic fluid edge)
+            float edgeAlpha = smoothstep(0.0, 0.16, vUv.x) * smoothstep(1.0, 0.84, vUv.x);
+            float alpha = edgeAlpha * (0.80 + specular * 0.20);
+
+            // Fade in right at the lip of the cup (no abrupt cutoff)
+            alpha *= smoothstep(0.0, 0.025, vUv.y);
+
+            gl_FragColor = vec4(col, alpha);
+          }
+        `,
+        transparent: true,
+        depthWrite: false,
+        side: THREE.DoubleSide,
+      });
+
+      ribbonMesh = new THREE.Mesh(ribbonGeo, ribbonMat);
+      scene.add(ribbonMesh);
+
+      // Floating Crema Droplets & Liquid Beads along stream
+      const dropletCount = 38;
+      const dropletPositions = new Float32Array(dropletCount * 3);
+      const dropletColors = new Float32Array(dropletCount * 3);
+
+      const colorPalette = [
+        new THREE.Color('#C87D32'),
+        new THREE.Color('#E8A858'),
+        new THREE.Color('#7B3F1D'),
+        new THREE.Color('#F5D09B'),
+      ];
+
+      for (let i = 0; i < dropletCount; i++) {
+        const t = 0.05 + (i / dropletCount) * 0.90;
+        const pt = streamCurve.getPoint(t);
+        const tangent = streamCurve.getTangent(t);
+        const normal = new THREE.Vector3(-tangent.y, tangent.x, 0).normalize();
+        const lateralOffset = (Math.sin(i * 1.7) * 45.0 + 20.0);
+
+        const dPos = pt.clone().addScaledVector(normal, lateralOffset);
+        dropletPositions[i * 3] = dPos.x;
+        dropletPositions[i * 3 + 1] = dPos.y;
+        dropletPositions[i * 3 + 2] = (i % 2 === 0 ? 8 : -8);
+
+        const col = colorPalette[i % colorPalette.length];
+        dropletColors[i * 3] = col.r;
+        dropletColors[i * 3 + 1] = col.g;
+        dropletColors[i * 3 + 2] = col.b;
+      }
+
+      const dropletGeo = new THREE.BufferGeometry();
+      dropletGeo.setAttribute('position', new THREE.BufferAttribute(dropletPositions, 3));
+      dropletGeo.setAttribute('color', new THREE.BufferAttribute(dropletColors, 3));
+
+      // Circular droplet shader material for buttery smooth soft particles
+      const dropletMat = new THREE.ShaderMaterial({
+        vertexShader: `
+          attribute vec3 color;
+          varying vec3 vColor;
+          void main() {
+            vColor = color;
+            vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+            gl_PointSize = 12.0;
+            gl_Position = projectionMatrix * mvPosition;
+          }
+        `,
+        fragmentShader: `
+          varying vec3 vColor;
+          void main() {
+            float dist = length(gl_PointCoord - vec2(0.5));
+            if (dist > 0.5) discard;
+            float alpha = smoothstep(0.5, 0.1, dist) * 0.72;
+            gl_FragColor = vec4(vColor, alpha);
+          }
+        `,
+        transparent: true,
+        depthWrite: false,
+      });
+
+      dropletsMesh = new THREE.Points(dropletGeo, dropletMat);
+      scene.add(dropletsMesh);
+    }
+
+    // Build the initial 3D stream
+    buildStream();
+
+    // Rebuild on window resize or layout change
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.right = window.innerWidth;
+        camera.bottom = -window.innerHeight;
+        camera.updateProjectionMatrix();
+        buildStream();
+      }, 150);
+    });
+
+    // Animation & Scroll Loop
+    let lastScrollY = window.scrollY;
+    let scrollVelocity = 0;
+
+    function render(now) {
+      requestAnimationFrame(render);
+
+      const time = now * 0.001;
+      uniforms.uTime.value = time;
+
+      const currentScrollY = window.scrollY;
+      const deltaScroll = Math.abs(currentScrollY - lastScrollY);
+      scrollVelocity += (deltaScroll - scrollVelocity) * 0.12;
+      lastScrollY = currentScrollY;
+
+      uniforms.uScrollVelocity.value = scrollVelocity;
+
+      // 1:1 Camera Scroll Mapping
+      camera.position.y = -currentScrollY;
+
+      // Gentle bobbing of ambient droplets
+      if (dropletsMesh) {
+        dropletsMesh.position.y = Math.sin(time * 1.5) * 6.0;
+        dropletsMesh.position.x = Math.cos(time * 1.2) * 4.0;
+      }
+
+      renderer.render(scene, camera);
+    }
+
+    requestAnimationFrame(render);
+  }
+
+  // Initialize Three.js Animated Coffee Flow
+  initThreeCoffeeFlow();
 
   if (hasGsap && hasScrollTrigger && !prefersReducedMotion) {
-    if (coffeeFountainBody) {
-      gsap.to(coffeeFountainBody, {
-        scrollTrigger: {
-          trigger: document.body,
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 1.2,
-        },
-        y: -120,
-        ease: 'none',
-      });
-    }
-
-    if (coffeeCremaStream) {
-      gsap.to(coffeeCremaStream, {
-        scrollTrigger: {
-          trigger: document.body,
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 1.6,
-        },
-        y: -160,
-        ease: 'none',
-      });
-    }
-
-    if (coffeeDrops.length > 0) {
-      coffeeDrops.forEach((drop, i) => {
-        const speed = i % 2 === 0 ? 1.4 : 0.9;
-        gsap.to(drop, {
-          scrollTrigger: {
-            trigger: document.body,
-            start: 'top top',
-            end: 'bottom bottom',
-            scrub: speed,
-          },
-          y: -90 * speed,
-          ease: 'none',
-        });
-      });
-    }
-
     // Storytelling floating elements parallax
     gsap.utils.toArray('.hero-float-mug, .hero-float-beans, .origins-floating-accent, .menu-floating-accent, .alumni-floating-mug-wrap').forEach((el) => {
       const speed = parseFloat(el.getAttribute('data-speed') || '0.25');
@@ -440,26 +754,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Bento Cards Stagger In
       document.querySelectorAll('.bento-grid').forEach((grid) => {
-        const cards = grid.querySelectorAll('.bento-card');
-        gsap.from(cards, {
-          scrollTrigger: {
-            trigger: grid,
-            start: 'top 88%',
-            toggleActions: 'play none none none',
-          },
-          y: 35,
-          stagger: 0.12,
-          duration: 0.8,
-          ease: 'power3.out',
-        });
+        const cards = grid.querySelectorAll('.notebook-spiral-card, .bento-card');
+        if (cards && cards.length > 0) {
+          gsap.from(cards, {
+            scrollTrigger: {
+              trigger: grid,
+              start: 'top 88%',
+              toggleActions: 'play none none none',
+            },
+            y: 35,
+            stagger: 0.12,
+            duration: 0.8,
+            ease: 'power3.out',
+          });
+        }
       });
 
       // Story Polaroid Frame Rotation
       const polaroid = document.querySelector('.polaroid-frame');
-      if (polaroid) {
+      const storyVisual = document.querySelector('.story-scrolly-stage, .story-manuscript-col');
+      if (polaroid && storyVisual) {
         gsap.from(polaroid, {
           scrollTrigger: {
-            trigger: '.story-visual-col',
+            trigger: storyVisual,
             start: 'top 88%',
             toggleActions: 'play none none none',
           },
