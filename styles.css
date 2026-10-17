@@ -1126,18 +1126,22 @@ button {
 .quick-delivery-section,
 .mascot-delivery-section,
 .menu-section,
-.reel-section,
 .journal-preview-section,
 .journal-scrolly-section,
 .campuses-section,
 .community-gallery-section,
 .alumni-reviews-section,
-.community-interactive-section,
+.community-interactive-section {
+  position: relative;
+  z-index: 2;
+  background-color: transparent !important;
+}
+
+.reel-section,
 .final-brand-section,
 .site-footer {
   position: relative;
   z-index: 2;
-  background-color: transparent !important;
 }
 
 .story-scrolly-stage,
