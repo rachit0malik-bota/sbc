@@ -988,12 +988,12 @@ button {
 
 .spill-cup-wrapper {
   position: relative;
-  width: clamp(72px, 7vw, 92px); /* Deliberately small & compact */
-  transform: rotate(-32deg); /* Tilted downwards pouring into the stream */
-  transform-origin: 75% 45%;
+  width: clamp(64px, 6.5vw, 84px); /* Deliberately small & compact */
+  transform: rotate(128deg); /* Tipped over falling: mouth aimed down-right directly into the flow */
+  transform-origin: 50% 53.4%;
   filter: drop-shadow(0 14px 24px rgba(40, 20, 10, 0.42))
           drop-shadow(0 4px 8px rgba(200, 125, 50, 0.25));
-  animation: cupGentleBob 5s ease-in-out infinite alternate;
+  animation: cupFallingTumble 5s ease-in-out infinite alternate;
   will-change: transform;
 }
 
@@ -1003,17 +1003,30 @@ button {
   display: block;
 }
 
-/* Crema froth glow at the lip of the pouring cup */
+/* Sub-pixel Mouth Marker where Three.js stream precisely originates */
+.spill-cup-mouth-marker {
+  position: absolute;
+  top: 10.1%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* Crema froth glow at the open lip of the pouring cup */
 .spill-cup-lip-crema {
   position: absolute;
-  top: 52%;
-  right: 14%;
-  width: 24px;
-  height: 24px;
-  background: radial-gradient(circle, #F5D09B 0%, #E8A858 50%, rgba(200, 125, 50, 0) 75%);
+  top: 10.1%;
+  left: 50%;
+  width: 26px;
+  height: 26px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(245, 208, 155, 0.95) 0%, rgba(232, 168, 88, 0.7) 45%, rgba(200, 125, 50, 0) 75%);
   border-radius: 50%;
-  filter: blur(1.5px);
-  animation: cremaPulse 2.5s ease-in-out infinite;
+  filter: blur(2px);
+  animation: cremaPulse 2.2s ease-in-out infinite;
+  pointer-events: none;
 }
 
 /* Micro drip beads falling from cup */
@@ -1021,24 +1034,25 @@ button {
   position: absolute;
   border-radius: 50%;
   opacity: 0.85;
+  pointer-events: none;
 }
 
 .spill-cup-drip-bead.drip-1 {
   width: 6px;
   height: 8px;
-  bottom: -6px;
-  right: 28%;
+  top: 10.1%;
+  left: 50%;
   background: #9C5221;
-  animation: dripDrop 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation: dripDrop 2.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 .spill-cup-drip-bead.drip-2 {
   width: 4px;
   height: 5px;
-  bottom: -14px;
-  right: 22%;
+  top: 10.1%;
+  left: 50%;
   background: #E8A858;
-  animation: dripDrop 3s cubic-bezier(0.4, 0, 0.2, 1) infinite 0.7s;
+  animation: dripDrop 2.6s cubic-bezier(0.4, 0, 0.2, 1) infinite 0.8s;
 }
 
 .spill-cup-tag {
@@ -1068,21 +1082,37 @@ button {
   font-size: 0.9rem;
 }
 
-@keyframes cupGentleBob {
-  0% { transform: rotate(-32deg) translateY(0); }
-  50% { transform: rotate(-35deg) translateY(-4px); }
-  100% { transform: rotate(-30deg) translateY(3px); }
+@media (max-width: 600px) {
+  .coffee-spill-origin-container {
+    padding-right: 1.25rem;
+  }
+  .spill-cup-assembly {
+    gap: 0.65rem;
+  }
+  .spill-tag-pill {
+    padding: 0.28rem 0.75rem;
+    font-size: 0.95rem;
+  }
+  .spill-cup-wrapper {
+    width: 58px;
+  }
+}
+
+@keyframes cupFallingTumble {
+  0% { transform: rotate(125deg) translateY(0px); }
+  50% { transform: rotate(131deg) translateY(-4px); }
+  100% { transform: rotate(127deg) translateY(3px); }
 }
 
 @keyframes cremaPulse {
-  0%, 100% { transform: scale(0.9); opacity: 0.7; }
-  50% { transform: scale(1.15); opacity: 1; }
+  0%, 100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.7; }
+  50% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
 }
 
 @keyframes dripDrop {
-  0% { transform: translateY(0) scale(1); opacity: 0.9; }
-  80% { transform: translateY(22px) scale(0.8); opacity: 0.3; }
-  100% { transform: translateY(30px) scale(0.3); opacity: 0; }
+  0% { transform: translate(-50%, -50%) translate(0, 0) scale(1); opacity: 0.9; }
+  80% { transform: translate(-50%, -50%) translate(18px, 24px) scale(0.8); opacity: 0.35; }
+  100% { transform: translate(-50%, -50%) translate(26px, 34px) scale(0.2); opacity: 0; }
 }
 
 /* Ensure all page sections and wrappers are positioned above the Three.js canvas */

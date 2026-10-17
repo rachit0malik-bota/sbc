@@ -411,36 +411,86 @@ document.addEventListener('DOMContentLoaded', () => {
       const w = window.innerWidth;
       const totalH = Math.max(document.documentElement.scrollHeight, 6000);
 
-      // Measure small cup position
-      const cupAssembly = document.getElementById('spillCupAssembly');
-      let cupX = w * 0.74;
+      // Measure exact mouth marker position of the small tipped cup
+      const mouthMarker = document.getElementById('spillCupMouthMarker');
+      let cupX = w * 0.78;
       let cupY = window.innerHeight * 0.98;
 
-      if (cupAssembly) {
-        const rect = cupAssembly.getBoundingClientRect();
-        cupX = rect.left + rect.width * 0.42; // lip of the tipped cup
-        cupY = rect.top + window.scrollY + rect.height * 0.52;
+      if (mouthMarker) {
+        const mRect = mouthMarker.getBoundingClientRect();
+        cupX = mRect.left + mRect.width * 0.5;
+        cupY = mRect.top + window.scrollY + mRect.height * 0.5;
       }
 
-      // 3D Spline Path: Starting precisely at the lip of the tipped cup
+      // 3D Spline Path:
+      // Originates PRECISELY at the lip/mouth marker of the small falling cup ("Desk 14 · Small cup, too much coffee")
+      // Launches along the cup's tilt angle (128°: down and towards the right gutter)
+      // Curves gracefully and organically along lateral margins (NEVER cutting across menu text or creating diagonal 'X' crosses).
+      const rightGutter = Math.min(w * 0.88, w - 80);
+      const leftGutter = Math.max(w * 0.14, 80);
+      const midRight = w * 0.72;
+      const midLeft = w * 0.28;
+      const center = w * 0.50;
+
+      // Section vertical positions
+      const storyTop = getDocCenterY('#story', 0.10);
+      const storyEnd = storyTop + 2400; // accounts for pinned scrolly space
+      const originsY = getDocCenterY('#origins', 0.26);
+      const mascotY = getDocCenterY('.mascot-delivery-section', 0.32);
+      const menuY = getDocCenterY('#menu', 0.40);
+      const menuEnd = getDocCenterY('.menu-download-bar', 0.45);
+      const reelY = getDocCenterY('#reel', 0.52);
+      const journalY = getDocCenterY('#journal', 0.60);
+      const campusesY = getDocCenterY('#campuses', 0.70);
+      const alumniY = getDocCenterY('#alumni', 0.82);
+
       const points = [
+        // 0. Exactly at the cup mouth
         new THREE.Vector3(cupX, -cupY, 0),
-        new THREE.Vector3(cupX + 35, -(cupY + 220), 4),
-        new THREE.Vector3(w * 0.88, -getDocCenterY('#story', 0.20), -8),
-        new THREE.Vector3(w * 0.64, -(getDocCenterY('#story', 0.22) + 650), 2),
-        new THREE.Vector3(w * 0.16, -getDocCenterY('#origins', 0.36), 6),
-        new THREE.Vector3(w * 0.48, -getDocCenterY('.quick-delivery-section', 0.46), -4),
-        new THREE.Vector3(w * 0.88, -getDocCenterY('#menu', 0.56), 6),
-        new THREE.Vector3(w * 0.20, -getDocCenterY('#reel', 0.66), -2),
-        new THREE.Vector3(w * 0.82, -getDocCenterY('#campuses', 0.78), 4),
-        new THREE.Vector3(w * 0.18, -getDocCenterY('#alumni', 0.88), -6),
-        new THREE.Vector3(w * 0.50, -(totalH - 350), 0),
+        // 1. Initial pour ejection trajectory along cup tilt (128°: down and to the right)
+        new THREE.Vector3(cupX + 45, -(cupY + 58), 2),
+        // 2. Continuing downward-right arc into the right margin
+        new THREE.Vector3(Math.min(cupX + 85, rightGutter), -(cupY + 150), 4),
+        // 3. Framing the right margin of the Story photograph
+        new THREE.Vector3(rightGutter, -(cupY + 380), -2),
+        new THREE.Vector3(rightGutter - 20, -(cupY + 950), 3),
+        new THREE.Vector3(rightGutter, -(cupY + 1600), -3),
+        // 4. Smooth river curve across transition zone between Story pin and Origins
+        new THREE.Vector3(midRight, -(storyEnd - 200), 2),
+        new THREE.Vector3(midLeft, -(originsY - 300), -2),
+        // 5. Framing the left margin of Bean Origins
+        new THREE.Vector3(leftGutter, -originsY, 4),
+        new THREE.Vector3(leftGutter + 20, -(originsY + 600), -2),
+        // 6. Gentle meander behind mascot section
+        new THREE.Vector3(midLeft, -mascotY, 2),
+        new THREE.Vector3(midRight, -(mascotY + 450), -3),
+        // 7. Menu section: Frame along the right gutter (NO DIAGONAL 'X' CROSSING TEXT)
+        new THREE.Vector3(rightGutter, -(menuY - 450), 3),
+        new THREE.Vector3(rightGutter + 10, -menuY, -2),
+        new THREE.Vector3(rightGutter - 15, -(menuY + 500), 2),
+        new THREE.Vector3(rightGutter, -menuEnd, 4),
+        // 8. Reel section: Smooth transition curve behind reel video cards
+        new THREE.Vector3(midRight, -(reelY - 300), -2),
+        new THREE.Vector3(midLeft, -reelY, 3),
+        // 9. Editorial Journal: Framing the left margin behind sticky column
+        new THREE.Vector3(leftGutter, -(journalY - 150), -2),
+        new THREE.Vector3(leftGutter + 25, -(journalY + 250), 4),
+        // 10. Campuses: Flowing smoothly towards right campus card
+        new THREE.Vector3(center, -(campusesY - 200), -2),
+        new THREE.Vector3(rightGutter, -campusesY, 3),
+        new THREE.Vector3(rightGutter - 25, -(campusesY + 500), -2),
+        // 11. Alumni & Community Reviews: Gentle serpentine meander
+        new THREE.Vector3(center, -(alumniY - 400), 2),
+        new THREE.Vector3(leftGutter, -alumniY, -3),
+        new THREE.Vector3(leftGutter + 30, -(alumniY + 600), 3),
+        // 12. Final Brand & Footer: Soft pooling into page bottom
+        new THREE.Vector3(center, -(totalH - 350), 0),
       ];
 
-      streamCurve = new THREE.CatmullRomCurve3(points, false, 'centripetal', 0.4);
+      streamCurve = new THREE.CatmullRomCurve3(points, false, 'catmullrom', 0.2);
 
       // Construct Ribbon Geometry
-      const divisions = 380;
+      const divisions = 420;
       const positions = [];
       const uvs = [];
       const indices = [];
@@ -453,12 +503,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Width dynamics: Starts small (~16px) at cup mouth, then expands into luscious flow
         let streamWidth = 56.0;
-        if (t < 0.04) {
-          streamWidth = 16.0 + (t / 0.04) * 40.0;
+        if (t < 0.035) {
+          streamWidth = 16.0 + (t / 0.035) * 40.0;
         } else if (t > 0.94) {
           streamWidth = 56.0 + ((t - 0.94) / 0.06) * 45.0; // soft pool at bottom
         } else {
-          streamWidth = 52.0 + Math.sin(t * 14.0) * 12.0;
+          streamWidth = 52.0 + Math.sin(t * 14.0) * 10.0;
         }
 
         // Mobile responsive width scaling
@@ -500,7 +550,10 @@ document.addEventListener('DOMContentLoaded', () => {
             vNormal = normal;
             vec3 pos = position;
             // Fluid wave displacement along Z
-            pos.z += sin(pos.y * 0.008 + uTime * 2.8) * 10.0;
+            pos.z += sin(pos.y * 0.008 + uTime * 2.6) * 8.0;
+            // Subtle organic fluid lateral meander along X (damped to 0 at cup mouth)
+            float mouthDamping = smoothstep(0.0, 0.03, vUv.y);
+            pos.x += sin(pos.y * 0.004 + uTime * 1.8) * 6.0 * mouthDamping;
             vPosition = pos;
             gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
           }
@@ -578,8 +631,8 @@ document.addEventListener('DOMContentLoaded', () => {
             float edgeAlpha = smoothstep(0.0, 0.16, vUv.x) * smoothstep(1.0, 0.84, vUv.x);
             float alpha = edgeAlpha * (0.80 + specular * 0.20);
 
-            // Fade in right at the lip of the cup (no abrupt cutoff)
-            alpha *= smoothstep(0.0, 0.025, vUv.y);
+            // Fade in smoothly right at the lip of the cup (no abrupt cutoff)
+            alpha *= smoothstep(0.0, 0.006, vUv.y);
 
             gl_FragColor = vec4(col, alpha);
           }
@@ -1116,22 +1169,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
   }
 
-  // Desktop GSAP Stop-Scroll Pinning
-  if (journalSection && window.innerWidth >= 992 && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+  // Desktop Editorial Journal Slide Sync (Non-pinning: Native CSS sticky handles left guide column)
+  if (journalSection && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     ScrollTrigger.create({
       trigger: journalSection,
-      start: 'top top+=65',
-      end: '+=850',
-      pin: true,
-      pinSpacing: true,
-      scrub: 0.45,
-      anticipatePin: 1,
+      start: 'top 70%',
+      end: 'bottom 30%',
+      scrub: 0.5,
       onUpdate: (self) => {
         const progress = self.progress;
         const totalSlides = journalCards.length;
-        const targetIndex = Math.min(Math.floor(progress * totalSlides), totalSlides - 1);
-        if (targetIndex !== currentJournalIndex) {
-          setJournalSlide(targetIndex);
+        if (totalSlides > 0) {
+          const targetIndex = Math.min(Math.floor(progress * totalSlides), totalSlides - 1);
+          if (targetIndex !== currentJournalIndex) {
+            setJournalSlide(targetIndex);
+          }
         }
       }
     });
