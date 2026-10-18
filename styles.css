@@ -1049,9 +1049,11 @@ button {
 .coffee-spill-origin-zone {
   position: relative;
   width: 100%;
-  height: 100px;
-  margin-top: -30px;
-  margin-bottom: -50px;
+  height: auto;
+  min-height: 80px;
+  padding: 0.75rem 0 0.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
   z-index: 4;
   pointer-events: none;
   overflow: visible;
@@ -1268,12 +1270,6 @@ button {
   mix-blend-mode: multiply;
   opacity: 0.72;
   user-select: none;
-}
-
-.origin-cup-ring-1 {
-  bottom: -35px;
-  right: 14%;
-  transform: rotate(-12deg);
 }
 
 .notebook-cup-ring-1 {
@@ -4242,6 +4238,20 @@ button {
   .nav-menu {
     display: none;
   }
+  .nav-admin-link {
+    display: none; /* Desk 14 is the top primary link in the mobile drawer */
+  }
+  .nav-actions {
+    gap: 0.45rem;
+    flex-shrink: 0;
+  }
+  .nav-order-trigger {
+    padding: 0.42rem 0.88rem;
+    font-size: 0.78rem;
+  }
+  .mobile-toggle-btn {
+    margin-left: 0.35rem;
+  }
   .pill-instagram, .pill-cinema {
     display: none;
   }
@@ -4250,17 +4260,21 @@ button {
     font-size: 0.78rem;
   }
 
+  .alumni-floating-mug-wrap {
+    display: none; /* Avoid overlapping title text on smaller viewports */
+  }
+
   .story-scrolly-section,
   .origins-section,
   .mascot-delivery-section,
   .campuses-section,
   .community-interactive-section,
   .reel-section {
-    padding: 4.25rem 0 3.5rem;
+    padding: 3.5rem 0 2.75rem;
   }
 
   .story-scrolly-header {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
   }
   .story-timeline-nav {
     display: flex;
@@ -5816,17 +5830,170 @@ button {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 680px) {
+  /* High-density Specialty Menu Cards: shows 3-4 complete items with rich preview per screen */
+  .menu-cards-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .menu-item-card {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    border-radius: 12px;
+    background: #FFFFFF;
+    box-shadow: 0 2px 10px rgba(52, 30, 21, 0.05);
+    overflow: hidden;
+  }
+  .menu-thumb-wrap {
+    width: 105px;
+    min-width: 105px;
+    max-width: 105px;
+    height: auto;
+    min-height: 110px;
+    background: #F7F4EC;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .menu-thumb-img {
+    padding: 0.6rem !important;
+  }
+  .menu-pill-micro {
+    top: 5px;
+    left: 5px;
+    font-size: 0.58rem;
+    padding: 2px 5px;
+  }
+  .menu-item-body {
+    padding: 0.7rem 0.85rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    min-width: 0;
+  }
+  .menu-craft-sub {
+    font-size: 0.62rem;
+    margin-bottom: 0.2rem;
+  }
+  .menu-item-title {
+    font-size: 1.02rem;
+    margin-bottom: 0.22rem;
+    line-height: 1.2;
+  }
+  .menu-sensory-lead {
+    font-size: 0.78rem;
+    line-height: 1.35;
+    margin-bottom: 0.4rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .menu-flavor-strip {
+    padding-top: 0.35rem;
+    gap: 0.25rem;
+  }
+  .flavor-chip {
+    font-size: 0.66rem;
+    padding: 1px 5px;
+  }
+
+  /* Compact Story Theater Frame */
+  .story-theater-frame {
+    height: 230px !important;
+    min-height: 230px !important;
+    max-height: 240px !important;
+  }
+
+  /* Compact Origins Notebook Cards */
+  .notebook-thumb-wrap {
+    height: 155px !important;
+  }
+
+  /* Compact Delivery Visual Card */
+  .delivery-video-card {
+    height: 220px !important;
+    min-height: 220px !important;
+  }
+
+  /* Campuses Cards: High-density layout */
+  .campus-img-wrap {
+    height: 180px;
+  }
+  .campus-body {
+    padding: 1.35rem 1.15rem;
+  }
+  .campus-title {
+    font-size: 1.35rem;
+  }
+  .campus-vibe {
+    margin-bottom: 1rem;
+    font-size: 0.84rem;
+  }
+  .campus-info-list {
+    margin-bottom: 1.25rem;
+    gap: 0.65rem;
+  }
+
+  /* Blackboard Media & Filter Bar */
+  .blackboard-card-media {
+    height: 165px;
+  }
   .gallery-filter-bar {
-    border-radius: 14px;
-    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0.45rem;
+    padding: 0.35rem 0.75rem 0.6rem;
+    border-radius: 999px;
+  }
+  .gallery-filter-bar::-webkit-scrollbar {
+    display: none;
   }
   .gallery-filter-btn {
-    flex: 1 1 calc(50% - 0.5rem);
-    text-align: center;
-    padding: 0.45rem 0.75rem;
-    font-size: 0.8rem;
+    flex: 0 0 auto;
+    white-space: nowrap;
+    font-size: 0.78rem;
+    padding: 0.45rem 0.85rem;
   }
+
+  /* Compact Alumni Scoreboard & Cards */
+  .alumni-scoreboard {
+    padding: 0.5rem 0.85rem;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+  .scoreboard-number {
+    font-size: 1.1rem;
+  }
+  .scoreboard-label {
+    font-size: 0.62rem;
+  }
+  .scoreboard-divider {
+    height: 22px;
+  }
+  .alumni-card {
+    padding: 1.25rem 1.15rem;
+  }
+
+  .alumni-floating-mug-wrap {
+    display: none !important;
+  }
+
+  .story-timeline-nav,
+  .menu-filter-bar {
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+    padding-left: 0.75rem;
+    padding-right: 1.75rem;
+  }
+
   .lightbox-nav-btn {
     width: 36px;
     height: 36px;

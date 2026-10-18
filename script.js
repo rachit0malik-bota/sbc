@@ -446,7 +446,8 @@ document.addEventListener('DOMContentLoaded', () => {
       // Originates PRECISELY at the lip/mouth marker of the small falling cup ("Desk 14 · Small cup, too much coffee")
       // Launches along the cup's tilt angle (128°: down and towards the right gutter)
       // Curves gracefully and organically along lateral margins (NEVER cutting across menu text or creating diagonal 'X' crosses).
-      const rightGutter = Math.min(w * 0.94, w - 45);
+      const isMobile = w < 768;
+      const rightGutter = isMobile ? Math.min(w * 0.95, w - 14) : Math.min(w * 0.94, w - 45);
       const leftGutter = Math.max(w * 0.05, 45);
       const center = w * 0.50;
 
@@ -486,45 +487,63 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // Strictly monotonic downward laminar flow (no upward bends, no acute V cuts across content)
-      const rawPoints = [
-        // 0. Exactly at the cup mouth
-        { x: cupX, y: cupY },
-        // 1. Initial pour down-right into right gutter
-        { x: cupX + 35, y: cupY + 60 },
-        { x: rightGutter, y: cupY + 220 },
-        // 2. Framing Story right margin
-        { x: rightGutter, y: storyTop + 400 },
-        { x: rightGutter - 15, y: storyTop + 1200 },
-        { x: rightGutter, y: storyTop + 2000 },
-        // 3. Flanking Origins along right margin
-        { x: rightGutter - 10, y: originsY - 200 },
-        { x: rightGutter, y: originsY + 250 },
-        // 4. Flanking Mascot delivery along right margin (completely clear of cards!)
-        { x: rightGutter, y: mascotY - 100 },
-        { x: rightGutter - 20, y: mascotY + 250 },
-        // 5. Flanking Menu along right margin
-        { x: rightGutter - 10, y: menuY - 200 },
-        { x: rightGutter, y: menuY + 400 },
-        { x: rightGutter - 25, y: menuEnd },
-        // 6. Graceful wide serpentine cross behind Reel
-        { x: w * 0.65, y: reelY - 300 },
-        { x: w * 0.35, y: reelY + 200 },
-        { x: leftGutter, y: reelY + 600 },
-        // 7. Flanking Journal along left margin
-        { x: leftGutter + 15, y: journalY - 100 },
-        { x: leftGutter, y: journalY + 300 },
-        // 8. Transition toward center between Campuses & Alumni
-        { x: w * 0.30, y: campusesY },
-        { x: w * 0.55, y: campusesY + 500 },
-        // 9. Framing Alumni & Community
-        { x: w * 0.70, y: alumniY },
-        { x: w * 0.45, y: communityY - 150 },
-        { x: w * 0.55, y: communityY + 300 },
-        // 10. Dropping directly into the doodle guy's stream top with matching tilt angle
-        { x: tailX + 48, y: tailY - 240 },
-        { x: tailX + 22, y: tailY - 90 },
-        { x: tailX, y: tailY }
-      ];
+      let rawPoints;
+      if (isMobile) {
+        // On mobile: stream stays strictly along the far-right margin gutter so it NEVER obstructs headings or card text
+        rawPoints = [
+          { x: cupX, y: cupY },
+          { x: Math.min(cupX + 16, rightGutter), y: cupY + 45 },
+          { x: rightGutter, y: cupY + 120 },
+          { x: rightGutter, y: storyTop + 300 },
+          { x: rightGutter, y: originsY - 50 },
+          { x: rightGutter, y: originsY + 250 },
+          { x: rightGutter, y: mascotY - 50 },
+          { x: rightGutter, y: mascotY + 250 },
+          { x: rightGutter, y: menuY - 50 },
+          { x: rightGutter, y: menuY + 300 },
+          { x: rightGutter, y: menuEnd },
+          { x: rightGutter, y: reelY },
+          { x: rightGutter, y: journalY },
+          { x: rightGutter, y: campusesY },
+          { x: rightGutter, y: alumniY },
+          { x: rightGutter, y: communityY },
+          // At closing section, flow past the CTA buttons along the right gutter, then smoothly angle down-left straight into the doodle guy's mouth!
+          { x: rightGutter, y: tailY - 140 },
+          { x: tailX + 28, y: tailY - 60 },
+          { x: tailX + 10, y: tailY - 20 },
+          { x: tailX, y: tailY }
+        ];
+      } else {
+        // Desktop: graceful serpentine curve framing content along margins
+        rawPoints = [
+          { x: cupX, y: cupY },
+          { x: cupX + 35, y: cupY + 60 },
+          { x: rightGutter, y: cupY + 220 },
+          { x: rightGutter, y: storyTop + 400 },
+          { x: rightGutter - 15, y: storyTop + 1200 },
+          { x: rightGutter, y: storyTop + 2000 },
+          { x: rightGutter - 10, y: originsY - 200 },
+          { x: rightGutter, y: originsY + 250 },
+          { x: rightGutter, y: mascotY - 100 },
+          { x: rightGutter - 20, y: mascotY + 250 },
+          { x: rightGutter - 10, y: menuY - 200 },
+          { x: rightGutter, y: menuY + 400 },
+          { x: rightGutter - 25, y: menuEnd },
+          { x: w * 0.65, y: reelY - 300 },
+          { x: w * 0.35, y: reelY + 200 },
+          { x: leftGutter, y: reelY + 600 },
+          { x: leftGutter + 15, y: journalY - 100 },
+          { x: leftGutter, y: journalY + 300 },
+          { x: w * 0.30, y: campusesY },
+          { x: w * 0.55, y: campusesY + 500 },
+          { x: w * 0.70, y: alumniY },
+          { x: w * 0.45, y: communityY - 150 },
+          { x: w * 0.55, y: communityY + 300 },
+          { x: tailX + 48, y: tailY - 240 },
+          { x: tailX + 22, y: tailY - 90 },
+          { x: tailX, y: tailY }
+        ];
+      }
 
       // Ensure monotonic Y enforcement so it NEVER loops back under any screen resize
       for (let i = 1; i < rawPoints.length; i++) {
@@ -559,8 +578,8 @@ document.addEventListener('DOMContentLoaded', () => {
           streamWidth = 40.0 + ripple;
         }
 
-        // Mobile responsive width scaling
-        if (w < 768) streamWidth *= 0.68;
+        // Mobile responsive width scaling: sleek ribbon matching doodle character line art
+        if (w < 768) streamWidth *= 0.44;
 
         // Smooth final taper directly into the doodle stream entry
         if (t > 0.94) {
@@ -687,15 +706,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const normal = new THREE.Vector3(-tangent.y, tangent.x, 0).normalize();
 
         // Organic dispersal: droplets peel off and trail the main pour
-        const lateralSpread = (Math.sin(i * 2.3) * 36.0 + Math.cos(i * 1.7) * 22.0);
+        const maxSpread = isMobile ? 8.0 : 36.0;
+        const subSpread = isMobile ? 5.0 : 22.0;
+        const lateralSpread = (Math.sin(i * 2.3) * maxSpread + Math.cos(i * 1.7) * subSpread);
         const dPos = pt.clone().addScaledVector(normal, lateralSpread);
 
         dropletPositions[i * 3] = dPos.x;
         dropletPositions[i * 3 + 1] = dPos.y;
         dropletPositions[i * 3 + 2] = 0.0;
 
-        // Droplet sizes: small micro-drops (8px) to rich cartoon splash drops (18px)
-        dropletSizes[i] = 10.0 + (i % 5) * 2.4;
+        // Droplet sizes: small micro-drops to rich cartoon splash drops
+        dropletSizes[i] = isMobile ? (4.2 + (i % 4) * 1.4) : (10.0 + (i % 5) * 2.4);
       }
 
       const dropletGeo = new THREE.BufferGeometry();
