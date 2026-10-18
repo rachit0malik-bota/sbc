@@ -355,6 +355,71 @@ button {
   gap: 0.75rem;
 }
 
+/* Desk 14 Portal & CMS Nav Button */
+.nav-admin-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(10, 77, 52, 0.08);
+  border: 1.5px solid rgba(10, 77, 52, 0.25);
+  border-radius: 999px;
+  padding: 0.48rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-forest);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: all 0.22s ease;
+}
+
+.site-header.scrolled .nav-admin-link {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(52, 30, 21, 0.2);
+  color: var(--color-espresso);
+}
+
+.nav-admin-link:hover {
+  background: var(--color-forest);
+  color: #FFFFFF;
+  border-color: var(--color-forest);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(10, 77, 52, 0.2);
+}
+
+.nav-admin-link .nav-admin-star {
+  color: var(--color-caramel);
+  font-size: 0.88rem;
+  transition: transform 0.2s ease;
+}
+
+.nav-admin-link:hover .nav-admin-star {
+  color: #FEE7B0;
+  transform: rotate(35deg) scale(1.15);
+}
+
+/* Authentic Collegiate Coffee Cup Ring Stains */
+.coffee-stain-ring {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0.65;
+  z-index: 1;
+  user-select: none;
+}
+
+.coffee-stain-sm {
+  width: 95px;
+  height: 95px;
+}
+
+.coffee-stain-lg {
+  width: 175px;
+  height: 175px;
+}
+
 /* Minimalist Order Online Dropdown */
 .nav-order-dropdown {
   position: relative;
@@ -2978,6 +3043,8 @@ button {
   width: 100%;
   height: auto;
   display: block;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0px, rgba(0, 0, 0, 0.4) 3px, black 10px, black 100%);
+  mask-image: linear-gradient(to bottom, transparent 0px, rgba(0, 0, 0, 0.4) 3px, black 10px, black 100%);
   filter: drop-shadow(0 20px 48px rgba(0, 0, 0, 0.45));
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   user-select: none;

@@ -446,15 +446,12 @@ document.addEventListener('DOMContentLoaded', () => {
       // Originates PRECISELY at the lip/mouth marker of the small falling cup ("Desk 14 · Small cup, too much coffee")
       // Launches along the cup's tilt angle (128°: down and towards the right gutter)
       // Curves gracefully and organically along lateral margins (NEVER cutting across menu text or creating diagonal 'X' crosses).
-      const rightGutter = Math.min(w * 0.88, w - 80);
-      const leftGutter = Math.max(w * 0.14, 80);
-      const midRight = w * 0.72;
-      const midLeft = w * 0.28;
+      const rightGutter = Math.min(w * 0.94, w - 45);
+      const leftGutter = Math.max(w * 0.05, 45);
       const center = w * 0.50;
 
       // Section vertical positions
       const storyTop = getDocCenterY('#story', 0.10);
-      const storyEnd = storyTop + 2400; // accounts for pinned scrolly space
       const originsY = getDocCenterY('#origins', 0.26);
       const mascotY = getDocCenterY('.mascot-delivery-section', 0.32);
       const menuY = getDocCenterY('#menu', 0.40);
@@ -466,79 +463,81 @@ document.addEventListener('DOMContentLoaded', () => {
       const communityY = getDocCenterY('#community', 0.88);
 
       // Measure exact doodle guy stream entry / mouth marker for stream termination
-      const doodleMarker = document.getElementById('coffeeTailMouthMarker') || document.getElementById('coffeeTailCupMarker');
+      const doodleMarker = document.getElementById('coffeeTailMouthMarker');
       let tailX = center;
       let tailY = totalH - 320;
-      let doodleStreamWidth = 30.0;
-
-      if (doodleMarker) {
-        const dRect = doodleMarker.getBoundingClientRect();
-        tailX = dRect.left + dRect.width * 0.5;
-        // Connect directly at top entry of illustrated stream, with slight 4px overlap into character card
-        tailY = dRect.top + window.scrollY + dRect.height * 0.5 + 4;
-      }
+      let doodleStreamWidth = 29.0;
 
       const doodleImgEl = document.getElementById('doodleGuyImg');
       if (doodleImgEl) {
-        const imgW = doodleImgEl.getBoundingClientRect().width;
+        const dRect = doodleImgEl.getBoundingClientRect();
+        const imgW = dRect.width;
         if (imgW > 0) {
           doodleStreamWidth = (62 / 1024) * imgW;
+          // Exactly 64.5% across the character image where the stream begins at row 0
+          tailX = dRect.left + (660.5 / 1024) * imgW;
+          // Overlap 16px into the top of the character image to guarantee zero visible seam
+          tailY = dRect.top + window.scrollY + 16;
+        }
+      } else if (doodleMarker) {
+        const dRect = doodleMarker.getBoundingClientRect();
+        tailX = dRect.left + dRect.width * 0.5;
+        tailY = dRect.top + window.scrollY + 16;
+      }
+
+      // Strictly monotonic downward laminar flow (no upward bends, no acute V cuts across content)
+      const rawPoints = [
+        // 0. Exactly at the cup mouth
+        { x: cupX, y: cupY },
+        // 1. Initial pour down-right into right gutter
+        { x: cupX + 35, y: cupY + 60 },
+        { x: rightGutter, y: cupY + 220 },
+        // 2. Framing Story right margin
+        { x: rightGutter, y: storyTop + 400 },
+        { x: rightGutter - 15, y: storyTop + 1200 },
+        { x: rightGutter, y: storyTop + 2000 },
+        // 3. Flanking Origins along right margin
+        { x: rightGutter - 10, y: originsY - 200 },
+        { x: rightGutter, y: originsY + 250 },
+        // 4. Flanking Mascot delivery along right margin (completely clear of cards!)
+        { x: rightGutter, y: mascotY - 100 },
+        { x: rightGutter - 20, y: mascotY + 250 },
+        // 5. Flanking Menu along right margin
+        { x: rightGutter - 10, y: menuY - 200 },
+        { x: rightGutter, y: menuY + 400 },
+        { x: rightGutter - 25, y: menuEnd },
+        // 6. Graceful wide serpentine cross behind Reel
+        { x: w * 0.65, y: reelY - 300 },
+        { x: w * 0.35, y: reelY + 200 },
+        { x: leftGutter, y: reelY + 600 },
+        // 7. Flanking Journal along left margin
+        { x: leftGutter + 15, y: journalY - 100 },
+        { x: leftGutter, y: journalY + 300 },
+        // 8. Transition toward center between Campuses & Alumni
+        { x: w * 0.30, y: campusesY },
+        { x: w * 0.55, y: campusesY + 500 },
+        // 9. Framing Alumni & Community
+        { x: w * 0.70, y: alumniY },
+        { x: w * 0.45, y: communityY - 150 },
+        { x: w * 0.55, y: communityY + 300 },
+        // 10. Dropping directly into the doodle guy's stream top with matching tilt angle
+        { x: tailX + 48, y: tailY - 240 },
+        { x: tailX + 22, y: tailY - 90 },
+        { x: tailX, y: tailY }
+      ];
+
+      // Ensure monotonic Y enforcement so it NEVER loops back under any screen resize
+      for (let i = 1; i < rawPoints.length; i++) {
+        if (rawPoints[i].y <= rawPoints[i - 1].y + 15) {
+          rawPoints[i].y = rawPoints[i - 1].y + 40;
         }
       }
 
-      const points = [
-        // 0. Exactly at the cup mouth
-        new THREE.Vector3(cupX, -cupY, 0),
-        // 1. Initial pour ejection trajectory along cup tilt (128°: down and to the right)
-        new THREE.Vector3(cupX + 45, -(cupY + 58), 2),
-        // 2. Continuing downward-right arc into the right margin
-        new THREE.Vector3(Math.min(cupX + 85, rightGutter), -(cupY + 150), 4),
-        // 3. Framing the right margin of the Story photograph
-        new THREE.Vector3(rightGutter, -(cupY + 380), -2),
-        new THREE.Vector3(rightGutter - 20, -(cupY + 950), 3),
-        new THREE.Vector3(rightGutter, -(cupY + 1600), -3),
-        // 4. Smooth river curve across transition zone between Story pin and Origins (above Origins header)
-        new THREE.Vector3(midRight, -(storyEnd - 300), 2),
-        new THREE.Vector3(center, -(originsY - 580), -2),
-        new THREE.Vector3(leftGutter, -(originsY - 420), 2),
-        // 5. Framing the left margin of Bean Origins (flanking the notebook cards)
-        new THREE.Vector3(leftGutter, -originsY, 4),
-        new THREE.Vector3(leftGutter + 20, -(originsY + 600), -2),
-        // 6. Gentle meander behind mascot section
-        new THREE.Vector3(midLeft, -mascotY, 2),
-        new THREE.Vector3(midRight, -(mascotY + 450), -3),
-        // 7. Menu section: Frame along the right gutter (NO DIAGONAL 'X' CROSSING TEXT)
-        new THREE.Vector3(rightGutter, -(menuY - 450), 3),
-        new THREE.Vector3(rightGutter + 10, -menuY, -2),
-        new THREE.Vector3(rightGutter - 15, -(menuY + 500), 2),
-        new THREE.Vector3(rightGutter, -menuEnd, 4),
-        // 8. Reel section: Smooth transition curve behind reel video cards
-        new THREE.Vector3(midRight, -(reelY - 300), -2),
-        new THREE.Vector3(midLeft, -reelY, 3),
-        // 9. Editorial Journal: Framing the left margin behind sticky column
-        new THREE.Vector3(leftGutter, -(journalY - 150), -2),
-        new THREE.Vector3(leftGutter + 25, -(journalY + 250), 4),
-        // 10. Campuses: Flowing smoothly towards right campus card
-        new THREE.Vector3(center, -(campusesY - 200), -2),
-        new THREE.Vector3(rightGutter, -campusesY, 3),
-        new THREE.Vector3(rightGutter - 25, -(campusesY + 500), -2),
-        // 11. Alumni & Community Reviews: Gentle serpentine meander
-        new THREE.Vector3(center, -(alumniY - 400), 2),
-        new THREE.Vector3(leftGutter, -alumniY, -3),
-        new THREE.Vector3(leftGutter + 30, -(alumniY + 600), 3),
-        // 12. Community Interactive Sanctuary: Smooth transition toward center
-        new THREE.Vector3(midRight, -(communityY - 200), 2),
-        new THREE.Vector3(midLeft, -communityY, -2),
-        // 13. Final Brand Moment: Curving gracefully straight down into the Doodle Guy's stream / open mouth!
-        new THREE.Vector3(tailX - 35, -(tailY - 260), 2),
-        new THREE.Vector3(tailX - 10, -(tailY - 90), 1),
-        new THREE.Vector3(tailX, -tailY, 0),
-      ];
-
-      streamCurve = new THREE.CatmullRomCurve3(points, false, 'catmullrom', 0.2);
+      const points = rawPoints.map(p => new THREE.Vector3(p.x, -p.y, 0));
+      streamCurve = new THREE.CatmullRomCurve3(points, false, 'catmullrom', 0.15);
 
       // Construct Ribbon Geometry
-      const divisions = 440;
+      const divisions = 450;
       const positions = [];
       const uvs = [];
       const indices = [];
@@ -547,16 +546,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const t = i / divisions;
         const pt = streamCurve.getPoint(t);
         const tangent = streamCurve.getTangent(t);
+        // Pure 2D perpendicular normal in the screen plane
         const normal = new THREE.Vector3(-tangent.y, tangent.x, 0).normalize();
 
-        // Width dynamics: Starts small (~14px) at cup mouth, expands into luscious viscous flow, tapers into doodle stream entry
-        let streamWidth = 46.0;
-        if (t < 0.035) {
-          streamWidth = 14.0 + (t / 0.035) * 32.0;
+        // Width dynamics: Starts small (~16px) at cup mouth, expands into luscious viscous flow, tapers into doodle stream entry
+        let streamWidth = 42.0;
+        if (t < 0.04) {
+          streamWidth = 16.0 + (t / 0.04) * 26.0;
         } else {
-          // Viscous fluid ripples & necking: natural expanding & pinching pulses of pouring liquid
-          const ripple = Math.sin(t * 22.0) * 5.0 + Math.cos(t * 48.0) * 2.8;
-          streamWidth = 44.0 + ripple;
+          // Viscous fluid ripples: natural gentle expanding & pinching pulses of pouring liquid
+          const ripple = Math.sin(t * 24.0) * 4.0 + Math.cos(t * 52.0) * 2.2;
+          streamWidth = 40.0 + ripple;
         }
 
         // Mobile responsive width scaling
@@ -571,8 +571,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const pLeft = pt.clone().addScaledVector(normal, -streamWidth * 0.5);
         const pRight = pt.clone().addScaledVector(normal, streamWidth * 0.5);
 
-        positions.push(pLeft.x, pLeft.y, pLeft.z);
-        positions.push(pRight.x, pRight.y, pRight.z);
+        positions.push(pLeft.x, pLeft.y, 0.0);
+        positions.push(pRight.x, pRight.y, 0.0);
 
         uvs.push(0.0, t);
         uvs.push(1.0, t);
@@ -590,30 +590,25 @@ document.addEventListener('DOMContentLoaded', () => {
       ribbonGeo.setIndex(indices);
       ribbonGeo.computeVertexNormals();
 
-      // Frothy Viscous Liquid Coffee Shader Material (No rigid pipe/cylinder look)
+      // Cel-Shaded Pop-Art / Flat Editorial Coffee Shader Material (Matching Doodle Guy character)
       const ribbonMat = new THREE.ShaderMaterial({
         uniforms,
         vertexShader: `
           varying vec2 vUv;
-          varying vec3 vNormal;
           varying vec3 vPosition;
           uniform float uTime;
 
           void main() {
             vUv = uv;
-            vNormal = normal;
             vec3 pos = position;
 
-            // Smooth damping at both ends (cup mouth at top, doodle character at bottom)
-            float mouthDamping = smoothstep(0.0, 0.035, vUv.y);
-            float tailDamping = smoothstep(1.0, 0.965, vUv.y);
+            // Damping at both extremities for seamless anchoring
+            float mouthDamping = smoothstep(0.0, 0.04, vUv.y);
+            float tailDamping = smoothstep(1.0, 0.96, vUv.y);
             float damp = mouthDamping * tailDamping;
 
-            // Fluid wave displacement along Z (depth undulation)
-            pos.z += (sin(pos.y * 0.005 + uTime * 2.4) * 6.0 + cos(pos.y * 0.011 - uTime * 1.8) * 3.5) * damp;
-
-            // Organic lateral fluid sway along X
-            pos.x += (sin(pos.y * 0.003 + uTime * 1.6) * 7.0 + sin(pos.y * 0.008 - uTime * 2.8) * 3.5) * damp;
+            // Subtle lateral fluid sway along X (very gentle organic liquid motion)
+            pos.x += sin(pos.y * 0.003 + uTime * 2.0) * 3.5 * damp;
 
             vPosition = pos;
             gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
@@ -621,107 +616,55 @@ document.addEventListener('DOMContentLoaded', () => {
         `,
         fragmentShader: `
           varying vec2 vUv;
-          varying vec3 vNormal;
           varying vec3 vPosition;
           uniform float uTime;
           uniform float uScrollVelocity;
 
-          // Simplex noise helper
-          vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
-          float snoise(vec2 v){
-            const vec4 C = vec4(0.211324865405187, 0.366025403784439,
-                     -0.577350269189626, 0.024390243902439);
-            vec2 i  = floor(v + dot(v, C.yy) );
-            vec2 x0 = v -   i + dot(i, C.xx);
-            vec2 i1;
-            i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
-            vec4 x12 = x0.xyxy + C.xxzz;
-            x12.xy -= i1;
-            i = mod(i, 289.0);
-            vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 ))
-            + i.x + vec3(0.0, i1.x, 1.0 ));
-            vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy),
-              dot(x12.zw,x12.zw)), 0.0);
-            m = m*m;
-            m = m*m;
-            vec3 x = 2.0 * fract(p * C.www) - 1.0;
-            vec3 h = abs(x) - 0.5;
-            vec3 ox = floor(x + 0.5);
-            vec3 a0 = x - ox;
-            m *= 1.79284291400159 - 0.85373472095314 * ( a0*a0 + h*h );
-            vec3 g;
-            g.x  = a0.x  * x0.x  + h.x  * x0.y;
-            g.yz = a0.yz * x12.xz + h.yz * x12.yw;
-            return 130.0 * dot(m, g);
-          }
-
-          float fbm(vec2 p) {
-            float f = 0.0;
-            f += 0.5000 * snoise(p); p *= 2.02;
-            f += 0.2500 * snoise(p); p *= 2.03;
-            f += 0.1250 * snoise(p);
-            return f;
-          }
-
           void main() {
-            // Viscous fluid flow coordinate moving downwards
-            float flow = vUv.y * 36.0 - uTime * 2.6 - uScrollVelocity * 0.02;
-
-            // Domain-warped crema swirl veins (authentic latte/crema marbling)
-            vec2 warp = vec2(
-              snoise(vec2(vUv.x * 4.0, flow * 0.6)),
-              snoise(vec2(vUv.x * 4.0 + 5.2, flow * 0.6 + 1.7))
-            );
-            float cremaVein = fbm(vec2(vUv.x * 5.0 + warp.x * 1.2, flow * 0.8 + warp.y * 1.2));
-
-            // Cellular micro-bubble foam texture along the liquid stream
-            float bubbleNoise = snoise(vec2(vUv.x * 24.0, flow * 4.5));
-            float microBubbles = smoothstep(0.42, 0.88, bubbleNoise);
-
-            // Authentic Coffee & Froth Palette (Rich specialty coffee tones)
-            vec3 espresso = vec3(0.12, 0.055, 0.025);     // #1F0E06 - deep extraction
-            vec3 darkRoast = vec3(0.26, 0.11, 0.045);     // #421C0B - rich body
-            vec3 caramel = vec3(0.72, 0.40, 0.16);        // #B86629 - warm amber
-            vec3 richCrema = vec3(0.88, 0.64, 0.36);      // #E0A35C - golden crema
-            vec3 velvetyFoam = vec3(0.97, 0.92, 0.82);    // #F7EBD1 - light milk foam
-
-            // Lateral profile across the stream width (0 at center, 1 at edge)
+            // Lateral coordinate across the stream width: 0 at center, 1 at edge
             float lateral = abs(vUv.x - 0.5) * 2.0;
 
-            // Fluid meniscus profile: broad smooth core with delicate capillary thinning at edges (NOT a rigid pipe cylinder)
-            float liquidCore = smoothstep(1.0, 0.15, lateral);
+            // 1. Dark Ink Contour Outlines (matching character's bold contour lines)
+            // Outer 14% on both left and right is the dark ink border
+            float outlineThresh = 0.84;
+            float isOutline = smoothstep(outlineThresh - 0.02, outlineThresh + 0.02, lateral);
+            vec3 inkOutline = vec3(0.05, 0.015, 0.01); // #0d0403 dark espresso ink outline
 
-            // Subsurface scattering: warm caramel/amber glow through coffee depth
-            vec3 sssGlow = caramel * (1.0 - smoothstep(0.0, 0.85, lateral)) * 0.28;
+            // 2. Rich Roasted Flat Coffee Fill (matching #964a18 from doodle-guy.png)
+            vec3 deepRoast = vec3(0.46, 0.21, 0.07);   // #753512 rich extraction base
+            vec3 warmCoffee = vec3(0.59, 0.29, 0.09);  // #964a18 authentic character roast
+            vec3 caramel = vec3(0.72, 0.40, 0.16);     // #b86629 warm caramel tone
 
-            // Viscous body blend: deep espresso center into amber roast with swirling golden crema veins
-            vec3 baseCol = mix(espresso, darkRoast, smoothstep(0.12, 0.72, lateral));
-            baseCol = mix(baseCol, caramel, smoothstep(0.15, 0.68, cremaVein * 0.5 + 0.5));
-            baseCol = mix(baseCol, richCrema, smoothstep(0.50, 0.88, cremaVein * 0.5 + 0.5));
-            baseCol += sssGlow;
+            // Cel-shaded tone across the liquid core
+            vec3 fillColor = mix(warmCoffee, deepRoast, smoothstep(0.1, 0.82, lateral));
 
-            // Soft micro-bubble foam clusters near the surface and meniscus
-            baseCol = mix(baseCol, velvetyFoam, microBubbles * smoothstep(0.25, 0.95, lateral) * 0.45);
+            // Dynamic flowing fluid ripples (subtle organic tone shift)
+            float flow = vUv.y * 32.0 - uTime * 3.0 - uScrollVelocity * 0.015;
+            float flowWave = sin(flow) * 0.5 + 0.5;
+            fillColor = mix(fillColor, caramel, flowWave * 0.12);
 
-            // Diffuse liquid surface sheen (soft, organic, follows the flowing crema ripples)
-            float fluidSheen = pow(liquidCore, 1.2) * (0.80 + 0.20 * sin(flow * 1.5 + vUv.x * 3.5));
-            baseCol += richCrema * fluidSheen * 0.20;
+            // 3. Stylized Flat Glossy Pop-Art Highlight Ribbon (matching #dda175 highlight in illustration)
+            // Crisp cel-shaded streak running along one side of the stream
+            float highlightPos = 0.30 + sin(vUv.y * 14.0 - uTime * 2.2) * 0.035;
+            float highlightDist = abs(vUv.x - highlightPos);
+            float highlight = smoothstep(0.085, 0.02, highlightDist); // crisp cel-shaded edge
+            vec3 popHighlight = vec3(0.87, 0.63, 0.46); // #dda175 warm cream caramel
+            vec3 glossCore = vec3(0.98, 0.94, 0.86);     // #faf0dc light cream shine core
+            vec3 highlightTotal = mix(popHighlight, glossCore, smoothstep(0.035, 0.01, highlightDist));
 
-            // Soft rolling liquid highlight (diffuse, organic, follows the crema warp)
-            float wetHighlight = pow(max(0.0, 1.0 - abs(vUv.x - 0.48 + warp.x * 0.12) * 2.2), 2.5);
-            baseCol += velvetyFoam * wetHighlight * 0.25 * liquidCore;
+            fillColor = mix(fillColor, highlightTotal, highlight * 0.85);
 
-            // Fluid edge transparency: soft meniscus falloff rather than a hard pipe wall
-            float edgePerturb = snoise(vec2(vUv.x * 12.0, flow * 2.0)) * 0.04;
-            float edgeDist = min(vUv.x, 1.0 - vUv.x) + edgePerturb;
-            float edgeAlpha = smoothstep(0.008, 0.16, edgeDist);
-            float alpha = edgeAlpha * (0.84 + 0.16 * fluidSheen);
+            // Blend fill with the dark ink outline
+            vec3 finalColor = mix(fillColor, inkOutline, isOutline);
 
-            // Seamless fade-in at cup lip and fade-in into doodle mouth
-            alpha *= smoothstep(0.0, 0.008, vUv.y);
-            alpha *= smoothstep(1.0, 0.992, vUv.y);
+            // Microscopic antialiasing at the absolute edge
+            float edgeDist = min(vUv.x, 1.0 - vUv.x);
+            float alpha = smoothstep(0.002, 0.025, edgeDist);
 
-            gl_FragColor = vec4(baseCol, alpha);
+            // Clean fade-in at the cup mouth
+            alpha *= smoothstep(0.0, 0.015, vUv.y);
+
+            gl_FragColor = vec4(finalColor, alpha);
           }
         `,
         transparent: true,
@@ -732,68 +675,62 @@ document.addEventListener('DOMContentLoaded', () => {
       ribbonMesh = new THREE.Mesh(ribbonGeo, ribbonMat);
       scene.add(ribbonMesh);
 
-      // Floating Crema Droplets & Liquid Beads along stream (satellite droplets trailing pour)
-      const dropletCount = 110;
+      // Floating Cel-Shaded Cartoon Splash Droplets along stream
+      const dropletCount = 90;
       const dropletPositions = new Float32Array(dropletCount * 3);
-      const dropletColors = new Float32Array(dropletCount * 3);
       const dropletSizes = new Float32Array(dropletCount);
-
-      const colorPalette = [
-        new THREE.Color('#D9924E'), // golden crema
-        new THREE.Color('#FAF0D6'), // velvety froth
-        new THREE.Color('#8C481A'), // amber roast
-        new THREE.Color('#F2CE9B'), // milk foam
-        new THREE.Color('#542A0C'), // deep roasted espresso drop
-      ];
 
       for (let i = 0; i < dropletCount; i++) {
         const t = 0.03 + (i / dropletCount) * 0.94;
         const pt = streamCurve.getPoint(t);
         const tangent = streamCurve.getTangent(t);
         const normal = new THREE.Vector3(-tangent.y, tangent.x, 0).normalize();
-        
+
         // Organic dispersal: droplets peel off and trail the main pour
-        const lateralSpread = (Math.sin(i * 2.3) * 38.0 + Math.cos(i * 1.7) * 24.0);
+        const lateralSpread = (Math.sin(i * 2.3) * 36.0 + Math.cos(i * 1.7) * 22.0);
         const dPos = pt.clone().addScaledVector(normal, lateralSpread);
-        
+
         dropletPositions[i * 3] = dPos.x;
         dropletPositions[i * 3 + 1] = dPos.y;
-        dropletPositions[i * 3 + 2] = (i % 2 === 0 ? 6 : -6);
+        dropletPositions[i * 3 + 2] = 0.0;
 
-        const col = colorPalette[i % colorPalette.length];
-        dropletColors[i * 3] = col.r;
-        dropletColors[i * 3 + 1] = col.g;
-        dropletColors[i * 3 + 2] = col.b;
-
-        // Varied droplet sizes: small micro-droplets (5px) to rich crema pearls (13px)
-        dropletSizes[i] = 5.0 + (i % 5) * 2.0;
+        // Droplet sizes: small micro-drops (8px) to rich cartoon splash drops (18px)
+        dropletSizes[i] = 10.0 + (i % 5) * 2.4;
       }
 
       const dropletGeo = new THREE.BufferGeometry();
       dropletGeo.setAttribute('position', new THREE.BufferAttribute(dropletPositions, 3));
-      dropletGeo.setAttribute('color', new THREE.BufferAttribute(dropletColors, 3));
       dropletGeo.setAttribute('size', new THREE.BufferAttribute(dropletSizes, 1));
 
-      // Circular droplet shader material for buttery smooth soft particles
+      // Circular droplet shader material for cel-shaded pop-art cartoon droplets
       const dropletMat = new THREE.ShaderMaterial({
         vertexShader: `
-          attribute vec3 color;
           attribute float size;
-          varying vec3 vColor;
           void main() {
-            vColor = color;
             vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
             gl_PointSize = size;
             gl_Position = projectionMatrix * mvPosition;
           }
         `,
         fragmentShader: `
-          varying vec3 vColor;
           void main() {
             float dist = length(gl_PointCoord - vec2(0.5));
-            if (dist > 0.5) discard;
-            float alpha = smoothstep(0.5, 0.12, dist) * 0.75;
-            gl_FragColor = vec4(vColor, alpha);
+            if (dist > 0.48) discard;
+
+            // Dark ink contour border on each droplet
+            float outline = smoothstep(0.32, 0.44, dist);
+            vec3 ink = vec3(0.05, 0.015, 0.01);
+            vec3 coffee = vec3(0.59, 0.29, 0.09); // #964a18
+
+            // Stylized cel-shaded specular shine dot on top-left of droplet
+            float shineDist = length(gl_PointCoord - vec2(0.36, 0.36));
+            float shine = smoothstep(0.12, 0.04, shineDist);
+            vec3 gloss = vec3(0.96, 0.88, 0.78);
+
+            vec3 col = mix(coffee, gloss, shine * 0.9);
+            col = mix(col, ink, outline);
+
+            gl_FragColor = vec4(col, 1.0);
           }
         `,
         transparent: true,
@@ -1298,6 +1235,97 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Dynamic Sync of Blog Posts with REST API (reflects live Desk 14 CMS edits)
+  async function syncBlogData() {
+    try {
+      const res = await fetch('/api/blog/posts');
+      if (res.ok) {
+        const posts = await res.json();
+        const published = (posts || []).filter(p => p.published);
+        if (published.length > 0 && journalDeck) {
+          journalDeck.innerHTML = published.map((post, idx) => `
+            <article class="journal-card ${idx === 0 ? 'active' : ''}" data-slide-index="${idx}">
+              <div class="journal-card-cover">
+                <img src="${post.coverImage || 'hero-coffee.jpg'}" alt="${post.title}" class="journal-cover-img" loading="lazy">
+                <div class="journal-card-badges">
+                  <span class="badge-cat">${post.category || 'Brewing Guides'}</span>
+                  <span class="badge-time">⏱️ ${post.readTime || '4 min read'}</span>
+                </div>
+              </div>
+              <div class="journal-card-body">
+                <div class="journal-card-author">
+                  <span class="author-icon">✒️</span>
+                  <span class="author-name">${post.author || 'Arpit · Founder (Desk 14)'}</span>
+                  <span class="author-dot">·</span>
+                  <span class="pub-date">${new Date(post.createdAt || Date.now()).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span>
+                </div>
+                <h3 class="journal-card-title">${post.title}</h3>
+                <p class="journal-card-excerpt">${post.excerpt || ''}</p>
+                <div class="journal-card-action">
+                  <a href="/blog/${post.slug}" class="btn-read-dispatch">
+                    <span>Read Full Dispatch ↗</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+          `).join('');
+
+          const chapterNav = document.querySelector('.journal-chapter-nav');
+          if (chapterNav) {
+            chapterNav.innerHTML = published.map((post, idx) => `
+              <button class="journal-chapter-btn ${idx === 0 ? 'active' : ''}" data-journal-slide="${idx}" role="tab" aria-selected="${idx === 0 ? 'true' : 'false'}">
+                <span class="chapter-num">DISPATCH 0${idx + 1}</span>
+                <span class="chapter-title">${(post.title || '').split(':')[0]}</span>
+              </button>
+            `).join('');
+          }
+
+          const dotsWrap = document.querySelector('.journal-mobile-nav');
+          if (dotsWrap) {
+            dotsWrap.innerHTML = published.map((_, idx) => `
+              <button class="journal-dot ${idx === 0 ? 'active' : ''}" data-slide="${idx}"></button>
+            `).join('');
+          }
+
+          bindJournalEvents();
+        }
+      }
+    } catch (err) {
+      console.warn('Blog API sync note:', err);
+    }
+  }
+
+  function bindJournalEvents() {
+    const updatedChapterBtns = document.querySelectorAll('.journal-chapter-btn');
+    const updatedCards = document.querySelectorAll('.journal-card');
+    const updatedDots = document.querySelectorAll('.journal-dot');
+
+    updatedChapterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const slide = parseInt(btn.getAttribute('data-journal-slide'), 10);
+        setJournalSlide(slide);
+      });
+    });
+
+    updatedDots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const slide = parseInt(dot.getAttribute('data-slide'), 10);
+        setJournalSlide(slide);
+        if (journalDeck && window.innerWidth < 992) {
+          const targetCard = updatedCards[slide];
+          if (targetCard) {
+            journalDeck.scrollTo({
+              left: targetCard.offsetLeft - journalDeck.offsetLeft,
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+  }
+
+  syncBlogData();
+
   // -------------------------------------------------------------------------
   // 13. COMMUNITY & REAL EVENT GALLERY (Classroom Blackboard + Instagram Reels)
   // -------------------------------------------------------------------------
@@ -1527,6 +1555,61 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // Dynamic Sync of Alumni Reviews with REST API (reflects live Desk 14 CMS approvals)
+  async function syncReviewsData() {
+    try {
+      const res = await fetch('/api/reviews');
+      if (res.ok) {
+        const reviews = await res.json();
+        const grid = document.querySelector('.alumni-grid.notebook-pinboard-grid');
+        if (reviews && reviews.length > 0 && grid) {
+          const themes = ['note-yellow-legal', 'note-graph-paper', 'note-kraft-paper', 'note-sage-wash'];
+          const avatarThemes = ['avatar-forest', 'avatar-caramel', 'avatar-espresso'];
+          grid.innerHTML = reviews.map((r, i) => {
+            const themeClass = themes[i % themes.length];
+            const avTheme = avatarThemes[i % avatarThemes.length];
+            const tilt = (i % 2 === 0 ? -2.2 : 2.2);
+            return `
+              <article class="alumni-card note-sticky ${themeClass}" data-tilt="${tilt}">
+                <div class="note-pin pin-brass" aria-hidden="true"></div>
+                ${i === 0 ? `
+                  <svg class="coffee-stain-ring coffee-stain-sm" style="bottom: -15px; right: 10px; opacity: 0.45;" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M 80 14 C 117 13 147 43 146 80 C 145 117 115 147 79 146 C 43 145 13 115 14 79 C 15 42 44 15 80 14 Z" stroke="#5a270e" stroke-width="6.5" stroke-linecap="round" stroke-dasharray="115 16 75 22" opacity="0.48" />
+                    <path d="M 82 20 C 113 21 140 48 139 80 C 138 112 111 139 79 138 C 47 137 20 110 21 80 C 22 48 51 19 82 20 Z" stroke="#8a441e" stroke-width="2.8" opacity="0.32" />
+                    <circle cx="80" cy="80" r="52" fill="#c87d32" opacity="0.05" />
+                  </svg>
+                ` : ''}
+                <div class="alumni-card-top">
+                  <div class="alumni-avatar ${avTheme}">${r.initials || 'SBC'}</div>
+                  <div class="alumni-author-info">
+                    <h4 class="alumni-name">${r.name}</h4>
+                    <span class="alumni-badge">${r.role || 'Class of Section-B · Regular'}</span>
+                  </div>
+                  <div class="alumni-rating" aria-label="${r.rating || 5} out of 5 stars">
+                    ${'★'.repeat(r.rating || 5)}
+                  </div>
+                </div>
+                <blockquote class="alumni-quote note-handwriting">
+                  “${r.quote}”
+                </blockquote>
+                ${r.favoriteOrder ? `
+                  <div class="alumni-card-footer note-order-stamp">
+                    <span class="alumni-favorite-label">✦ Order Slip:</span>
+                    <span class="alumni-favorite-item">${r.favoriteOrder}</span>
+                  </div>
+                ` : ''}
+              </article>
+            `;
+          }).join('');
+        }
+      }
+    } catch (err) {
+      console.warn('Reviews API sync note:', err);
+    }
+  }
+
+  syncReviewsData();
 
   // -------------------------------------------------------------------------
   // 13C. STEALTH ADMIN TRIGGER (Desk 14 Secret Protocol)
