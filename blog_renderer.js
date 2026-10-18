@@ -1,27 +1,28 @@
 const fs = require('fs');
 const path = require('path');
 
+const defaultBlogPosts = require('./data/blog_posts.json');
+const defaultFaqs = require('./data/faqs.json');
+
 function getPublishedPosts() {
   try {
     const dataPath = path.join(__dirname, 'data', 'blog_posts.json');
-    if (!fs.existsSync(dataPath)) return [];
-    const posts = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
-    return posts.filter(p => p.published);
-  } catch (err) {
-    console.error('Error reading blog posts:', err.message);
-    return [];
-  }
+    if (fs.existsSync(dataPath)) {
+      const posts = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+      return posts.filter(p => p.published);
+    }
+  } catch (err) {}
+  return defaultBlogPosts.filter(p => p.published);
 }
 
 function getAllPosts() {
   try {
     const dataPath = path.join(__dirname, 'data', 'blog_posts.json');
-    if (!fs.existsSync(dataPath)) return [];
-    return JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
-  } catch (err) {
-    console.error('Error reading blog posts:', err.message);
-    return [];
-  }
+    if (fs.existsSync(dataPath)) {
+      return JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+    }
+  } catch (err) {}
+  return defaultBlogPosts;
 }
 
 function getPostBySlug(slug, allowDrafts = false) {
@@ -39,12 +40,11 @@ function getFaqs() {
 
   try {
     const dataPath = path.join(__dirname, 'data', 'faqs.json');
-    if (!fs.existsSync(dataPath)) return [];
-    return JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
-  } catch (err) {
-    console.error('Error reading faqs:', err.message);
-    return [];
-  }
+    if (fs.existsSync(dataPath)) {
+      return JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+    }
+  } catch (err) {}
+  return defaultFaqs;
 }
 
 // Annotation hints for student notes

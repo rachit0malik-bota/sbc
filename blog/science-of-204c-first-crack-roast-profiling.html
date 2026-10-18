@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Science of 204°C: Precision Coffee Roasting | SBC | SBC (Section-B Coffee)</title>
+  <meta name="description" content="Learn the roasting chemistry behind Section-B Coffee's 204°C first-crack profile. How we calibrate medium roasts for rich caramel and zero bitterness.">
+  <link rel="canonical" href="https://sectionbcoffee.com/journal/science-of-204c-first-crack-roast-profiling">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The Science of 204°C: Why First-Crack Roast Profiling Unlocks Caramel & Cacao Notes">
+  <meta property="og:description" content="Learn the roasting chemistry behind Section-B Coffee's 204°C first-crack profile. How we calibrate medium roasts for rich caramel and zero bitterness.">
+  <meta property="og:url" content="https://sectionbcoffee.com/journal/science-of-204c-first-crack-roast-profiling">
+  <meta property="og:image" content="https://sectionbcoffee.com/hero-coffee.jpg">
+  <meta property="article:published_time" content="2026-10-14T11:30:00Z">
+  <meta property="article:author" content="Head Roaster · Section-B Labs">
+  <meta property="article:section" content="Brewing Guides">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Science of 204°C: Why First-Crack Roast Profiling Unlocks Caramel & Cacao Notes">
+  <meta name="twitter:description" content="Learn the roasting chemistry behind Section-B Coffee's 204°C first-crack profile. How we calibrate medium roasts for rich caramel and zero bitterness.">
+  <meta name="twitter:image" content="https://sectionbcoffee.com/hero-coffee.jpg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Schema.org JSON-LD Article + LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://sectionbcoffee.com/journal/science-of-204c-first-crack-roast-profiling"
+    },
+    "headline": "The Science of 204°C: Why First-Crack Roast Profiling Unlocks Caramel & Cacao Notes",
+    "description": "Learn the roasting chemistry behind Section-B Coffee's 204°C first-crack profile. How we calibrate medium roasts for rich caramel and zero bitterness.",
+    "image": "https://sectionbcoffee.com/hero-coffee.jpg",
+    "author": {
+      "@type": "Person",
+      "name": "Head Roaster · Section-B Labs"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SBC (Section-B Coffee)",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sectionbcoffee.com/sbc-official-logo.png"
+      }
+    },
+    "datePublished": "2026-10-14T11:30:00Z",
+    "dateModified": "2026-10-14T11:30:00Z"
+  }
+  </script>
+
+  <link rel="stylesheet" href="/styles.css">
+
+  <style>
+    /* Dedicated Single Article Typography & Visual Enhancements */
+    :root {
+      --article-espresso: #2B1810;
+      --article-forest: #0A4D34;
+      --article-caramel: #C87D32;
+      --article-cream: #FBF8F2;
+      --article-parchment: #F4EFE6;
+    }
+
+    .article-reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--article-caramel), #E89E58);
+      width: 0%;
+      z-index: 9999;
+      transition: width 0.1s linear;
+    }
+
+    .article-detail-main {
+      background: var(--article-cream);
+      padding: 8.5rem 1.5rem 6rem;
+      min-height: 100vh;
+    }
+    .article-container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* Breadcrumbs */
+    .article-breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #8C7B74;
+      margin-bottom: 2rem;
+    }
+    .article-breadcrumbs a {
+      color: var(--article-espresso);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .article-breadcrumbs a:hover {
+      color: var(--article-caramel);
+    }
+    .bc-sep {
+      color: var(--article-caramel);
+    }
+    .bc-current {
+      color: var(--article-forest);
+    }
+
+    /* Article Header */
+    .article-header {
+      margin-bottom: 2.5rem;
+      text-align: left;
+    }
+    .article-category-badge-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1.25rem;
+    }
+    .article-category-pill {
+      background: var(--article-forest);
+      color: #FFFFFF;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+    }
+    .article-read-time {
+      font-size: 0.82rem;
+      color: #8C7B74;
+      font-weight: 700;
+    }
+
+    .article-title {
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: var(--article-espresso);
+      margin: 0 0 1.25rem;
+    }
+    .article-lead-excerpt {
+      font-size: 1.18rem;
+      line-height: 1.6;
+      color: #5C4B45;
+      margin: 0 0 2rem;
+      font-weight: 500;
+    }
+
+    .article-byline {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 1rem 0;
+      border-top: 1px solid rgba(43, 24, 16, 0.1);
+      border-bottom: 1px solid rgba(43, 24, 16, 0.1);
+    }
+    .article-author-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(10, 77, 52, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+    .article-author-name {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--article-espresso);
+    }
+    .article-date {
+      display: block;
+      font-size: 0.8rem;
+      color: #8C7B74;
+      font-weight: 600;
+    }
+
+    /* Featured Media Wrap */
+    .article-featured-img-wrap {
+      margin: 2.5rem 0 3.5rem;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 2px solid var(--article-espresso);
+      box-shadow: 6px 10px 0px rgba(43, 24, 16, 0.12);
+      background: #1C120C;
+    }
+    .article-featured-img {
+      width: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      display: block;
+    }
+    .article-img-caption {
+      padding: 0.85rem 1.5rem;
+      background: #FFFFFF;
+      font-size: 0.82rem;
+      color: #7A6963;
+      font-weight: 600;
+      border-top: 1px solid rgba(43, 24, 16, 0.08);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Rich Content Body */
+    .article-content-body {
+      background: #FFFFFF;
+      border: 1.5px solid rgba(43, 24, 16, 0.12);
+      border-radius: 20px;
+      padding: 3.5rem 3.5rem 4rem;
+      box-shadow: 0 8px 30px rgba(43, 24, 16, 0.06);
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #2F241F;
+    }
+    @media (max-width: 768px) {
+      .article-content-body {
+        padding: 2.25rem 1.5rem 3rem;
+        font-size: 1.02rem;
+      }
+    }
+
+    /* First Paragraph Drop Cap */
+    .article-content-body > p:first-of-type::first-letter {
+      float: left;
+      font-family: 'Caveat', cursive;
+      font-size: 4.2rem;
+      line-height: 0.8;
+      padding: 4px 12px 0 0;
+      color: var(--article-caramel);
+      font-weight: 700;
+    }
+
+    .article-content-body h2,
+    .article-content-body h3 {
+      color: var(--article-espresso);
+      font-weight: 800;
+      margin: 2.5rem 0 1rem;
+      letter-spacing: -0.02em;
+    }
+    .article-content-body h2 {
+      font-size: 1.7rem;
+      border-bottom: 2px solid rgba(200, 125, 50, 0.2);
+      padding-bottom: 0.5rem;
+    }
+    .article-content-body h3 {
+      font-size: 1.35rem;
+    }
+    .article-content-body p {
+      margin-bottom: 1.5rem;
+    }
+    .article-content-body ul,
+    .article-content-body ol {
+      margin: 1.5rem 0 2rem;
+      padding-left: 1.5rem;
+    }
+    .article-content-body li {
+      margin-bottom: 0.65rem;
+    }
+    .article-content-body blockquote {
+      margin: 2.25rem 0;
+      padding: 1.5rem 1.75rem;
+      background: #FFF9EE;
+      border-left: 4px solid var(--article-caramel);
+      border-radius: 0 14px 14px 0;
+      font-style: italic;
+      color: #553414;
+      font-size: 1.15rem;
+      line-height: 1.6;
+    }
+    .article-content-body strong {
+      color: var(--article-espresso);
+    }
+
+    /* Social Share Row */
+    .article-share-row {
+      margin: 3rem 0;
+      padding: 1.5rem 2rem;
+      background: #FFFFFF;
+      border: 1.5px solid rgba(43, 24, 16, 0.1);
+      border-radius: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+    }
+    .share-label {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--article-espresso);
+      margin-right: 0.5rem;
+    }
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--article-parchment);
+      border: 1px solid rgba(43, 24, 16, 0.12);
+      padding: 0.55rem 1.15rem;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--article-espresso);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .share-btn:hover {
+      background: var(--article-forest);
+      color: #FFFFFF;
+      border-color: var(--article-forest);
+    }
+
+    /* Author Guild Box */
+    .article-author-box {
+      margin: 3.5rem 0;
+      background: #FFFFFF;
+      border: 2px solid var(--article-espresso);
+      border-radius: 20px;
+      padding: 2.25rem 2.5rem;
+      box-shadow: 6px 8px 0px rgba(43, 24, 16, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+    }
+    @media (max-width: 600px) {
+      .article-author-box {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem 1.5rem;
+      }
+    }
+    .author-box-avatar {
+      font-size: 3rem;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(200, 125, 50, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .author-box-name {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--article-espresso);
+      margin: 0 0 0.4rem;
+    }
+    .author-box-bio {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #6C5D57;
+      margin: 0;
+    }
+
+    /* Related Reads Section */
+    .article-related-section {
+      margin: 4.5rem 0 3rem;
+    }
+    .related-section-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--article-espresso);
+      margin: 0 0 1.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1.5px solid rgba(43, 24, 16, 0.12);
+    }
+    .related-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.75rem;
+    }
+    @media (max-width: 680px) {
+      .related-posts-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .related-card {
+      background: #FFFFFF;
+      border: 1.5px solid rgba(43, 24, 16, 0.1);
+      border-radius: 16px;
+      padding: 1.75rem;
+      box-shadow: 0 6px 20px rgba(43, 24, 16, 0.05);
+      transition: all 0.25s ease;
+    }
+    .related-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--article-caramel);
+      box-shadow: 0 12px 28px rgba(43, 24, 16, 0.1);
+    }
+    .related-card-link {
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .related-cat {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--article-forest);
+      margin-bottom: 0.5rem;
+    }
+    .related-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--article-espresso);
+      line-height: 1.35;
+      margin: 0 0 0.65rem;
+    }
+    .related-desc {
+      font-size: 0.88rem;
+      color: #6C5D57;
+      line-height: 1.5;
+      margin: 0 0 1.25rem;
+    }
+    .related-read-more {
+      margin-top: auto;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--article-caramel);
+    }
+
+    /* Back Button */
+    .btn-back-journal {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--article-forest);
+      color: #FFFFFF;
+      font-size: 0.95rem;
+      font-weight: 800;
+      text-decoration: none;
+      padding: 0.85rem 2rem;
+      border-radius: 999px;
+      box-shadow: 0 4px 16px rgba(10, 77, 52, 0.22);
+      transition: all 0.25s ease;
+    }
+    .btn-back-journal:hover {
+      background: #083D29;
+      transform: translateX(-4px);
+    }
+  </style>
+</head>
+<body class="blog-body">
+  
+  <!-- Reading Progress Bar -->
+  <div id="readProgressBar" class="article-reading-progress"></div>
+
+  <!-- Sticky Minimal Nav -->
+  <header id="siteHeader" class="site-header scrolled" role="banner" style="background-color: rgba(251, 248, 242, 0.96); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(10, 77, 52, 0.08); box-shadow: 0 4px 24px rgba(52, 30, 21, 0.08);">
+    <div class="nav-container">
+      <a href="/" class="nav-brand" aria-label="SBC Home">
+        <span class="nav-logo-bold" style="color: var(--article-espresso); text-shadow: none;">SBC</span>
+        <span class="nav-brand-sep" style="color: var(--article-caramel);" aria-hidden="true">/</span>
+        <span class="nav-logo-sub" style="color: var(--article-forest); text-shadow: none;">SECTION-B COFFEE</span>
+      </a>
+      <nav class="nav-menu" aria-label="Navigation">
+        <a href="/story" class="nav-link" style="color: var(--article-espresso); text-shadow: none;">Story</a>
+        <a href="/#menu" class="nav-link" style="color: var(--article-espresso); text-shadow: none;">Menu</a>
+        <a href="/journal" class="nav-link active" style="color: var(--article-caramel); font-weight: 800;">Journal</a>
+        <a href="/#campuses" class="nav-link" style="color: var(--article-espresso); text-shadow: none;">Campuses</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="nav-order-dropdown" id="navOrderDropdown">
+          <button type="button" class="nav-order-trigger" id="navOrderBtn" aria-expanded="false" aria-haspopup="true">
+            <span class="order-indicator-dot" aria-hidden="true"></span>
+            <span class="order-btn-label">Order Online</span>
+            <span class="order-chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="nav-order-popover" id="navOrderPopover" role="menu" aria-hidden="true">
+            <a href="https://www.swiggy.com" target="_blank" rel="noopener noreferrer" class="nav-popover-item" role="menuitem">
+              <span class="popover-icon">🛵</span>
+              <div class="popover-meta">
+                <span class="popover-title">Swiggy Delivery</span>
+                <small class="popover-sub">Indirapuram &amp; Rajendra Nagar</small>
+              </div>
+              <span class="popover-arrow">↗</span>
+            </a>
+            <a href="https://www.zomato.com" target="_blank" rel="noopener noreferrer" class="nav-popover-item" role="menuitem">
+              <span class="popover-icon">🍽️</span>
+              <div class="popover-meta">
+                <span class="popover-title">Zomato Delivery</span>
+                <small class="popover-sub">Fresh Bakes &amp; Cold Brews</small>
+              </div>
+              <span class="popover-arrow">↗</span>
+            </a>
+            <div class="nav-popover-divider"></div>
+            <a href="/download-menu" class="nav-popover-item" role="menuitem">
+              <span class="popover-icon">📥</span>
+              <div class="popover-meta">
+                <span class="popover-title">Official Menu (PDF)</span>
+                <small class="popover-sub">Direct Download · 44.95 MB</small>
+              </div>
+              <span class="popover-arrow">↓</span>
+            </a>
+          </div>
+        </div>
+        <button id="mobileMenuBtn" class="mobile-toggle-btn" aria-label="Toggle navigation drawer" aria-expanded="false" aria-controls="mobileDrawer">
+          <span class="hamburger-bar" style="background-color: var(--article-espresso);"></span>
+          <span class="hamburger-bar" style="background-color: var(--article-espresso);"></span>
+          <span class="hamburger-bar" style="background-color: var(--article-espresso);"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div id="mobileDrawerBackdrop" class="drawer-backdrop" aria-hidden="true"></div>
+  <aside id="mobileDrawer" class="mobile-drawer" aria-label="Mobile Navigation" aria-hidden="true">
+    <div class="drawer-header">
+      <div class="drawer-brand">
+        <span class="drawer-logo-text">SBC</span>
+        <span class="drawer-logo-sub">SECTION-B COFFEE</span>
+      </div>
+      <button id="closeMobileDrawer" class="drawer-close-btn" aria-label="Close navigation drawer">✕</button>
+    </div>
+    <nav class="drawer-links" aria-label="Mobile Menu Links">
+      <a href="/" class="drawer-link">Home</a>
+      <a href="/story" class="drawer-link">Our Story</a>
+      <a href="/#menu" class="drawer-link">Menu Signatures</a>
+      <a href="/journal" class="drawer-link" style="color: var(--article-caramel); font-weight: 800;">Journal &amp; Dispatches</a>
+      <a href="/#gallery" class="drawer-link">Community Gallery</a>
+      <a href="/#alumni" class="drawer-link">Alumni Reviews</a>
+      <a href="/#campuses" class="drawer-link">Our Campuses</a>
+    </nav>
+    <div class="drawer-delivery">
+      <p class="drawer-delivery-title">ORDER DOORSTEP CRAFT</p>
+      <div class="drawer-delivery-grid">
+        <a href="https://www.swiggy.com" target="_blank" rel="noopener noreferrer" class="nav-pill pill-swiggy" style="justify-content: center; width: 100%;">
+          <span>🛵 Order on Swiggy</span>
+        </a>
+        <a href="https://www.zomato.com" target="_blank" rel="noopener noreferrer" class="nav-pill pill-zomato" style="justify-content: center; width: 100%;">
+          <span>🍽️ Order on Zomato</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <main class="article-detail-main">
+    <div class="container article-container">
+      
+      <!-- Breadcrumb Navigation -->
+      <nav class="article-breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="bc-sep">/</span>
+        <a href="/journal">Journal</a>
+        <span class="bc-sep">/</span>
+        <span class="bc-current">Brewing Guides</span>
+      </nav>
+
+      <!-- Article Header -->
+      <header class="article-header">
+        <div class="article-category-badge-wrap">
+          <span class="article-category-pill">Brewing Guides</span>
+          <span class="article-read-time">⏱ 5 min read</span>
+        </div>
+        <h1 class="article-title">The Science of 204°C: Why First-Crack Roast Profiling Unlocks Caramel & Cacao Notes</h1>
+        <p class="article-lead-excerpt">A technical exploration of the Maillard reaction, caramelized monosaccharides, and small-batch medium drum roasting calibrated for espresso and cold brew.</p>
+        
+        <div class="article-byline">
+          <div class="article-author-avatar">✍️</div>
+          <div class="article-byline-text">
+            <span class="article-author-name">Head Roaster · Section-B Labs</span>
+            <span class="article-date">Wednesday, October 14, 2026</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Article Featured Image -->
+      <div class="article-featured-img-wrap">
+        <img src="/hero-coffee.jpg" alt="The Science of 204°C: Why First-Crack Roast Profiling Unlocks Caramel & Cacao Notes" class="article-featured-img">
+        <div class="article-img-caption">
+          <span>✦</span>
+          <span>First Crack at 204°C · Natural sucrose caramelizes into dense toffee</span>
+        </div>
+      </div>
+
+      <!-- Article Body Content -->
+      <div class="article-content-body">
+        <p>At Section-B Coffee, roasting is treated as both an empirical science and sensory craft. While commercial dark roasters incinerate coffee beans past second crack (destroying origin nuances to mask cheap defect beans), we calibrate our small-batch drum roasters with mathematical precision.</p><h3>The Chemical Arc of the Maillard Reaction</h3><p>Between 150°C and 180°C, the amino acids and reducing sugars inside green Arabica beans undergo the complex Maillard cascade. Hundreds of aromatic flavor volatile compounds are synthesized in mere seconds — producing aromas of baked brioche, toasted speculoos, and roasted pecans.</p><h3>Why 204°C is the Magic Threshold</h3><p>At precisely <strong>204°C (399°F)</strong>, internal water vapor and carbon dioxide exert enough pneumatic pressure to fracture the cellular structure of the bean with an audible snap known as <em>First Crack</em>.</p><ul><li><strong>Under 200°C:</strong> Under-developed vegetal grassiness and sour chlorogenic acid predominance.</li><li><strong>At 204°C (SBC Sweet Spot):</strong> Monosaccharides caramelize into dense toffee, sucrose degrades into sweet lactic balance, and natural fruit esters remain vibrant.</li><li><strong>Above 220°C:</strong> Carbonization takes over, creating burnt ash and harsh throat astringency.</li></ul><blockquote>“By arresting the roast curve within 90 seconds of first crack at 204°C, we preserve the velvety creaminess that makes our flat whites and iced lattes taste decadent without requiring syrups or artificial flavoring.”</blockquote>
+      </div>
+
+      <!-- Social Share Row -->
+      <div class="article-share-row">
+        <span class="share-label">Share this dispatch:</span>
+        <button type="button" class="share-btn" onclick="navigator.clipboard.writeText(window.location.href); alert('✦ Link copied to clipboard!');">📋 Copy Link</button>
+        <a href="https://twitter.com/intent/tweet?text=The%20Science%20of%20204%C2%B0C%3A%20Why%20First-Crack%20Roast%20Profiling%20Unlocks%20Caramel%20%26%20Cacao%20Notes&url=https%3A%2F%2Fsectionbcoffee.com%2Fjournal%2Fscience-of-204c-first-crack-roast-profiling" target="_blank" rel="noopener noreferrer" class="share-btn">🐦 X / Twitter</a>
+        <a href="https://wa.me/?text=The%20Science%20of%20204%C2%B0C%3A%20Why%20First-Crack%20Roast%20Profiling%20Unlocks%20Caramel%20%26%20Cacao%20Notes%20-%20https%3A%2F%2Fsectionbcoffee.com%2Fjournal%2Fscience-of-204c-first-crack-roast-profiling" target="_blank" rel="noopener noreferrer" class="share-btn">💬 WhatsApp</a>
+      </div>
+
+      <!-- Author Bio Box -->
+      <div class="article-author-box">
+        <div class="author-box-avatar">🐻</div>
+        <div class="author-box-info">
+          <h4 class="author-box-name">Head Roaster · Section-B Labs</h4>
+          <p class="author-box-bio">
+            SBC roasters and craft barista guild. Obsessing over Western Ghats terroir, small-batch medium roasts at 204°C, and building unhurried specialty coffee sanctuaries across Delhi-NCR and Bangalore.
+          </p>
+        </div>
+      </div>
+
+      <!-- Related Reads -->
+      
+      <div class="article-related-section">
+        <h3 class="related-section-title">Further Reading From Section-B</h3>
+        <div class="related-posts-grid">
+          
+            <article class="related-card">
+              <a href="/journal/tracing-indias-arabica-roots-chikmagalur" class="related-card-link">
+                <span class="related-cat">Bean Origins</span>
+                <h4 class="related-title">The 1670 Smuggled Seeds: Tracing India’s Arabica Roots to Chikmagalur</h4>
+                <p class="related-desc">How a pilgrim smuggled seven raw coffee seeds out of Yemen into Karnataka’s Baba Budan Giri hills, quietly lau...</p>
+                <span class="related-read-more">Read Dispatch →</span>
+              </a>
+            </article>
+          
+            <article class="related-card">
+              <a href="/journal/born-in-section-b-craft-coffee-story" class="related-card-link">
+                <span class="related-cat">SBC Stories</span>
+                <h4 class="related-title">Born in Section-B: How a Back-Bench Daydream Turned into Delhi-NCR’s Craft Coffee Sanctuary</h4>
+                <p class="related-desc">From scribbling extraction math in the margins of school notebooks to roasting micro-lots across Indirapuram a...</p>
+                <span class="related-read-more">Read Dispatch →</span>
+              </a>
+            </article>
+          
+        </div>
+      </div>
+      
+
+      <!-- Back to Journal link -->
+      <div class="text-center" style="margin-top: 3.5rem; text-align: center;">
+        <a href="/journal" class="btn-back-journal">← Return to All Journal Articles</a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer" style="background-color: #1A0F0A; color: #FBF8F2; padding: 4rem 1.5rem 3rem;">
+    <div class="container" style="max-width: 1200px; margin: 0 auto;">
+      <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; color: rgba(251, 248, 242, 0.45);">
+        <p>© 2026 SBC (SECTION-B COFFEE). All Rights Reserved. Built at Desk 14 <span id="stealthAdminTrigger" title="Class of Section-B" style="cursor: pointer; opacity: 0.35;">·</span></p>
+        <p><a href="/journal" style="color: var(--article-caramel); text-decoration: none;">← Back to Journal</a> · <a href="/" style="color: #FFFFFF; text-decoration: underline;">Home ↗</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/script.js"></script>
+
+  <script>
+    // Reading progress bar
+    window.addEventListener('scroll', () => {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled = (window.scrollY / docHeight) * 100;
+      const bar = document.getElementById('readProgressBar');
+      if (bar) bar.style.width = scrolled + '%';
+    });
+
+    // Stealth Admin Secret Trigger
+    document.getElementById('stealthAdminTrigger')?.addEventListener('click', () => {
+      window.location.href = '/stealth-desk-14';
+    });
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'a') {
+        e.preventDefault();
+        window.location.href = '/stealth-desk-14';
+      }
+    });
+  </script>
+</body>
+</html>

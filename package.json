@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Section-B Coffee (SBC) — Flagship Experience, Collegiate Story, Journal & Stealth Admin Console",
   "scripts": {
+    "build": "node scripts/build.js",
     "start": "node serve.js",
     "dev": "node serve.js",
     "test": "node tests/test_verify.js"

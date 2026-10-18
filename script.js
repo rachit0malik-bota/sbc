@@ -390,7 +390,8 @@ document.addEventListener('DOMContentLoaded', () => {
         antialias: true,
         powerPreference: 'high-performance',
       });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      const isMobileDevice = window.innerWidth < 768;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobileDevice ? 1.5 : 2));
       renderer.setSize(window.innerWidth, window.innerHeight);
 
       scene = new THREE.Scene();
@@ -783,6 +784,8 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
+        const isMobileResize = window.innerWidth < 768;
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobileResize ? 1.5 : 2));
         renderer.setSize(window.innerWidth, window.innerHeight);
         camera.right = window.innerWidth;
         camera.bottom = -window.innerHeight;
@@ -797,6 +800,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function render(now) {
       requestAnimationFrame(render);
+
+      // Skip frame processing when tab is in background to save device battery & GPU
+      if (document.hidden) return;
 
       const time = now * 0.001;
       uniforms.uTime.value = time;
@@ -1932,6 +1938,191 @@ document.addEventListener('DOMContentLoaded', () => {
     closeDownloadToast.addEventListener('click', () => {
       if (downloadTimer) clearInterval(downloadTimer);
       if (downloadToast) downloadToast.classList.remove('is-active');
+    });
+  }
+
+  /* =========================================================================
+     COLLEGIATE EASTER EGGS SUITE
+     1. Konami Code (↑ ↑ ↓ ↓ ← → ← → B A) -> Desk 14 Golden Refill Modal + Confetti
+     2. Barnaby the Bear Mascot Pet Interaction -> Wiggle + Secret Biscoff Stash Code
+     3. Doodle Guy Sip / Gulp Interaction -> Comic Bubble + Liquid Gulp Anim
+     4. DevTools Console Collegiate Archive Greeting
+     ========================================================================= */
+
+  // 1. DevTools Console Archive Greeting
+  try {
+    console.log(
+      `%c☕ SECTION-B COFFEE CO. [DESK 14 ARCHIVE]\n%c"For the back-bench dreamers, restless thinkers & craft purists."\n%c✦ Secret Hint: Enter the Konami Code (↑ ↑ ↓ ↓ ← → ← → B A) or tap Barnaby the Bear!`,
+      'font-size: 16px; font-weight: 800; color: #D48C46; font-family: serif;',
+      'font-size: 12px; font-style: italic; color: #1B4D3E; font-family: sans-serif;',
+      'font-size: 11px; color: #8A441E; font-weight: 600;'
+    );
+  } catch (_) {}
+
+  // 2. Doodle Guy Gulp Interaction
+  const doodleCard = document.getElementById('doodleCharacterCard');
+  const doodleGuyImg = document.getElementById('doodleGuyImg');
+  const doodleGulpBubble = document.getElementById('doodleGulpBubble');
+  let doodleBubbleTimer = null;
+
+  if (doodleCard && doodleGuyImg) {
+    const handleDoodleGulp = (e) => {
+      e.preventDefault();
+      // Add gulping animation
+      doodleGuyImg.classList.remove('is-gulping');
+      void doodleGuyImg.offsetWidth; // trigger reflow
+      doodleGuyImg.classList.add('is-gulping');
+
+      // Show comic bubble
+      if (doodleGulpBubble) {
+        clearTimeout(doodleBubbleTimer);
+        const gulpQuotes = [
+          'GULP! ☕✨',
+          'Ahhh... 100% Arabica! 🤎',
+          'Infinite Refill unlocked! ☕',
+          'Desk 14 bliss! 🎓'
+        ];
+        doodleGulpBubble.textContent = gulpQuotes[Math.floor(Math.random() * gulpQuotes.length)];
+        doodleGulpBubble.classList.add('is-active');
+        doodleBubbleTimer = setTimeout(() => {
+          doodleGulpBubble.classList.remove('is-active');
+        }, 2200);
+      }
+    };
+
+    doodleCard.addEventListener('click', handleDoodleGulp);
+    doodleCard.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') handleDoodleGulp(e);
+    });
+  }
+
+  // 3. Barnaby Mascot Bear Pet Interaction (3 rapid clicks = reward)
+  const mascotTargets = document.querySelectorAll('.mascot-interactive-target');
+  const easterMascotBubble = document.getElementById('easterMascotBubble');
+  let bearClickCount = 0;
+  let bearResetTimer = null;
+  let bubbleDismissTimer = null;
+
+  const mascotSayings = [
+    '🐻 Barnaby: "Hey classmate! You found my secret Biscoff stash! Use code: <strong>DESK14VIP</strong> for 15% off orders!" 🍪☕',
+    '🐻 Barnaby: "Study break approved! Grab a velvety flat white at Desk 14!" 🎓',
+    '🐻 Barnaby: "Did you know? Our beans are micro-batch roasted at 204°C every Tuesday & Friday!" 🔥'
+  ];
+
+  mascotTargets.forEach((bearEl) => {
+    bearEl.addEventListener('click', (e) => {
+      e.preventDefault();
+      bearClickCount++;
+      clearTimeout(bearResetTimer);
+
+      bearEl.classList.remove('is-wiggling');
+      void bearEl.offsetWidth;
+      bearEl.classList.add('is-wiggling');
+
+      if (bearClickCount >= 3) {
+        bearClickCount = 0;
+        if (easterMascotBubble) {
+          clearTimeout(bubbleDismissTimer);
+          const saying = mascotSayings[Math.floor(Math.random() * mascotSayings.length)];
+          easterMascotBubble.innerHTML = saying + '<br><button class="easter-egg-btn-secondary" style="margin-top:0.6rem; padding: 0.35rem 0.8rem; font-size:0.75rem;" onclick="this.parentElement.classList.remove(\'is-active\')">Got it! ✦</button>';
+          easterMascotBubble.classList.add('is-active');
+          bubbleDismissTimer = setTimeout(() => {
+            easterMascotBubble.classList.remove('is-active');
+          }, 6000);
+        }
+      } else {
+        bearResetTimer = setTimeout(() => {
+          bearClickCount = 0;
+        }, 1500);
+      }
+    });
+  });
+
+  // 4. Konami Code Secret Trigger (↑ ↑ ↓ ↓ ← → ← → B A)
+  const konamiSequence = [
+    'ArrowUp', 'ArrowUp',
+    'ArrowDown', 'ArrowDown',
+    'ArrowLeft', 'ArrowRight',
+    'ArrowLeft', 'ArrowRight',
+    'b', 'a'
+  ];
+  let konamiIndex = 0;
+
+  const easterEggModal = document.getElementById('easterEggModal');
+  const closeEasterEggBtn = document.getElementById('closeEasterEggBtn');
+  const closeEasterEggBackdrop = document.getElementById('closeEasterEggBackdrop');
+  const claimEggCloseBtn = document.getElementById('claimEggCloseBtn');
+  const copyEggCodeBtn = document.getElementById('copyEggCodeBtn');
+  const eggSecretCode = document.getElementById('eggSecretCode');
+  const confettiContainer = document.getElementById('easterEggConfetti');
+
+  function spawnConfetti() {
+    if (!confettiContainer) return;
+    confettiContainer.innerHTML = '';
+    const colors = ['#D48C46', '#1B4D3E', '#F3E5D8', '#8A441E', '#FCD34D'];
+    for (let i = 0; i < 45; i++) {
+      const p = document.createElement('div');
+      p.className = 'confetti-particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.top = -10 + 'px';
+      p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      p.style.animationDelay = Math.random() * 0.8 + 's';
+      p.style.animationDuration = (1.8 + Math.random() * 1.4) + 's';
+      confettiContainer.appendChild(p);
+    }
+  }
+
+  function openEasterEggModal() {
+    if (!easterEggModal) return;
+    easterEggModal.classList.add('is-active');
+    easterEggModal.setAttribute('aria-hidden', 'false');
+    spawnConfetti();
+  }
+
+  function closeEasterEggModal() {
+    if (!easterEggModal) return;
+    easterEggModal.classList.remove('is-active');
+    easterEggModal.setAttribute('aria-hidden', 'true');
+  }
+
+  window.addEventListener('keydown', (e) => {
+    const key = e.key.toLowerCase();
+    const expected = konamiSequence[konamiIndex].toLowerCase();
+
+    if (key === expected) {
+      konamiIndex++;
+      if (konamiIndex === konamiSequence.length) {
+        konamiIndex = 0;
+        openEasterEggModal();
+      }
+    } else {
+      konamiIndex = 0;
+      if (key === konamiSequence[0].toLowerCase()) {
+        konamiIndex = 1;
+      }
+    }
+
+    if (e.key === 'Escape' && easterEggModal && easterEggModal.classList.contains('is-active')) {
+      closeEasterEggModal();
+    }
+  });
+
+  if (closeEasterEggBtn) closeEasterEggBtn.addEventListener('click', closeEasterEggModal);
+  if (closeEasterEggBackdrop) closeEasterEggBackdrop.addEventListener('click', closeEasterEggModal);
+  if (claimEggCloseBtn) claimEggCloseBtn.addEventListener('click', closeEasterEggModal);
+
+  if (copyEggCodeBtn && eggSecretCode) {
+    copyEggCodeBtn.addEventListener('click', () => {
+      const code = eggSecretCode.textContent.trim();
+      navigator.clipboard.writeText(code).then(() => {
+        const origText = copyEggCodeBtn.textContent;
+        copyEggCodeBtn.textContent = '✓ Copied to Clipboard!';
+        setTimeout(() => {
+          copyEggCodeBtn.textContent = origText;
+        }, 2000);
+      }).catch(() => {
+        copyEggCodeBtn.textContent = 'Code: ' + code;
+      });
     });
   }
 
